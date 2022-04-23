@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Login.dart';
+import '../View/Login.dart';
 
 class LogoutDialog {
   static showLogoutDialog(BuildContext context) {
@@ -23,12 +23,20 @@ class LogoutDialog {
               ),
               onPressed: () {
                 //Put your code here which you want to execute on Yes button click.
-                Navigator.push(
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const Login(),
+                //   ),
+                // );
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Login(),
+                    builder: (BuildContext context) => Login(),
                   ),
+                      (route) => false,
                 );
+
               },
             ),
             FlatButton(

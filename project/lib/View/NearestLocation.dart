@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 //import 'package:nearest/FindDirection.dart';
 import 'dart:math';
 
-import 'package:medicall/HospitalInfo.dart';
+import 'package:medicall/View/HospitalInfo.dart';
 
 class MapMultiMarker extends StatefulWidget {
   Position position;
@@ -126,15 +126,7 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
                                 lat: clityList[i]['lat'],
                                 lng: clityList[i]['lng'],
                               )));
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) =>  FindDirection(
-                  //   origin: LatLng(widget.position.latitude,widget.position.longitude),
-                  //   //originlng: widget.position.longitude as LatLng,
-                  //   dest:  LatLng(clityList[i]['lat'],clityList[i]['lng']),
-                  //   //  marker_dest: clityList[i] as Marker
-                  //
-                  // ),
-                  // )
-                  // );
+
                   print("${clityList[i]['lat']}, ${clityList[i]['lng']}");
                 }),
             onTap: () {

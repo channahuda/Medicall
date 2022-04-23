@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medicall/Widgets/VitalStats.dart';
+import 'package:medicall/Widgets/headings.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -61,9 +63,9 @@ class _hospitalformState extends State<hospitalform> {
       child: Row(
            children:  <Widget>[
              const Spacer(flex: 1,),
-             headings('Patient Name'),
+             headings(text: 'Patient Name'),
              const Spacer( flex: 7,),
-             headings('Age'),
+             headings(text:'Age'),
              const Spacer(flex: 10,    ),
              ],
            )
@@ -83,7 +85,7 @@ class _hospitalformState extends State<hospitalform> {
     ),
         Padding(
             padding: REdgeInsets.fromLTRB(2, 10, 235, 10),
-            child: headings('Emergency Type')
+            child: headings(text: 'Emergency Type')
 
         ),
         Padding(
@@ -98,13 +100,14 @@ class _hospitalformState extends State<hospitalform> {
         Padding(
           padding: REdgeInsets.fromLTRB(0, 10, 255, 10),
           child:
-          headings('Vital Statistics'),
+          headings(text: 'Vital Statistics'),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Spacer(),
-            VitalStat('Assets/blood.png', 'Blood Pressure', '100'),
+           //CHANGE THIS AFTER ADDING PROVIDER
+           VitalStat('Assets/blood.png',  'Blood Pressure','100'  ),
 
             const Spacer(),
             VitalStat('Assets/oxygen.png', 'Oxygen Level', '140'),
@@ -117,7 +120,7 @@ class _hospitalformState extends State<hospitalform> {
         //PATIENT SYMPTOMS
         Padding(
           padding: REdgeInsets.fromLTRB(0, 10, 200, 10),
-          child: headings("Patient's Symptoms"),
+          child: headings(text: "Patient's Symptoms"),
 
         ),
         Padding(
@@ -127,13 +130,11 @@ class _hospitalformState extends State<hospitalform> {
         ),
         Padding(
             padding: REdgeInsets.fromLTRB(0, 10, 137, 10),
-            child: headings("Emergency Treatment Given")
+            child: headings(text: "Emergency Treatment Given")
         ),
         Padding(
           padding:  REdgeInsets.fromLTRB(10, 0, 10, 25),
-          child: TxtField(4, 400,'Both hands kept open '
-              '.............................................'
-              '......................................................................................'),
+          child: TxtField(4, 400,'Both hands kept open '),
 
           ),
           ]
@@ -146,14 +147,6 @@ class _hospitalformState extends State<hospitalform> {
 
   }
 
-  Widget headings(String text) => Text(
-    text,
-    style: TextStyle(
-      fontSize: 16.sp,
-      color: Color(0xff353559),
-      fontWeight: FontWeight.w600,
-    ),
-  );
 
   Widget TxtField( int lines, int width, String detail) => SizedBox(
    // height: 40.h,

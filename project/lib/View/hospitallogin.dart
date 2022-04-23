@@ -1,8 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/RegisterHospital.dart';
-
+import 'package:medicall/View/RegisterHospital.dart';
 import 'PatientList.dart';
 
 class hosplogin extends StatefulWidget {
@@ -111,7 +110,9 @@ class _hosploginState extends State<hosplogin> {
                           MaterialPageRoute(
                               builder: (context) => RegisterHospital()));
                     }),
-            ])),
+            ]
+          )
+        ),
             Padding(
                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom))
           ],

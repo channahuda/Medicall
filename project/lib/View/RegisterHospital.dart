@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medicall/Login.dart';
-import 'package:medicall/hospitallogin.dart';
+import 'package:medicall/View/Login.dart';
+import 'package:medicall/View/hospitallogin.dart';
+import 'package:medicall/Widgets/WRegisterForm.dart';
 
-import 'footer.dart';
+import '../Widgets/footer.dart';
 
 class RegisterHospital extends StatefulWidget {
   const RegisterHospital({Key? key}) : super(key: key);
@@ -115,60 +116,3 @@ class _RegisterHospitalState extends State<RegisterHospital> {
       ),
     );
   }
-
-
-Widget form() {
-  return Column(children: <Widget>[
-    SizedBox(height: 15.h),
-    Padding(
-      padding: REdgeInsets.symmetric(horizontal: 40.w),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-        inputFile(label: "Username"),
-        inputFile(label: "Email"),
-        inputFile(label: "Password", obscureText: true),
-        inputFile(label: "Confirm Password", obscureText: true),
-        inputFile(label: "Address"),
-        inputFile(label: "City"),
-        inputFile(label: "Contact Number"),
-        inputFile(label: "Number of Beds in Hospital"),
-       Text('Mark Location on Map',
-            style: TextStyle(
-                fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.black),
-
-        ),
-    ]),
-   )
-  ]);
-
-}
-
-Widget inputFile({label, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.black),
-      ),
-      SizedBox(
-        height: 5.h,
-      ),
-      TextFormField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          contentPadding: REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(10.r),
-              borderSide: BorderSide(color: Colors.black26)),
-              border: OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(10.r),
-              borderSide: BorderSide(color: Colors.black45)),
-        ),
-      ),
-      SizedBox(height: 10.h),
-      ],
-  );
-}

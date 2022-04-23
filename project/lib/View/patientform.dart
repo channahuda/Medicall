@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:medicall/dropdown.dart';
-import 'form.dart';
-import 'footer.dart';
+import 'package:medicall/Widgets/TextFormField.dart';
+import 'package:medicall/Widgets/VitalStats.dart';
+import 'package:medicall/Widgets/dropdown.dart';
+import 'package:medicall/Widgets/headings.dart';
+
+import '../Widgets/footer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class paraform extends StatefulWidget {
@@ -52,11 +55,11 @@ class _paraformState extends State<paraform> {
                        const Spacer(
                          flex: 1,
                        ),
-                       headings('Patient Name'),
+                       headings(text:'Patient Name'),
                        const Spacer(
                          flex: 7,
                        ),
-                       headings('Age'),
+                       headings(text:'Age'),
                        const Spacer(
                          flex: 10,
                        ),
@@ -68,13 +71,13 @@ class _paraformState extends State<paraform> {
                   //FOR NAME
                      Padding(
                          padding:  REdgeInsets.fromLTRB(10, 0, 10, 15),
-                       child: TxtField(1, 175, name),
+                       child: TxtFormField(lines:1, width:175,c: name),
                      ),
 
                 // FOR AGE
                      Padding(
                        padding:  REdgeInsets.fromLTRB(4, 0, 5, 15),
-                        child:TxtField(1,150, age),
+                        child:TxtFormField(lines:1,width:150,c: age),
 
                      ),
                    ],
@@ -82,7 +85,7 @@ class _paraformState extends State<paraform> {
 
                  Padding(
                    padding: REdgeInsets.fromLTRB(2, 10, 235, 10),
-                   child: headings('Emergency Type')
+                   child: headings(text:'Emergency Type')
 
                  ),
                  Padding(
@@ -97,40 +100,40 @@ class _paraformState extends State<paraform> {
                  Padding(
                     padding: REdgeInsets.fromLTRB(0, 10, 255, 10),
                      child:
-                     headings('Vital Statistics'),
+                     headings(text:'Vital Statistics'),
                  ),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: <Widget>[
                      const Spacer(),
-                     VitalStat('Assets/blood.png', 'Blood Pressure', bp),
+                     VitalStats(image: 'Assets/blood.png',heading:  'Blood Pressure',c: bp),
 
                      const Spacer(),
-                     VitalStat('Assets/oxygen.png', 'Oxygen Level', oxygen),
+                     VitalStats(image: 'Assets/oxygen.png',heading:  'Oxygen Level',c: oxygen),
 
                      const Spacer(),
-                     VitalStat('Assets/heart.png', 'Heart Rate', rate),
+                     VitalStats(image: 'Assets/heart.png',heading:  'Heart Rate',c: rate),
                      const Spacer(),
                    ],
                  ),
                  //PATIENT SYMPTOMS
                  Padding(
                    padding: REdgeInsets.fromLTRB(0, 10, 200, 10),
-                   child: headings("Patient's Symptoms"),
+                   child: headings(text:"Patient's Symptoms"),
 
                  ),
                  Padding(
                    padding: REdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: TxtField(1, 400,symptom),
+                    child: TxtFormField(lines: 1,width: 400,c: symptom),
                  //EMERGENCY TREATMENT
                  ),
                  Padding(
                    padding: REdgeInsets.fromLTRB(0, 10, 137, 10),
-                   child: headings("Emergency Treatment Given")
+                   child: headings(text: "Emergency Treatment Given")
                  ),
                  Padding(
                    padding:  REdgeInsets.fromLTRB(10, 0, 10, 25),
-                   child: TxtField(4, 400,treatment),
+                   child: TxtFormField(lines:4, width:400,c: treatment),
 
                  ),
                  Padding(
@@ -186,105 +189,4 @@ class _paraformState extends State<paraform> {
       )
       );
 
-  Widget headings(String text) => Text(
-    text,
-    style: TextStyle(
-      fontSize: 16.sp,
-      color: Color(0xff353559),
-      fontWeight: FontWeight.w600,
-    ),
-  );
-
-  Widget VitalStat(String image, String heading,TextEditingController c) => Container(
-    width: 115.w,
-    height: 115.h,
-    decoration: BoxDecoration(
-      color: const Color(0xfffdab9f).withOpacity(0.3),
-      borderRadius: BorderRadius.circular(7.0.r),
-      border: Border.all(
-        color: const Color(0xfffdab9f).withOpacity(0.5),
-        width: 1.w,
-      ),
-    ),
-    child: Column(
-      children: <Widget>[
-        Padding(
-          padding:  REdgeInsets.fromLTRB(1, 6, 1, 8),
-          child: Image.asset(
-            image,
-            height: 30.h,
-            width: 30.w,
-          ),
-        ),
-        Padding(
-          padding: REdgeInsets.fromLTRB(1, 0, 1, 10),
-          child: Text(
-            heading,
-            style: TextStyle(
-                fontSize: 13.sp,
-                color: Color(0xff353559),
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-        Padding(
-          padding:  REdgeInsets.fromLTRB(12, 0, 12, 0),
-          child: Container(
-            height: 33.h,
-            decoration: BoxDecoration(
-              color: const Color(0xffF8F8F8),
-              borderRadius: BorderRadius.circular(7.r),
-            ),
-            child: TextFormField(
-              style:  TextStyle(fontSize: 13.sp),
-              controller: c,
-              decoration: InputDecoration(
-                contentPadding:
-                 REdgeInsets.fromLTRB(10, 0, 0, 0),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:  BorderSide(
-                      width: 1.w, color: Colors.black),
-                  borderRadius: BorderRadius.circular(7.r),
-                ),
-                focusedBorder:  OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(7.r),
-                  ),
-                  borderSide:BorderSide(width: 1.w, color: Colors.black),
-                ),
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return '';
-                }
-                return null;
-              },
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-
-  Widget TxtField( int lines, int width, TextEditingController c) => SizedBox(
-   // height: 40.h,
-    width: width.w,
-    child: TextFormField(
-        maxLines: lines,
-      style:  TextStyle(fontSize: 16.sp),
-      controller: c,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide:
-          BorderSide(width: 1.w, color: Colors.black),
-          borderRadius: BorderRadius.circular(7.r),
-        ),
-        focusedBorder:  OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(7.r)),
-          borderSide: BorderSide(width: 1.w, color: Colors.black),
-        ),
-        contentPadding:  REdgeInsets.fromLTRB(10, 0, 0, 0),
-      ),
-
-    ),
-  );
-}
+ }

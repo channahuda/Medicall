@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/LogoutDialog.dart';
-import 'package:medicall/patientdetails.dart';
+import 'package:medicall/Entities/LogoutDialog.dart';
+import 'package:medicall/View/patientdetails.dart';
 
 
 class PatientList extends StatefulWidget {
@@ -136,7 +136,7 @@ class _PatientListState extends State<PatientList> {
 }
 
 
-
+//REMOVE ALL OF THIS AFTER PROVIDER
 class Patient{
   String name;
   int age;
@@ -147,13 +147,5 @@ class Patient{
 
 List<Patient> patientList = [
   Patient('Sarah Ali', 25, 'Burn Victim'),
-  Patient('Sadia', 43, 'Stroke'),
-  Patient('Sarah Ali', 25, 'Burn Victim'),
-  Patient('Sadia', 43, 'Stroke'),
-  Patient('Sarah Ali', 25, 'Burn Victim'),
-  Patient('Sadia', 43, 'Stroke'),
-  Patient('Sarah Ali', 25, 'Burn Victim'),
-  Patient('Sadia', 43, 'Stroke'),
-  Patient('Sarah Ali', 25, 'Burn Victim'),
-  Patient('Sadia', 43, 'Stroke'),
+
 ];

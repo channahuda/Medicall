@@ -1,11 +1,11 @@
 import 'package:geolocator/geolocator.dart';
 
 class Current {
-   late Position p;
+   //late Position p;
 
-  Current({
-    required this.p
-  });
+  // Current({
+  //  required this.p
+  // });
 
   // static Future<Position> getPosition() async{
   //   p= await determinePosition();

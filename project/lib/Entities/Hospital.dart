@@ -26,7 +26,7 @@ class Hospital {
         required this.phoneNumber});
 }
 
-
+//remove this code
 List<Hospital> hospitalList = [
 
   Hospital(name: 'Arif Shah Hospital', id: '1', lat: 24.867062948062657 , lng: 67.02368465935285,

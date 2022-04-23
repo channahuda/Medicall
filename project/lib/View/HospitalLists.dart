@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'Hospital.dart';
+import '../Entities/Hospital.dart';
 import 'HospitalInfo.dart';
-import 'footer.dart';
+import '../Widgets/footer.dart';
 
 class Hospitals extends StatefulWidget {
   const Hospitals({Key? key}) : super(key: key);
@@ -181,12 +181,7 @@ class _HospitalsState extends State<Hospitals>
         bottomSheet: footer(),
       ),
     );
-    // return Scaffold(
-    //   resizeToAvoidBottomInset: false,
-    //   bottomSheet: footer(),
-    // );
   }
-
   launchmap(lat, lng) {
     MapsLauncher.launchCoordinates(lat, lng);
   }

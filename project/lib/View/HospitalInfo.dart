@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/footer.dart';
+import 'package:medicall/Widgets/WInfoHospital.dart';
+import 'package:medicall/Widgets/footer.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class HospitalInfo extends StatefulWidget {
@@ -18,7 +19,8 @@ class HospitalInfo extends StatefulWidget {
       required this.hospital_beds,
       required this.hospital_address,
       required this.lat,
-      required this.lng})
+      required this.lng
+      })
       : super(key: key);
 
   //HospitalInfo({required this.hospital});
@@ -35,8 +37,6 @@ class _HospitalInfoState extends State<HospitalInfo> {
       designSize: const Size(360,800),
       builder: (BuildContext context) =>   Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
-        // bottomSheet: const footer(),
-        //right now hardcoding but widget.hospital will be used
         appBar: AppBar(
           backgroundColor: const Color(0xFF353559),
           centerTitle: true,
@@ -47,25 +47,14 @@ class _HospitalInfoState extends State<HospitalInfo> {
         ),
         body: Column(
           children: <Widget>[
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Color(0xffC4C4C4)),
+                ),
+              ),
+              child:WHospitalInfo(image:'Assets/phone-68-64.png',detail: widget.hospital_phoneno)
 
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Color(0xffC4C4C4)),
-                ),
-              ),
-              child: ListTile(
-                contentPadding:  REdgeInsets.fromLTRB(40, 60, 0, 15),
-                tileColor: const Color(0xffF8F8F8),
-                leading: Image.asset(
-                  'Assets/phone-68-64.png',
-                  height: 20.h,
-                ),
-                title: Text(
-                  widget.hospital_phoneno,
-                  style:  TextStyle(fontSize: 16.sp),
-                ),
-              ),
             ),
             Container(
               decoration: const BoxDecoration(
@@ -73,37 +62,17 @@ class _HospitalInfoState extends State<HospitalInfo> {
                   bottom: BorderSide(color: Color(0xffC4C4C4)),
                 ),
               ),
-              child: ListTile(
-                contentPadding:  REdgeInsets.fromLTRB(40, 10, 0, 15),
-                tileColor: const Color(0xffF8F8F8),
-                leading: Image.asset(
-                  'Assets/icons8-sleeping-in-bed-64.png',
-                  height: 20.h,
-                ),
-                title: Text(
-                  widget.hospital_beds,
-                  style:  TextStyle(fontSize: 16.sp),
-                ),
-              ),
-            ),
+              child: WHospitalInfo(image:'Assets/icons8-sleeping-in-bed-64.png',detail: widget.hospital_beds)
+
+             ),
             Container(
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Color(0xffC4C4C4)),
                 ),
               ),
-              child: ListTile(
-                contentPadding:  REdgeInsets.fromLTRB(40, 10, 0, 15),
-                tileColor: const Color(0xffF8F8F8),
-                leading: Image.asset(
-                  'Assets/icons8-map-pin-64.png',
-                  height: 20.h,
-                ),
-                title: Text(
-                  widget.hospital_address,
-                  style:  TextStyle(fontSize: 16.sp),
-                ),
-              ),
+              child: WHospitalInfo(image: 'Assets/icons8-map-pin-64.png',detail: widget.hospital_address )
+
             ),
              Padding(padding: REdgeInsets.fromLTRB(0, 0, 0, 50)),
             ElevatedButton(
@@ -125,7 +94,10 @@ class _HospitalInfoState extends State<HospitalInfo> {
         ),
       ),
     );
+
+
   }
+
 
   launchmap(lat, lng) {
     MapsLauncher.launchCoordinates(lat, lng);
