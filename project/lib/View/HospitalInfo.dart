@@ -82,7 +82,7 @@ class _HospitalInfoState extends State<HospitalInfo> {
               child: const Text('Direction'),
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xff353559),
-                padding:  REdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                padding:  REdgeInsets.symmetric(horizontal: 80.w, vertical: 9.h),
                 textStyle:
                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
                 shape: RoundedRectangleBorder(
