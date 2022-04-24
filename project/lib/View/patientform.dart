@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicall/Widgets/GenderDropDown.dart';
 import 'package:medicall/Widgets/TextFormField.dart';
 import 'package:medicall/Widgets/VitalStats.dart';
 import 'package:medicall/Widgets/dropdown.dart';
@@ -24,6 +25,7 @@ class _paraformState extends State<paraform> {
   TextEditingController rate = TextEditingController();
   TextEditingController symptom = TextEditingController();
   TextEditingController treatment = TextEditingController();
+  TextEditingController gender = TextEditingController();
 
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
@@ -33,7 +35,7 @@ class _paraformState extends State<paraform> {
            onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
           bottomSheet: const footer(),
-         // resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: false,
           backgroundColor: const Color(0xffF8F8F8),
           appBar: AppBar(
             backgroundColor: const Color(0xFF353559),
@@ -45,19 +47,30 @@ class _paraformState extends State<paraform> {
           ),
           body: SingleChildScrollView(
               key: _formkey,
+              
               //reverse: true,
              child: Column(
                children: <Widget>[
                  Padding(
-                   padding:  REdgeInsets.fromLTRB(2, 20, 10, 10),
+                   padding: REdgeInsets.fromLTRB(0, 20, 250, 10),
+                   child: headings(text:"Patient Name"),
+
+                 ),
+                 Padding(
+                   padding: REdgeInsets.fromLTRB(10, 0, 10, 5),
+                   child: TxtFormField(lines: 1,width: 400,c: name),
+                   //EMERGENCY TREATMENT
+                 ),
+                 Padding(
+                   padding:  REdgeInsets.fromLTRB(2, 10, 10, 10),
                    child: Row(
                      children:  <Widget>[
                        const Spacer(
                          flex: 1,
                        ),
-                       headings(text:'Patient Name'),
+                       headings(text:'Gender'),
                        const Spacer(
-                         flex: 7,
+                         flex: 11,
                        ),
                        headings(text:'Age'),
                        const Spacer(
@@ -70,13 +83,14 @@ class _paraformState extends State<paraform> {
                    children: <Widget>[
                   //FOR NAME
                      Padding(
-                         padding:  REdgeInsets.fromLTRB(10, 0, 10, 15),
-                       child: TxtFormField(lines:1, width:175,c: name),
+                         padding:  REdgeInsets.fromLTRB(10, 0, 10, 10),
+                        child: Gender()
+                       //TxtFormField(lines:1, width:175,c: gender),
                      ),
 
                 // FOR AGE
                      Padding(
-                       padding:  REdgeInsets.fromLTRB(4, 0, 5, 15),
+                       padding:  REdgeInsets.fromLTRB(4, 0, 5, 10),
                         child:TxtFormField(lines:1,width:150,c: age),
 
                      ),
@@ -137,7 +151,7 @@ class _paraformState extends State<paraform> {
 
                  ),
                  Padding(
-                  padding: REdgeInsets.fromLTRB(40, 0, 40, 0),
+                  padding: REdgeInsets.fromLTRB(40, 0, 40, 85),
 
                    child: ElevatedButton(
                      onPressed: () {

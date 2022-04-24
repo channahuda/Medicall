@@ -58,13 +58,27 @@ class _hospitalformState extends State<hospitalform> {
         body: SingleChildScrollView(
       child: Column(
       children: <Widget>[
+        Padding(
+            padding: REdgeInsets.fromLTRB(0, 20, 250, 10),
+            child: headings(text: 'Patient Name')
+
+        ),
+        Padding(
+          padding: REdgeInsets.fromLTRB(10, 0, 10, 5),
+          child: SizedBox(
+              height: 45.h,
+              width: 400.w,
+              child:TxtField(1,400, 'Sarah Khan')
+            // child: dropdown(),
+          ),
+        ),
       Padding(
-      padding:  REdgeInsets.fromLTRB(2, 20, 10, 10),
+      padding:  REdgeInsets.fromLTRB(2, 10, 10, 10),
       child: Row(
            children:  <Widget>[
              const Spacer(flex: 1,),
-             headings(text: 'Patient Name'),
-             const Spacer( flex: 7,),
+             headings(text: 'Gender'),
+             const Spacer( flex: 11,),
              headings(text:'Age'),
              const Spacer(flex: 10,    ),
              ],
@@ -73,12 +87,12 @@ class _hospitalformState extends State<hospitalform> {
         Row(
             children: <Widget>[
         //FOR NAME
-         Padding( padding:  REdgeInsets.fromLTRB(10, 0, 10, 15),
-                  child: TxtField(1, 175, 'Sarah Ali'),
+         Padding( padding:  REdgeInsets.fromLTRB(10, 0, 10, 10),
+                  child: TxtField(1, 175, 'Female'),
          ),
 
         // FOR AGE
-         Padding( padding:  REdgeInsets.fromLTRB(4, 0, 5, 15),
+         Padding( padding:  REdgeInsets.fromLTRB(4, 0, 5, 10),
                   child:TxtField(1,150, '25'),
          ),
         ],

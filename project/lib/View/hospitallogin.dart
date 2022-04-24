@@ -35,46 +35,46 @@ class _hosploginState extends State<hosplogin> {
           reverse: true,
           child: Column(
           children: <Widget>[
-
-            SizedBox(
-              height: 400.h,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Image.asset('Assets/Medicall (8).png',
-                    width: 400.w, height: 400.h, fit: BoxFit.fill),
+            Align(
+              alignment: Alignment.center,
+              child: Image.asset(
+                'Assets/Medicall (8).png',
+                width: 400.w,
+                height: 400.h,
+              ),
+            ),
+            Padding(
+              padding:  REdgeInsets.fromLTRB(40, 0, 40, 10),
+              child: TextFormField(
+                decoration:  InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding: REdgeInsets.fromLTRB(10, 0, 0, 0),
+                  hintText: ("User ID"),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {}
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding:  REdgeInsets.fromLTRB(40, 0, 40, 10),
+              child: TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  hintText: ("Password"),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return '';
+                  }
+                  return null;
+                },
               ),
             ),
 
-              SizedBox(
-                width: 300.w,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    contentPadding:  EdgeInsets.only(left: 10.0).r,
-                    hintText: ("  User ID"),
-                  ),
-                ),
-              ),
-
-            SizedBox(
-              height: 10.h,
-            ),
-
-              SizedBox(
-                width: 300.w,
-                height: 50.h,
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    contentPadding:  EdgeInsets.only(left: 10.0).r,
-                    hintText: ("  Password"),
-                  ),
-                ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
             ElevatedButton(
               onPressed: (){
               Navigator.pushReplacement(
@@ -83,7 +83,7 @@ class _hosploginState extends State<hosplogin> {
               child: Text('Login'),
               style: ElevatedButton.styleFrom(
                   primary: Color(0xff353559),
-                  padding: REdgeInsets.symmetric(horizontal: 128.w, vertical: 15.h),
+                  padding: REdgeInsets.symmetric(horizontal: 120.w, vertical: 15.h),
                   textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
                   shape: RoundedRectangleBorder(
                     borderRadius:  BorderRadius.circular(10.0.r),

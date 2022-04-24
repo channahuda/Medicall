@@ -25,14 +25,34 @@ class _PatientListState extends State<PatientList> {
       centerTitle: true,
       title:  Text('Emergency Patients', style: TextStyle(fontSize: 22.sp,  color: Colors.white ),),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.logout,
-            ),
-            onPressed: () {
-              LogoutDialog.showLogoutDialog(context);
-            },
-          )
+          Stack(
+            children: [
+              IconButton(
+                icon: Image.asset(
+                  'Assets/logout.png',
+                  height: 30.h,
+                ),
+                onPressed: () {
+                  LogoutDialog.showLogoutDialog(context);
+                },
+              ),
+              Positioned(
+                bottom: 5.h,
+                child: InkWell(
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10.sp,
+                    ),
+                  ),
+                  onTap: () {
+                    LogoutDialog.showLogoutDialog(context);
+                  },
+                ),
+              ),
+            ],
+          ),
         ],
       ),
           body: Column(

@@ -11,6 +11,24 @@
       <excludeFolder url="file://$MODULE_DIR$/project/build" />
       <excludeFolder url="file://$MODULE_DIR$/project/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/project/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/maps_launcher/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/maps_launcher/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/maps_launcher/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/maps_launcher/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/maps_launcher/build" />
+      <excludeFolder url="file://$MODULE_DIR$/project/windows/flutter/ephemeral/.plugin_symlinks/maps_launcher/.dart_tool" />
     </content>
     <orderEntry type="jdk" jdkName="16" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />

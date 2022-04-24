@@ -89,7 +89,7 @@ class _ParaloginState extends State<Paralogin> {
               style: ElevatedButton.styleFrom(
                   primary: const Color(0xff353559),
                   padding:  REdgeInsets.symmetric(
-                      horizontal: 128.w, vertical: 15.h),
+                      horizontal: 120.w, vertical: 15.h),
                   textStyle:  TextStyle(
                       fontSize: 20.sp, fontWeight: FontWeight.w500),
                   shape: RoundedRectangleBorder(
