@@ -156,7 +156,7 @@ class _HospitalsState extends State<Hospitals>
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const HospitalInfo(
+                                  builder: (context) => const junkHospitalInfo(
                                     hospital_name: 'Ziauddin Hospital',
                                     hospital_phoneno: '0300-1234567',
                                     hospital_beds: '4',

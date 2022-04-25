@@ -7,15 +7,18 @@ import 'package:geolocator/geolocator.dart';
 import 'dart:math';
 
 import 'package:medicall/View/HospitalInfo.dart';
+import 'package:medicall/Widgets/hospital_info.dart';
 
-class MapMultiMarker extends StatefulWidget {
-  MapMultiMarker({Key? key}) : super(key: key);
+import '../Widgets/logout.dart';
+
+class NearestLocation extends StatefulWidget {
+  NearestLocation({Key? key}) : super(key: key);
 
   @override
-  State<MapMultiMarker> createState() => _MapMultiMarkerState();
+  State<NearestLocation> createState() => _NearestLocationState();
 }
 
-class _MapMultiMarkerState extends State<MapMultiMarker> {
+class _NearestLocationState extends State<NearestLocation> {
   late Position position;
   final List<Map<String, dynamic>> clityList = [
     {
@@ -118,19 +121,19 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
             infoWindow: InfoWindow(
                 title: clityList[i]['name'],
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HospitalInfo(
-                                hospital_name: clityList[i]['name'],
-                                hospital_phoneno: clityList[i]['phone'],
-                                hospital_address: clityList[i]['address'],
-                                hospital_beds: clityList[i]['beds'],
-                                lat: clityList[i]['lat'],
-                                lng: clityList[i]['lng'],
-                              )));
-
-                  print("${clityList[i]['lat']}, ${clityList[i]['lng']}");
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => HospitalInfo(
+                  //               hospital_name: clityList[i]['name'],
+                  //               hospital_phoneno: clityList[i]['phone'],
+                  //               hospital_address: clityList[i]['address'],
+                  //               hospital_beds: clityList[i]['beds'],
+                  //               lat: clityList[i]['lat'],
+                  //               lng: clityList[i]['lng'],
+                  //             )));
+                  //
+                  // print("${clityList[i]['lat']}, ${clityList[i]['lng']}");
                 }),
             onTap: () {
               print("Clicked on marker");
@@ -151,12 +154,14 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
       builder: (BuildContext context) => Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: const Color(0xFF353559),
           centerTitle: true,
           title: Text(
             'Nearest Hospital',
             style: TextStyle(fontSize: 22.sp, color: Colors.white),
           ),
+          actions: const [Logout()],
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
@@ -166,6 +171,24 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
             zoom: 16,
           ),
           markers: _markers.values.toSet(),
+        ),
+        bottomSheet: SizedBox(
+          height: 300.h,
+          // decoration: BoxDecoration(
+          //   border: Border.all(
+          //     color: Color(0xffC4C4C4),
+          //   ),
+          //borderRadius: BorderRadius.circular(15.0),
+          //   borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+          // ),
+          child: HospitalInfo(
+            hospital_name: clityList[0]['name'],
+            hospital_phoneno: clityList[0]['phone'],
+            hospital_address: clityList[0]['address'],
+            hospital_beds: clityList[0]['beds'],
+            lat: clityList[0]['lat'],
+            lng: clityList[0]['lng'],
+          ),
         ),
       ),
     );

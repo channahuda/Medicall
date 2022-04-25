@@ -7,46 +7,42 @@ class LogoutDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          //title: Text('Alert Dialog Title Text.'),
-          content: Text(
-            "Are you sure you want to logout?",
+          title: const Text(
+            'Logout',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          content: const Text(
+            "Are you sure you want to log out?",
             style: TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text(
+              child: const Text(
                 "YES",
                 style:
                     TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
-                //Put your code here which you want to execute on Yes button click.
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const Login(),
-                //   ),
-                // );
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => Login(),
                   ),
-                      (route) => false,
+                  (route) => false,
                 );
-
               },
             ),
             FlatButton(
-              child: Text(
+              child: const Text(
                 "NO",
                 style:
                     TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
-                //Put your code here which you want to execute on No button click.
                 Navigator.of(context).pop();
               },
             ),

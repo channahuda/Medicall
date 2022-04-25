@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/View/HomePage.dart';
+import 'package:medicall/View/NearestLocation.dart';
 
 class Paralogin extends StatefulWidget {
   const Paralogin({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _ParaloginState extends State<Paralogin> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => NearestLocation(),
                   ),
 
                 );
