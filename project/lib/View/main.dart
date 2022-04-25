@@ -5,6 +5,7 @@ import 'package:medicall/View/HomePage.dart';
 import 'Login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'edit_hospital.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
