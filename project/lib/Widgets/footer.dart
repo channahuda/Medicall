@@ -162,12 +162,12 @@ class _footerState extends State<footer> {
                               height: 25.h),
                           onPressed: () async {
                             position = await _determinePosition();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MapMultiMarker(position: position)),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) =>
+                            //           MapMultiMarker(position: position)),
+                            // );
                           },
                         ),
                         InkWell(
@@ -178,12 +178,12 @@ class _footerState extends State<footer> {
                           ),
                           onTap: () async {
                             position = await _determinePosition();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MapMultiMarker(position: position)),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) =>
+                            //           MapMultiMarker(position: position)),
+                            // );
                           },
                         )
                       ],

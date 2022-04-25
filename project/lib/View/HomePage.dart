@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            MapMultiMarker(position: position),
+                            MapMultiMarker(),
                       ),
                     );
                   },

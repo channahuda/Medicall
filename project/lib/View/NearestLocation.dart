@@ -9,15 +9,14 @@ import 'dart:math';
 import 'package:medicall/View/HospitalInfo.dart';
 
 class MapMultiMarker extends StatefulWidget {
-  Position position;
-
-  MapMultiMarker({Key? key, required this.position}) : super(key: key);
+  MapMultiMarker({Key? key}) : super(key: key);
 
   @override
   State<MapMultiMarker> createState() => _MapMultiMarkerState();
 }
 
 class _MapMultiMarkerState extends State<MapMultiMarker> {
+  late Position position;
   final List<Map<String, dynamic>> clityList = [
     {
       "address": "Address",
@@ -87,6 +86,13 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
     },
   ];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNearestLocation();
+  }
+
   final Map<String, Marker> _markers = {};
 
   double calculateDistance(lat1, lon1, lat2, lon2) {
@@ -102,11 +108,8 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
 
     setState(() {
       for (int i = 0; i < clityList.length; i++) {
-        double distance = calculateDistance(
-            widget.position.latitude,
-            widget.position.longitude,
-            clityList[i]['lat'],
-            clityList[i]['lng']);
+        double distance = calculateDistance(position.latitude,
+            position.longitude, clityList[i]['lat'], clityList[i]['lng']);
         if (distance <= 3) {
           print("For Loop");
           final marker = Marker(
@@ -144,13 +147,13 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360,800),
-      builder: (BuildContext context) =>   Scaffold(
+      designSize: const Size(360, 800),
+      builder: (BuildContext context) => Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
         appBar: AppBar(
           backgroundColor: const Color(0xFF353559),
           centerTitle: true,
-          title:  Text(
+          title: Text(
             'Nearest Hospital',
             style: TextStyle(fontSize: 22.sp, color: Colors.white),
           ),
@@ -158,7 +161,7 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
-            target: LatLng(widget.position.latitude, widget.position.longitude),
+            target: LatLng(position.latitude, position.longitude),
             //LatLng(clityList[0]['lat'], clityList[0]['lng']),
             zoom: 16,
           ),
@@ -166,5 +169,41 @@ class _MapMultiMarkerState extends State<MapMultiMarker> {
         ),
       ),
     );
+  }
+
+  void getNearestLocation() async {
+    position = await _determinePosition();
+    setState(() {});
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 }
