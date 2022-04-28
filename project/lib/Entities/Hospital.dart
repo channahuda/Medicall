@@ -4,7 +4,7 @@ import 'package:provider/src/provider.dart';
 
 class Hospital {
    String name;
-   String id;
+   String? id;
    String phoneNumber;
    int beds;
    String address;
@@ -16,7 +16,7 @@ class Hospital {
 
   Hospital(
       {required this.name,
-        required this.id,
+        this.id,
         required this.lat,
         required this.lng,
         required this.city,
