@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:medicall/Providers/hospital_provider.dart';
 import 'package:medicall/View/home_page.dart';
 
 import 'login.dart';
@@ -11,7 +12,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HospitalProvider()),
+
+        /// ChangeNotifierProvider(create: (_) => CounterProvider()),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 
@@ -31,6 +39,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 

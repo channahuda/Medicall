@@ -1,41 +1,116 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:medicall/Entities/hospital.dart';
 import 'package:medicall/Model/hospital_model.dart';
-import 'package:medicall/Network_Layer/network_call.dart';
 
+import '../Network_Layer/firebase_network_call.dart';
 import '../Network_Layer/network_call.dart';
 
 //This provider is for nearest hospital map through paramedic login
 
 class HospitalProvider extends ChangeNotifier {
+  //GoogleMapController? mapController;
+  Map<String, Marker> markers = {};
+  late Position position;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   List<Hospital> listOfHospitals = [];
-
   HospitalModel? hospitalSelected;
+  bool markerClicked = false;
 
-  // HospitalProvider.initialize() {
-  //   loadHospitals();
-  // }
+  HospitalProvider() {
+    loadHospitalsList();
+    _determinePosition();
+  }
 
   loadHospitalsList() async {
-    listOfHospitals = (await _hospitalServices.getHospitals()).map(
-      (jsonObject) => Hospital(
-        name: jsonObject.name,
-        lat: jsonObject.lat,
-        lng: jsonObject.lng,
-        city: jsonObject.city,
-        email: jsonObject.email,
-        address: jsonObject.address,
-        beds: jsonObject.beds,
-        phoneNumber: jsonObject.phoneNumber,
-      ),
-    ).toList();
+    listOfHospitals = (await _hospitalServices.getHospitals())
+        .map(
+          (jsonObject) => Hospital(
+            name: jsonObject.name,
+            lat: jsonObject.lat,
+            lng: jsonObject.lng,
+            city: jsonObject.city,
+            email: jsonObject.email,
+            address: jsonObject.address,
+            beds: jsonObject.beds,
+            phoneNumber: jsonObject.phoneNumber,
+          ),
+        )
+        .toList();
     notifyListeners();
   }
-}
 
-class HospitalEntity {
-  final String name;
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var a = 0.5 -
+        cos((lat2 - lat1) * p) / 2 +
+        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
+  }
 
-  HospitalEntity({required this.name});
+  Future<void> onMapCreated(GoogleMapController controller) async {
+    markers.clear();
+    for (int i = 0; i < listOfHospitals.length; i++) {
+      double distance = calculateDistance(position.latitude, position.longitude,
+          listOfHospitals[i].lat, listOfHospitals[i].lng);
+      if (distance <= 3) {
+        final marker = Marker(
+          markerId: MarkerId(listOfHospitals[i].name),
+          position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
+          infoWindow: InfoWindow(
+              title: listOfHospitals[i].name,
+              onTap: () {
+                // Window will pop up
+                markerClicked = true;
+                notifyListeners();
+              }),
+        );
+        markers[listOfHospitals[i].name] = marker;
+      }
+    }
+    notifyListeners();
+  }
+
+  void getNearestLocation() async {
+    //position = await
+    _determinePosition();
+    notifyListeners();
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    position = await Geolocator.getCurrentPosition();
+    notifyListeners();
+    return position;
+    //return await Geolocator.getCurrentPosition();
+  }
 }

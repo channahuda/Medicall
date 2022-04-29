@@ -4,72 +4,6 @@ import 'package:medicall/Entities/hospital.dart';
 import '../Network_Layer/network_call.dart';
 
 class HospitalModel {
-  //FirebaseNetworkCall networkCall = GetIt.I<FirebaseNetworkCall>();
-
-  //FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
-
-  // static const ID = "id";
-  // static const NAME = "name";
-  // static const PHONENUMBER = "phoneNumber";
-  // static const BEDS = "beds";
-  // static const ADDRESS = "address";
-  // static const LAT = "lat";
-  // static const LNG = "lng";
-  // static const CITY = "city";
-  // static const EMAIL = "email";
-
-  // This hospital model is for the paramedic map screen
-
-  // late var response;
-  //
-  // // HospitalModel(
-  // //     {this.response }) {}
-  //
-  // //  getters
-  // String get id => _id;
-  //
-  // String get name => _name;
-  //
-  // String get phoneNumber => _phoneNumber;
-  //
-  // int get beds => _beds;
-  //
-  // double get lat => _lat;
-  //
-  // double get lng => _lng;
-  //
-  // String get address => _address;
-  //
-  // String get city => _city;
-  //
-  // String get email => _email;
-  //
-  // HospitalModel.fromSnapshot(DocumentSnapshot snapshot) {
-  //   _id = snapshot.get(ID);
-  //   _name = snapshot.get(NAME);
-  //   _phoneNumber = snapshot.get(PHONENUMBER);
-  //   _beds = snapshot.get(BEDS);
-  //   _address = snapshot.get(ADDRESS);
-  //   _lat = snapshot.get(LAT);
-  //   _lng = snapshot.get(LNG);
-  //   _city = snapshot.get(CITY);
-  //   _email = snapshot.get(EMAIL);
-  // }
-
-//   Map<String, dynamic> toJson() {
-//     FirebaseNetworkCall.getHospitals();
-//     // final Map<String, dynamic> data = {};
-//     // data['title'] = title;
-//     // if (description?.isEmpty ?? false) {
-//     //   data['description'] = description;
-//     // }
-//     // data['date'] = date;
-//     // data['datedone'] = datedone;
-//     // data['dueDatePassed'] = dueDatePassed;
-//     // data['done'] = done;
-//
-// //    return data;
-//   }
 
   late String name;
   late String? id;
@@ -116,15 +50,5 @@ class HospitalModel {
     data['beds'] = beds;
     data['phoneNumber'] = phoneNumber;
     return data;
-    // return Hospital(
-    //     name: name,
-    //     id: id,
-    //     lat: lat,
-    //     lng: lng,
-    //     city: city,
-    //     email: email,
-    //     address: address,
-    //     beds: beds,
-    //     phoneNumber: phoneNumber);
   }
 }
