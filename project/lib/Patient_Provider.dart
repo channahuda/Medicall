@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
-import 'package:medicall/Entities/Patient.dart';
+import 'package:medicall/Entities/patient.dart';
 
 class PatientProvider extends ChangeNotifier{
   List<Patient> _patients = [];

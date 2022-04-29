@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
-import 'WInfoHospital.dart';
+import 'widget_info_hospital.dart';
 
 class HospitalInfo extends StatefulWidget {
   final String hospital_name;

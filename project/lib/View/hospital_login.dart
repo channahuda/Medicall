@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/View/RegisterHospital.dart';
-import 'PatientList.dart';
+import 'package:medicall/View/register_hospital.dart';
+import 'patient_list.dart';
 
 class hosplogin extends StatefulWidget {
   const hosplogin({Key? key}) : super(key: key);

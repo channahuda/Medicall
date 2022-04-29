@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 //import 'package:nearest/FindDirection.dart';
 import 'dart:math';
 
-import 'package:medicall/View/HospitalInfo.dart';
+import 'package:medicall/View/hospital_info.dart';
 import 'package:medicall/Widgets/hospital_info.dart';
 
 import '../Widgets/logout.dart';

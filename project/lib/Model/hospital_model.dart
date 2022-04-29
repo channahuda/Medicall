@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medicall/Entities/Hospital.dart';
+import 'package:medicall/Entities/hospital.dart';
 
 import '../Network_Layer/network_call.dart';
 
@@ -81,18 +81,18 @@ class HospitalModel {
   late String city;
   late String email;
 
-  // HospitalModel(
-  //     {required this.name,
-  //     this.id,
-  //     required this.lat,
-  //     required this.lng,
-  //     required this.city,
-  //     required this.email,
-  //     required this.address,
-  //     required this.beds,
-  //     required this.phoneNumber});
+  HospitalModel(
+      {required this.name,
+      this.id,
+      required this.lat,
+      required this.lng,
+      required this.city,
+      required this.email,
+      required this.address,
+      required this.beds,
+      required this.phoneNumber});
 
-  static Hospital fromJson(Map<String, dynamic> json) => Hospital(
+  static HospitalModel fromJson(Map<String, dynamic> json) => HospitalModel(
       name: json['name'] as String,
       id: json['id'] as String? ?? "",
       lat: json['lat'] as double,
@@ -104,25 +104,27 @@ class HospitalModel {
       phoneNumber: json['phoneNumber'] as String);
 
   //Map<String, dynamic>
-  Hospital toJson() {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['name'] = name;
     data['id'] = id;
     data['lat'] = lat;
+    data['lng'] = lng;
     data['city'] = city;
     data['email'] = email;
     data['address'] = address;
     data['beds'] = beds;
     data['phoneNumber'] = phoneNumber;
-    return Hospital(
-        name: name,
-        id: id,
-        lat: lat,
-        lng: lng,
-        city: city,
-        email: email,
-        address: address,
-        beds: beds,
-        phoneNumber: phoneNumber);
+    return data;
+    // return Hospital(
+    //     name: name,
+    //     id: id,
+    //     lat: lat,
+    //     lng: lng,
+    //     city: city,
+    //     email: email,
+    //     address: address,
+    //     beds: beds,
+    //     phoneNumber: phoneNumber);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../View/Login.dart';
+import '../View/login.dart';
 
 class LogoutDialog {
   static showLogoutDialog(BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medicall/Entities/Hospital.dart';
+import 'package:medicall/Entities/hospital.dart';
 import 'package:medicall/Model/hospital_model.dart';
 
 import '../Model/hospital_model.dart';
 
 abstract class NetworkCall {
-  Future<List<Hospital>> getHospitals();
+  Future<List<HospitalModel>> getHospitals();
 //Future<List<PatientModel>> getPatient();
 }
 
@@ -24,20 +24,60 @@ class FirebaseNetworkCall implements NetworkCall {
   //       return hospitals;
   //     });
 
-  Future<List<Hospital>> getHospitals() async {
-    List<Hospital> hospitalList = [];
+  Future<List<HospitalModel>> getHospitals() async {
+    List<HospitalModel> hospitalList = [];
     FirebaseFirestore.instance
         .collection(hospital_collection)
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
-        Hospital hospital =
+        HospitalModel hospital =
             HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
         hospitalList.add(hospital);
       }
     });
     return hospitalList;
   }
+
+  void addHospital(HospitalModel hospital) {
+    CollectionReference HospitalList =
+        FirebaseFirestore.instance.collection(hospital_collection);
+    HospitalList.add(hospital.toJson())
+        .then((value) => (hospital.id = value.id))
+        .catchError(
+          (error) => print("Failed to add task: $error"),
+        );
+  }
+
+// static Future<String?> createTask(Task task) async {
+//   final doctask = FirebaseFirestore.instance.collection('task').doc();
+//
+//   task.id = doctask.id;
+//   await doctask.set(task.toJson());
+//
+//   return doctask.id;
+// }
+
+// tasksList.add(task);
+// CollectionReference tasklist =
+// FirebaseFirestore.instance.collection('tasks');
+// tasklist
+//     .add(task.toJson())
+//     .then((value) => (task.id = value.id))
+//     .catchError(
+// (error) => print("Failed to add task: $error"),
+// );
+// Sorting();
+// notifyListeners();
+
+// void addToCart({String userId, CartItemModel cartItem}){
+//   print("THE USER ID IS: $userId");
+//   print("cart items are: ${cartItem.toString()}");
+//   _firestore.collection(collection).document(userId).updateData({
+//     "cart": FieldValue.arrayUnion([cartItem.toMap()])
+//   });
+// }
+
 }
 
 // Future<List<PatientModel>> getPatient() async =>

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:medicall/View/NearestLocation.dart';
-import 'package:medicall/View/PatientList.dart';
-import 'package:medicall/View/patientform.dart';
-import '../View/HospitalLists.dart';
-import '../View/Login.dart';
-import '../Entities/LogoutDialog.dart';
+import 'package:medicall/View/nearest_location.dart';
+import 'package:medicall/View/patient_list.dart';
+import 'package:medicall/View/patient_form.dart';
+import '../View/hospital_lists.dart';
+import '../View/login.dart';
+import '../Entities/logout_dialog_box.dart';
 
 class footer extends StatefulWidget {
   const footer({Key? key}) : super(key: key);

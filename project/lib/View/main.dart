@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:medicall/View/HomePage.dart';
+import 'package:medicall/View/home_page.dart';
 
-import 'Login.dart';
+import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'edit_hospital.dart';

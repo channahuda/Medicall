@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:medicall/Entities/WaveClipper.dart';
-import 'package:medicall/View/NearestLocation.dart';
-import 'package:medicall/View/patientform.dart';
-import 'HospitalLists.dart';
-import '../Entities/LogoutDialog.dart';
+import 'package:medicall/Entities/wave_clipper.dart';
+import 'package:medicall/View/nearest_location.dart';
+import 'package:medicall/View/patient_form.dart';
+import 'hospital_lists.dart';
+import '../Entities/logout_dialog_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

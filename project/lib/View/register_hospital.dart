@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medicall/View/Login.dart';
-import 'package:medicall/View/hospitallogin.dart';
-import 'package:medicall/Widgets/WRegisterForm.dart';
+import 'package:medicall/View/login.dart';
+import 'package:medicall/View/hospital_login.dart';
+import 'package:medicall/Widgets/w_register_form.dart';
 
 import '../Widgets/footer.dart';
 

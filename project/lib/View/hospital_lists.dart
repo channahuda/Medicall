@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import '../Entities/Hospital.dart';
-import 'HospitalInfo.dart';
+import '../Entities/hospital.dart';
+import 'hospital_info.dart';
 import '../Widgets/footer.dart';
 
 class Hospitals extends StatefulWidget {

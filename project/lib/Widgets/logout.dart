@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Entities/LogoutDialog.dart';
+import '../Entities/logout_dialog_box.dart';
 
 class Logout extends StatefulWidget {
   const Logout({Key? key}) : super(key: key);

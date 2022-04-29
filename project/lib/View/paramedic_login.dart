@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/View/HomePage.dart';
-import 'package:medicall/View/NearestLocation.dart';
+import 'package:medicall/View/home_page.dart';
+import 'package:medicall/View/nearest_location.dart';
 
 class Paralogin extends StatefulWidget {
   const Paralogin({Key? key}) : super(key: key);

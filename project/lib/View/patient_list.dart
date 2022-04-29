@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/Entities/LogoutDialog.dart';
-import 'package:medicall/View/patientdetails.dart';
+import 'package:medicall/Entities/logout_dialog_box.dart';
+import 'package:medicall/View/patient_details.dart';
 
 
 class PatientList extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medicall/Widgets/GenderDropDown.dart';
-import 'package:medicall/Widgets/TextFormField.dart';
-import 'package:medicall/Widgets/VitalStats.dart';
-import 'package:medicall/Widgets/dropdown.dart';
+import 'package:medicall/Widgets/gender_drop_down.dart';
+import 'package:medicall/Widgets/text_form_field.dart';
+import 'package:medicall/Widgets/vital_stats.dart';
+import 'package:medicall/Widgets/drop_down.dart';
 import 'package:medicall/Widgets/headings.dart';
 
 import '../Widgets/footer.dart';

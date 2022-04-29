@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/Widgets/WInfoHospital.dart';
+import 'package:medicall/Widgets/widget_info_hospital.dart';
 import 'package:medicall/Widgets/footer.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
