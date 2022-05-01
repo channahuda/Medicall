@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/Entities/logout_dialog_box.dart';
+import 'package:medicall/Widgets/footer.dart';
+import 'package:medicall/Widgets/logout_dialog_box.dart';
 import 'package:medicall/View/patient_details.dart';
 
 
@@ -19,11 +20,13 @@ class _PatientListState extends State<PatientList> {
       designSize: const Size(360,800),
       builder: (BuildContext context) =>    Scaffold(
           backgroundColor: const Color(0xffF8F8F8),
+        bottomSheet: const footer(),
       appBar: AppBar(
         automaticallyImplyLeading: false,
       backgroundColor: const Color(0xFF353559),
       centerTitle: true,
-      title:  Text('Emergency Patients', style: TextStyle(fontSize: 22.sp,  color: Colors.white ),),
+      title:  Text('Emergency Patients', style: TextStyle(fontSize: 22.sp,  color: Colors.white ),
+      ),
         actions: <Widget>[
           Stack(
             children: [

@@ -23,18 +23,23 @@ class _WHospitalInfoState extends State<WHospitalInfo> {
             bottom: BorderSide(color: Color(0xffC4C4C4)),
           ),
         ),
-        child: ListTile(
-          contentPadding: REdgeInsets.fromLTRB(30, 1, 0, 1),
-          tileColor: const Color(0xffF8F8F8),
-          leading: Image.asset(
-            widget.image,
-            height: 20.h,
-          ),
-          title: Text(
-            widget.detail,
-            style: TextStyle(fontSize: 16.sp),
-          ),
+        child:
+
+          ListTile(
+            contentPadding: REdgeInsets.fromLTRB(30, 1, 0, 1),
+            tileColor: const Color(0xffF8F8F8),
+            leading: Image.asset(
+              widget.image,
+              height: 20.h,
+            ),
+            title: Text(
+              widget.detail,
+              style: TextStyle(fontSize: 16.sp),
+            ),
+
         ),
+
+
       ),
     );
   }

@@ -34,7 +34,7 @@ class _paraformState extends State<paraform> {
 
            onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
-          bottomSheet: const footer(),
+        //  bottomSheet: const footer(),
           resizeToAvoidBottomInset: false,
           backgroundColor: const Color(0xffF8F8F8),
           appBar: AppBar(

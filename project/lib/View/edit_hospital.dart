@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medicall/View/hospital_lists.dart';
-import 'package:medicall/View/login.dart';
-import 'package:medicall/View/hospital_login.dart';
-import 'package:medicall/Widgets/w_register_form.dart';
-
+import 'package:medicall/View/Login.dart';
+import 'package:medicall/View/edit_form.dart';
+import 'package:medicall/Widgets/delete_dialog.dart';
 import '../Widgets/footer.dart';
 
 
@@ -25,10 +23,10 @@ class _EditHospitalState extends State<EditHospital> {
     builder: (BuildContext context) => GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          //because overflow occurs when keyboard pops up
-          backgroundColor: Color(0xffF8F8F8),
-          appBar: AppBar(
+        resizeToAvoidBottomInset: false,
+        //because overflow occurs when keyboard pops up
+        backgroundColor: Color(0xffF8F8F8),
+        appBar: AppBar(
             leading:  IconButton(
                 icon:  Icon(Icons.arrow_back),
                 onPressed: (){Navigator.pop(context);
@@ -37,83 +35,112 @@ class _EditHospitalState extends State<EditHospital> {
             backgroundColor: const Color(0xFF353559),
             centerTitle: true,
             title: Text(
-              'Hospital Details',
+              'Edit Hospital Details',
               style: TextStyle(fontSize: 22.sp, color: Colors.white),
             ),
-          ),
-          body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: SingleChildScrollView(
-                      child: Column(
-                          children: <Widget>[
-                            form(),
-                            Stack(
-                                children: <Widget>[
-                                  Container(
-                                    height: 320.h,
-                                    width: 300.w,
-                                    margin:  REdgeInsets.all(20.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black26),
-                                      borderRadius:  BorderRadius.circular(10.r),
-                                    ),
-                                    child:  GoogleMap(
-                                      initialCameraPosition: const CameraPosition(
-                                        target: LatLng( 24.93204434172861, 67.0517612033904,),
-                                        zoom: 16,
-                                      ),
-                                      mapType: MapType.normal,
-
-                                      onTap: (LatLng latLng){
-                                        Marker newmark = Marker(
-                                          markerId: MarkerId('Places Name'),
-                                          infoWindow: const InfoWindow(title: 'Hospital Name'),
-                                          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-                                          position: LatLng(latLng.latitude,latLng.longitude),
-                                        );
-                                        mark.add(newmark);
-                                        setState(() { });
-
-                                      },
-                                      markers: mark.map((e) => e).toSet(),
-
-                                    ),
-                                  ),
-                                ]
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => Hospitals(),
-                                  ),
-                                );
-                              },
-                              child: Text('Save Changes'),
-                              style: ElevatedButton.styleFrom(
-                                  primary: const Color(0xff353559),
-                                  padding:  REdgeInsets.symmetric(
-                                      horizontal: 120.w, vertical: 15.h),
-                                  textStyle:  TextStyle(
-                                      fontSize: 20.sp, fontWeight: FontWeight.w500),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0.r),
-                                  )
-                              ),
-                            ),
-                            SizedBox(height: 15.h),
-                          ]
-                      )
+            actions: <Widget>[
+              Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.delete_outline_outlined),
+                    onPressed: () {
+                      DeleteDialog.showDeleteDialog(context);
+                    },
                   ),
+                  Positioned(
+                    bottom: 5.h,
+                    child: InkWell(
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10.sp,
+                        ),
+                      ),
+                      onTap: () {
+                        DeleteDialog.showDeleteDialog(context);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ]
+        ),
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: SingleChildScrollView(
+                    child: Column(
+                        children: <Widget>[
+                          EditForm(),
+                          Stack(
+                              children: <Widget>[
+                                Container(
+                                  height: 320.h,
+                                  width: 295.w,
+                                  margin:  REdgeInsets.all(20.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black26),
+                                    borderRadius:  BorderRadius.circular(10.r),
+                                  ),
+                                  child:  GoogleMap(
+                                    initialCameraPosition: const CameraPosition(
+                                      target: LatLng( 24.93204434172861, 67.0517612033904,),
+                                      zoom: 16,
+                                    ),
+                                    mapType: MapType.normal,
+
+                                    onTap: (LatLng latLng){
+                                      Marker newmark = Marker(
+                                        markerId: MarkerId('Places Name'),
+                                        infoWindow: const InfoWindow(title: 'Hospital Name'),
+                                        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+                                        position: LatLng(latLng.latitude,latLng.longitude),
+                                      );
+                                      mark.add(newmark);
+                                      setState(() { });
+
+                                    },
+                                    markers: mark.map((e) => e).toSet(),
+
+                                  ),
+                                ),
+                              ]
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(
+                                // MaterialPageRoute(
+                                //   builder: (context) => Ho(),
+                                // ),
+                              );
+                            },
+                            child: Text('Save Changes'),
+                            style: ElevatedButton.styleFrom(
+                                primary: const Color(0xff353559),
+                                padding:  REdgeInsets.symmetric(
+                                    horizontal: 100.w, vertical: 15.h),
+                                textStyle:  TextStyle(
+                                    fontSize: 20.sp, fontWeight: FontWeight.w500),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0.r),
+                                )
+                            ),
+                          ),
+                          SizedBox(height: 100.h),
+                        ]
+                    )
                 ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)
-                )
-              ]
-          )
+              ),
+              Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom)
+              )
+            ]
+        ),
+        //resizeToAvoidBottomInset: false,
+        bottomSheet: footer(),
       ),
     ),
   );

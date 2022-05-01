@@ -6,7 +6,7 @@ import 'package:medicall/Entities/wave_clipper.dart';
 import 'package:medicall/View/nearest_location.dart';
 import 'package:medicall/View/patient_form.dart';
 import 'hospital_lists.dart';
-import '../Entities/logout_dialog_box.dart';
+import '../Widgets/logout_dialog_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

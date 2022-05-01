@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:medicall/Entities/hospital.dart';
 import 'package:medicall/Model/hospital_model.dart';
 
@@ -21,7 +22,6 @@ class HospitalProvider extends ChangeNotifier {
   //late HospitalModel hospitalSelected;
   bool markerClicked = false;
   bool isLoading = false;
-
   int index = 0;
 
   HospitalProvider() {
@@ -29,10 +29,15 @@ class HospitalProvider extends ChangeNotifier {
     _determinePosition();
   }
 
+  launchmap(lat, lng) {
+    MapsLauncher.launchCoordinates(lat, lng);
+  }
+
   loadHospitalsList() async {
-    isLoading = true;
+    isLoading=true;
     listOfHospitals = (await _hospitalServices.getHospitals());
-    isLoading = false;
+    isLoading=false;
+    print(listOfHospitals[0].email);
     notifyListeners();
   }
 
@@ -60,7 +65,7 @@ class HospitalProvider extends ChangeNotifier {
           infoWindow: InfoWindow(
               title: listOfHospitals[i].name,
               onTap: () {
-                //index=i;
+               index=i;
                 // Window will pop up
                 //            hospitalSelected = listOfHospitals[i];
                 markerClicked = true;
@@ -71,30 +76,31 @@ class HospitalProvider extends ChangeNotifier {
             "THIS IS A MARKER...................................................................................................................");
         print(marker);
         markers[listOfHospitals[i].name] = marker;
-      } else if (markers.length == 0) {
-        for (int i = 1; i < listOfHospitals.length; i++) {
-          if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
-            if (markers.length > 0) {
-              break;
-            } else {
-              final marker = Marker(
-                markerId: MarkerId(listOfHospitals[i].name),
-                position:
-                    LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
-                infoWindow: InfoWindow(
-                    title: listOfHospitals[i].name,
-                    onTap: () {
-                      index = i;
-
-                      markerClicked = true;
-                      notifyListeners();
-                    }),
-              );
-              markers[listOfHospitals[i].name] = marker;
-            }
-          }
-        }
       }
+      // else if (markers.length == 0) {
+      //   for (int i = 1; i < listOfHospitals.length; i++) {
+      //     if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
+      //       if (markers.length > 0) {
+      //         break;
+      //       } else {
+      //         final marker = Marker(
+      //           markerId: MarkerId(listOfHospitals[i].name),
+      //           position:
+      //               LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
+      //           infoWindow: InfoWindow(
+      //               title: listOfHospitals[i].name,
+      //               onTap: () {
+      //               //  index = i;
+      //
+      //                 markerClicked = true;
+      //                 notifyListeners();
+      //               }),
+      //         );
+      //         markers[listOfHospitals[i].name] = marker;
+      //       }
+      //     }
+      //   }
+      // }
     }
     notifyListeners();
   }
