@@ -52,7 +52,7 @@ class HospitalProvider extends ChangeNotifier {
 
       double distance = calculateDistance(position.latitude, position.longitude,
           listOfHospitals[i].lat, listOfHospitals[i].lng);
-      if (distance <= 4) {
+      if (distance <= 3 && listOfHospitals[i].beds >0) {
         final marker = Marker(
           markerId: MarkerId(listOfHospitals[i].name),
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
@@ -69,6 +69,30 @@ class HospitalProvider extends ChangeNotifier {
         print(marker);
         markers[listOfHospitals[i].name] = marker;
        }
+      else if(markers.length==0){
+        for(int i=1;i<listOfHospitals.length;i++) {
+          if (distance <= 3+i && listOfHospitals[i].beds >0) {
+            if(markers.length>0) {
+              break;
+            }
+            else {
+              final marker = Marker(
+                markerId: MarkerId(listOfHospitals[i].name),
+                position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
+                infoWindow: InfoWindow(
+                    title: listOfHospitals[i].name,
+                    onTap: () {
+                     // index=i;
+                      // Window will pop up
+                      markerClicked = true;
+                      notifyListeners();
+                    }),
+              );
+              markers[listOfHospitals[i].name] = marker;
+            }
+       }
+    }
+  }
     }
     notifyListeners();
   }
