@@ -45,13 +45,14 @@ class HospitalProvider extends ChangeNotifier {
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     markers.clear();
+    print("..............................................................................................................................");
+    print("THIS IS LENGTH OF LISTOFHOSPITAL inside PROVIDER");
+    print(listOfHospitals.length);
     for (int i = 0; i < listOfHospitals.length; i++) {
-      print("..............................................................................................................................");
-      print("THIS IS LENGTH OF LISTOFHOSPITAL FROM PROVIDER");
-      print(listOfHospitals[i].name);
+
       double distance = calculateDistance(position.latitude, position.longitude,
           listOfHospitals[i].lat, listOfHospitals[i].lng);
-      if (distance <= 10) {
+      if (distance <= 4) {
         final marker = Marker(
           markerId: MarkerId(listOfHospitals[i].name),
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
@@ -64,10 +65,10 @@ class HospitalProvider extends ChangeNotifier {
                 notifyListeners();
               }),
         );
+        print("THIS IS A MARKER...................................................................................................................");
+        print(marker);
         markers[listOfHospitals[i].name] = marker;
-
-
-      }
+       }
     }
     notifyListeners();
   }

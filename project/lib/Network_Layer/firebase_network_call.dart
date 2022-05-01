@@ -17,10 +17,9 @@ class FirebaseNetworkCall implements NetworkCall {
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
- HospitalModel hospital =
+        HospitalModel hospital =
             HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
-
-        hospitalList.add(hospital);
+         hospitalList.add(hospital);
 
       }
     });
