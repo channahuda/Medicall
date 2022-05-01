@@ -16,9 +16,11 @@ class HospitalProvider extends ChangeNotifier {
   Map<String, Marker> markers = {};
   late Position position;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
-  List<Hospital> listOfHospitals = [];
+  List<HospitalModel> listOfHospitals = [];
   HospitalModel? hospitalSelected;
   bool markerClicked = false;
+  bool isLoading=false;
+  //int index=0;
 
   HospitalProvider() {
     loadHospitalsList();
@@ -26,20 +28,10 @@ class HospitalProvider extends ChangeNotifier {
   }
 
   loadHospitalsList() async {
-    listOfHospitals = (await _hospitalServices.getHospitals())
-        .map(
-          (jsonObject) => Hospital(
-            name: jsonObject.name,
-            lat: jsonObject.lat,
-            lng: jsonObject.lng,
-            city: jsonObject.city,
-            email: jsonObject.email,
-            address: jsonObject.address,
-            beds: jsonObject.beds,
-            phoneNumber: jsonObject.phoneNumber,
-          ),
-        )
-        .toList();
+    isLoading=true;
+    listOfHospitals = (await _hospitalServices.getHospitals());
+    isLoading=false;
+    print(listOfHospitals[0].email);
     notifyListeners();
   }
 
@@ -54,21 +46,27 @@ class HospitalProvider extends ChangeNotifier {
   Future<void> onMapCreated(GoogleMapController controller) async {
     markers.clear();
     for (int i = 0; i < listOfHospitals.length; i++) {
+      print("..............................................................................................................................");
+      print("THIS IS LENGTH OF LISTOFHOSPITAL FROM PROVIDER");
+      print(listOfHospitals[i].name);
       double distance = calculateDistance(position.latitude, position.longitude,
           listOfHospitals[i].lat, listOfHospitals[i].lng);
-      if (distance <= 3) {
+      if (distance <= 10) {
         final marker = Marker(
           markerId: MarkerId(listOfHospitals[i].name),
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
           infoWindow: InfoWindow(
               title: listOfHospitals[i].name,
               onTap: () {
+               // index=i;
                 // Window will pop up
                 markerClicked = true;
                 notifyListeners();
               }),
         );
         markers[listOfHospitals[i].name] = marker;
+
+
       }
     }
     notifyListeners();

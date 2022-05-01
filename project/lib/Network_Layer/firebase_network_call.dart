@@ -7,34 +7,24 @@ class FirebaseNetworkCall implements NetworkCall {
   String hospital_collection = "Hospitals";
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+
   @override
   Future<List<HospitalModel>> getHospitals() async {
+
     List<HospitalModel> hospitalList = [];
     FirebaseFirestore.instance
         .collection('Hospitals')
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
-
-        //print('hahahahaahhahahahahahahahahahahah.......................................................................................');
-        HospitalModel hospital =
+ HospitalModel hospital =
             HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
-        print("hospital");
-        print(hospital);
-        print(
-            '...........................................................................................................................................................................................................................................');
-        print(hospital.name);
-        print("\n");
-        print("\n");
-        print("\n");
-        print("\n");
-        print("\n");
-        print("\n");
-        print("\n");
-        print("\n");
+
         hospitalList.add(hospital);
+
       }
     });
+
     return hospitalList;
   }
 

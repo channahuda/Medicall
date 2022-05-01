@@ -98,61 +98,14 @@ class _NearestLocationState extends State<NearestLocation> {
     //context.read<HospitalProvider>().getNearestLocation();
   }
 
-  // final Map<String, Marker> _markers = {};
 
-  // double calculateDistance(lat1, lon1, lat2, lon2) {
-  //   var p = 0.017453292519943295;
-  //   var a = 0.5 -
-  //       cos((lat2 - lat1) * p) / 2 +
-  //       cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-  //   return 12742 * asin(sqrt(a));
-  // }
-
-  // Future<void> _onMapCreated(GoogleMapController controller) async {
-  //   _markers.clear();
-  //
-  //   setState(() {
-  //     for (int i = 0; i < clityList.length; i++) {
-  //       double distance = calculateDistance(position.latitude,
-  //           position.longitude, clityList[i]['lat'], clityList[i]['lng']);
-  //       if (distance <= 3) {
-  //         print("For Loop");
-  //         final marker = Marker(
-  //           markerId: MarkerId(clityList[i]['name']),
-  //           position: LatLng(clityList[i]['lat'], clityList[i]['lng']),
-  //           infoWindow: InfoWindow(
-  //               title: clityList[i]['name'],
-  //               onTap: () {
-  //                 // Navigator.push(
-  //                 //     context,
-  //                 //     MaterialPageRoute(
-  //                 //         builder: (context) => HospitalInfo(
-  //                 //               hospital_name: clityList[i]['name'],
-  //                 //               hospital_phoneno: clityList[i]['phone'],
-  //                 //               hospital_address: clityList[i]['address'],
-  //                 //               hospital_beds: clityList[i]['beds'],
-  //                 //               lat: clityList[i]['lat'],
-  //                 //               lng: clityList[i]['lng'],
-  //                 //             )));
-  //                 //
-  //                 // print("${clityList[i]['lat']}, ${clityList[i]['lng']}");
-  //               }),
-  //           onTap: () {
-  //             print("Clicked on marker");
-  //           },
-  //         );
-  //
-  //         print("${clityList[i]['lat']}, ${clityList[i]['lng']}");
-  //         _markers[clityList[i]['name']] = marker;
-  //       }
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     HospitalProvider hospitalProvider = Provider.of<HospitalProvider>(context);
-    return ScreenUtilInit(
+    return
+
+      ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
@@ -166,81 +119,48 @@ class _NearestLocationState extends State<NearestLocation> {
           ),
           actions: const [Logout()],
         ),
-        body: GoogleMap(
+        body: context.read<HospitalProvider>().isLoading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : GoogleMap(
             onMapCreated: context.read<HospitalProvider>().onMapCreated,
             initialCameraPosition: CameraPosition(
-              target: LatLng(hospitalProvider.position.latitude,
-                  hospitalProvider.position.longitude
+              target: LatLng(
 
-                  // context.read<HospitalProvider>().position.latitude,
-                  // context.read<HospitalProvider>().position.longitude
+                  context.read<HospitalProvider>().position.latitude,
+                  context.read<HospitalProvider>().position.longitude
                   ),
-              //LatLng(clityList[0]['lat'], clityList[0]['lng']),
               zoom: 16,
             ),
-            markers: hospitalProvider.markers.values.toSet()
-            //context.read<HospitalProvider>().markers.values.toSet(),
+            markers:
+            context.read<HospitalProvider>().markers.values.toSet(),
             ),
         bottomSheet: Visibility(
-          visible: hospitalProvider.markerClicked,
-          //context.read<HospitalProvider>().markerClicked,
+       visible:   context.read<HospitalProvider>().markerClicked,
           child: SizedBox(
             height: 300.h,
+
             // decoration: BoxDecoration(
             //   border: Border.all(
             //     color: Color(0xffC4C4C4),
             //   ),
-            //borderRadius: BorderRadius.circular(15.0),
+            // borderRadius: BorderRadius.circular(15.0),
             //   borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
             // ),
             // child: HospitalInfo(
-            //   hospital_name: hospitalProvider.listOfHospitals[0].name,
+            //   hospital_name: context.read<HospitalProvider>().listOfHospitals[0].name,
+            // //  hospitalProvider.listOfHospitals[0].name,
             //       //context.read<HospitalProvider>().listOfHospitals[0].name,
-            //   hospital_phoneno: clityList[0]['phone'],
-            //   hospital_address: clityList[0]['address'],
-            //   hospital_beds: clityList[0]['beds'],
-            //   lat: clityList[0]['lat'],
-            //   lng: clityList[0]['lng'],
+            //   hospital_phoneno: context.read<HospitalProvider>().listOfHospitals[0].phoneNumber,
+            //   hospital_address: context.read<HospitalProvider>().listOfHospitals[0].address,
+            //   hospital_beds: context.read<HospitalProvider>().listOfHospitals[0].beds.toString(),
+            //   lat: context.read<HospitalProvider>().listOfHospitals[0].lat,
+            //   lng: context.read<HospitalProvider>().listOfHospitals[0].lng,
             // ),
           ),
         ),
       ),
     );
   }
-
-// void getNearestLocation() async {
-//   position = await _determinePosition();
-//   setState(() {});
-// }
-//
-// Future<Position> _determinePosition() async {
-//   bool serviceEnabled;
-//   LocationPermission permission;
-//
-//   // Test if location services are enabled.
-//   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-//   if (!serviceEnabled) {
-//     await Geolocator.openLocationSettings();
-//
-//     return Future.error('Location services are disabled.');
-//   }
-//
-//   permission = await Geolocator.checkPermission();
-//   if (permission == LocationPermission.denied) {
-//     permission = await Geolocator.requestPermission();
-//     if (permission == LocationPermission.denied) {
-//       return Future.error('Location permissions are denied');
-//     }
-//   }
-//
-//   if (permission == LocationPermission.deniedForever) {
-//     // Permissions are denied forever, handle appropriately.
-//     return Future.error(
-//         'Location permissions are permanently denied, we cannot request permissions.');
-//   }
-//
-//   // When we reach here, permissions are granted and we can
-//   // continue accessing the position of the device.
-//   return await Geolocator.getCurrentPosition();
-// }
 }
