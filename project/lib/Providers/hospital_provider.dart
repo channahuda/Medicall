@@ -17,10 +17,12 @@ class HospitalProvider extends ChangeNotifier {
   late Position position;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   List<HospitalModel> listOfHospitals = [];
-  HospitalModel? hospitalSelected;
+
+  //late HospitalModel hospitalSelected;
   bool markerClicked = false;
-  bool isLoading=false;
-  //int index=0;
+  bool isLoading = false;
+
+  int index = 0;
 
   HospitalProvider() {
     loadHospitalsList();
@@ -28,10 +30,9 @@ class HospitalProvider extends ChangeNotifier {
   }
 
   loadHospitalsList() async {
-    isLoading=true;
+    isLoading = true;
     listOfHospitals = (await _hospitalServices.getHospitals());
-    isLoading=false;
-    print(listOfHospitals[0].email);
+    isLoading = false;
     notifyListeners();
   }
 
@@ -45,54 +46,55 @@ class HospitalProvider extends ChangeNotifier {
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     markers.clear();
-    print("..............................................................................................................................");
+    print(
+        "..............................................................................................................................");
     print("THIS IS LENGTH OF LISTOFHOSPITAL inside PROVIDER");
     print(listOfHospitals.length);
     for (int i = 0; i < listOfHospitals.length; i++) {
-
       double distance = calculateDistance(position.latitude, position.longitude,
           listOfHospitals[i].lat, listOfHospitals[i].lng);
-      if (distance <= 3 && listOfHospitals[i].beds >0) {
+      if (distance <= 3 && listOfHospitals[i].beds > 0) {
         final marker = Marker(
           markerId: MarkerId(listOfHospitals[i].name),
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
           infoWindow: InfoWindow(
               title: listOfHospitals[i].name,
               onTap: () {
-               // index=i;
+                //index=i;
                 // Window will pop up
+                //            hospitalSelected = listOfHospitals[i];
                 markerClicked = true;
                 notifyListeners();
               }),
         );
-        print("THIS IS A MARKER...................................................................................................................");
+        print(
+            "THIS IS A MARKER...................................................................................................................");
         print(marker);
         markers[listOfHospitals[i].name] = marker;
-       }
-      else if(markers.length==0){
-        for(int i=1;i<listOfHospitals.length;i++) {
-          if (distance <= 3+i && listOfHospitals[i].beds >0) {
-            if(markers.length>0) {
+      } else if (markers.length == 0) {
+        for (int i = 1; i < listOfHospitals.length; i++) {
+          if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
+            if (markers.length > 0) {
               break;
-            }
-            else {
+            } else {
               final marker = Marker(
                 markerId: MarkerId(listOfHospitals[i].name),
-                position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
+                position:
+                    LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
                 infoWindow: InfoWindow(
                     title: listOfHospitals[i].name,
                     onTap: () {
-                     // index=i;
-                      // Window will pop up
+                      index = i;
+
                       markerClicked = true;
                       notifyListeners();
                     }),
               );
               markers[listOfHospitals[i].name] = marker;
             }
-       }
-    }
-  }
+          }
+        }
+      }
     }
     notifyListeners();
   }
