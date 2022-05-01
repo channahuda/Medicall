@@ -4,7 +4,6 @@ import 'package:medicall/Entities/hospital.dart';
 import '../Network_Layer/network_call.dart';
 
 class HospitalModel {
-
   late String name;
   late String? id;
   late String phoneNumber;
@@ -26,16 +25,19 @@ class HospitalModel {
       required this.beds,
       required this.phoneNumber});
 
-  static HospitalModel fromJson(Map<String, dynamic> json) => HospitalModel(
-      name: json['name'] as String,
-      id: json['id'] as String? ?? "",
-      lat: json['lat'] as double,
-      lng: json['lng'] as double,
-      city: json['city'] as String,
-      email: json['email'] as String,
-      address: json['address'] as String,
-      beds: json['beds'] as int,
-      phoneNumber: json['phoneNumber'] as String);
+  static HospitalModel fromJson(Map<String, dynamic> json) {
+    print(json['name']);
+    return HospitalModel(
+        name: json['name'] as String,
+        id: json['id'] as String? ?? "",
+        lat: json['lat'] as double,
+        lng: json['lng'] as double,
+        city: json['city'] as String,
+        email: json['email'] as String,
+        address: json['address'] as String,
+        beds: json['beds'] as int,
+        phoneNumber: json['phoneNumber'] as String);
+  }
 
   //Map<String, dynamic>
   Map<String, dynamic> toJson() {

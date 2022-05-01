@@ -11,13 +11,27 @@ class FirebaseNetworkCall implements NetworkCall {
   Future<List<HospitalModel>> getHospitals() async {
     List<HospitalModel> hospitalList = [];
     FirebaseFirestore.instance
-        .collection(hospital_collection)
+        .collection('Hospitals')
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
-        print('hahahahaahhahahahahahahahahahahah.......................................................................................');
+
+        //print('hahahahaahhahahahahahahahahahahah.......................................................................................');
         HospitalModel hospital =
             HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
+        print("hospital");
+        print(hospital);
+        print(
+            '...........................................................................................................................................................................................................................................');
+        print(hospital.name);
+        print("\n");
+        print("\n");
+        print("\n");
+        print("\n");
+        print("\n");
+        print("\n");
+        print("\n");
+        print("\n");
         hospitalList.add(hospital);
       }
     });
