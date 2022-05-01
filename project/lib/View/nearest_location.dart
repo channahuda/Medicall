@@ -30,8 +30,9 @@ class _NearestLocationState extends State<NearestLocation> {
 
   @override
   Widget build(BuildContext context) {
-    HospitalProvider hospitalProvider = context.read<HospitalProvider>();
-    //Provider.of<HospitalProvider>(context);
+    HospitalProvider hospitalProvider =
+    //context.read<HospitalProvider>();
+    Provider.of<HospitalProvider>(context);
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => Scaffold(
