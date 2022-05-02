@@ -12,7 +12,7 @@ import '../Network_Layer/network_call.dart';
 
 //This provider is for nearest hospital map through paramedic login
 
-class HospitalProvider extends ChangeNotifier {
+class HospitalLocationProvider extends ChangeNotifier {
   //GoogleMapController? mapController;
   Map<String, Marker> markers = {};
   late Position position;
@@ -24,7 +24,7 @@ class HospitalProvider extends ChangeNotifier {
   bool isLoading = false;
   int index = 0;
 
-  HospitalProvider() {
+  HospitalLocationProvider() {
     loadHospitalsList();
     _determinePosition();
   }

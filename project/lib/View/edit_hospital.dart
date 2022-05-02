@@ -120,7 +120,7 @@ class _EditHospitalState extends State<EditHospital> {
                             style: ElevatedButton.styleFrom(
                                 primary: const Color(0xff353559),
                                 padding:  REdgeInsets.symmetric(
-                                    horizontal: 100.w, vertical: 15.h),
+                                    horizontal: 80.w, vertical: 15.h),
                                 textStyle:  TextStyle(
                                     fontSize: 20.sp, fontWeight: FontWeight.w500),
                                 shape: RoundedRectangleBorder(

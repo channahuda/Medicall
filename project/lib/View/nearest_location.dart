@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:medicall/Providers/hospital_provider.dart';
+import 'package:medicall/Providers/hospital_location_provider.dart';
 
 //import 'package:nearest/FindDirection.dart';
 import 'dart:math';
@@ -34,7 +34,7 @@ class _NearestLocationState extends State<NearestLocation> {
 
   @override
   Widget build(BuildContext context) {
-    HospitalProvider hospitalProvider = Provider.of<HospitalProvider>(context);
+    HospitalLocationProvider hospitalProvider = Provider.of<HospitalLocationProvider>(context);
     return
 
       ScreenUtilInit(
@@ -51,46 +51,46 @@ class _NearestLocationState extends State<NearestLocation> {
           //   ),
           //   actions: const [Logout()],
           // ),
-          body: context.read<HospitalProvider>().isLoading
+          body: context.read<HospitalLocationProvider>().isLoading
               ? const Center(
             child: CircularProgressIndicator(),
           )
               : GoogleMap(
-            onMapCreated: context.read<HospitalProvider>().onMapCreated,
+            onMapCreated: context.read<HospitalLocationProvider>().onMapCreated,
             initialCameraPosition: CameraPosition(
               target: LatLng(
 
-                  context.read<HospitalProvider>().position.latitude,
-                  context.read<HospitalProvider>().position.longitude
+                  context.read<HospitalLocationProvider>().position.latitude,
+                  context.read<HospitalLocationProvider>().position.longitude
               ),
               zoom: 16,
             ),
             markers:
-            context.read<HospitalProvider>().markers.values.toSet(),
+            context.read<HospitalLocationProvider>().markers.values.toSet(),
           ),
           bottomSheet: Visibility(
-            visible:   context.read<HospitalProvider>().markerClicked,
+            visible:   context.read<HospitalLocationProvider>().markerClicked,
             child: SizedBox(
               height: 300.h,
                child:  Column(
                     children:  <Widget>[
    HospitalInfo(
-    hospital_name: hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].name,
+    hospital_name: hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].name,
        // context.read<HospitalProvider>().listOfHospitals[context.read<HospitalProvider>().index].name,
-    hospital_phoneno:hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].phoneNumber,
+    hospital_phoneno:hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].phoneNumber,
        // context.read<HospitalProvider>().listOfHospitals[context.read<HospitalProvider>().index].phoneNumber,
-    hospital_address:hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].address,
+    hospital_address:hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].address,
 
         //context.read<HospitalProvider>().listOfHospitals[context.read<HospitalProvider>().index].address,
-    hospital_beds: hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].beds.toString(),
+    hospital_beds: hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].beds.toString(),
     // context
     //     .read<HospitalProvider>()
     //     .listOfHospitals[context.read<HospitalProvider>().index]
     //     .beds
     //     .toString(),
-    lat: hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].lat,
+    lat: hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].lat,
   //  context.read<HospitalProvider>().listOfHospitals[context.read<HospitalProvider>().index].lat,
-    lng: hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].lng
+    lng: hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].lng
     //context.read<HospitalProvider>().listOfHospitals[context.read<HospitalProvider>().index].lng,
     ),
                 Row( children:  <Widget>[
@@ -107,8 +107,8 @@ class _NearestLocationState extends State<NearestLocation> {
                       ),
                     ), onPressed: () {
                     hospitalProvider.launchmap(
-                        hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].lat,
-                        hospitalProvider.listOfHospitals[context.read<HospitalProvider>().index].lat);
+                        hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].lat,
+                        hospitalProvider.listOfHospitals[context.read<HospitalLocationProvider>().index].lat);
                   },
                   ),
                   const Spacer(),
