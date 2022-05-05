@@ -8,14 +8,14 @@ import 'package:medicall/Widgets/headings.dart';
 import '../Widgets/footer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class paraform extends StatefulWidget {
-  const paraform({Key? key}) : super(key: key);
+class PatientForm extends StatefulWidget {
+  const PatientForm({Key? key}) : super(key: key);
 
   @override
-  _paraformState createState() => _paraformState();
+  _PatientFormState createState() => _PatientFormState();
 }
 
-class _paraformState extends State<paraform> {
+class _PatientFormState extends State<PatientForm> {
   final _formkey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController age = TextEditingController();

@@ -26,8 +26,6 @@ class HospitalModel {
       required this.phoneNumber});
 
   static HospitalModel fromJson(Map<String, dynamic> json) {
-    print("......................................THIS IS JSON NAME ....................................................................................");
-    print(json['name']);
     return HospitalModel(
         name: json['name'] as String,
         id: json['id'] as String? ?? "",
