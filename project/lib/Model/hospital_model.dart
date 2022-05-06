@@ -29,7 +29,7 @@ class HospitalModel {
 
     return HospitalModel(
         name: json['name'] as String,
-      //  id: json['id'] as String? ?? "",
+        //id: json['id'] as String? ?? "",
         lat: json['lat'] as double,
         lng: json['lng'] as double,
         city: json['city'] as String,

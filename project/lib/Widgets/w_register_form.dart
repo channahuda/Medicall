@@ -3,16 +3,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medicall/Model/hospital_model.dart';
+import 'package:medicall/Providers/hospital_register_provider.dart';
+import 'package:medicall/View/hospital_login.dart';
+import 'package:provider/provider.dart';
 
 class form extends StatefulWidget {
   final validkey;
-  const form({Key? key,required this.validkey}) : super(key: key);
+   TextEditingController? hospitalname;
+   form({Key? key,required this.validkey,}) : super(key: key);
 
   @override
   State<form> createState() => _formState();
+
 }
 
 class _formState extends State<form> {
+
   TextEditingController hospitalname = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController pw = TextEditingController();
@@ -37,7 +44,7 @@ class _formState extends State<form> {
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  inputFile(label: "Hospital Name",obscureText:false, TextEditingController: hospitalname),
+                  inputFile(label: "Hospital Name",obscureText:false, TextEditingController:hospitalname),
                   inputFile(label: "Email",obscureText:false,TextEditingController: email),
                   inputFile(label: "Password",obscureText : true, TextEditingController:pw),
                   inputFileCPassword(label: "Confirm Password", TextEditingController:cpw),
@@ -50,6 +57,7 @@ class _formState extends State<form> {
                         fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.black),
 
                   ),
+
                 ]),
         )
       ]),
