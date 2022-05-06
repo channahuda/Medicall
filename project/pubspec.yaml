@@ -85,6 +85,7 @@ flutter:
    - Assets/icons8-address-64.png
    - Assets/ambulance.png
    - Assets/email-5-64.png
+   - Assets/hospital_icon.png
   fonts:
     - family:  MyFlutterApp
       fonts:

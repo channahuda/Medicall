@@ -63,7 +63,7 @@ class _NearestLocationState extends State<NearestLocation> {
         //   ),
         //   actions: const [Logout()],
         // ),
-        body: hospitalProvider.isLoading
+        body: hospitalProvider.isLoading || hospitalProvider.isLoadingHospitals
             ? const Center(
                 child: CircularProgressIndicator(),
               )

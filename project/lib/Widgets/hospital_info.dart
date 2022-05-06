@@ -120,7 +120,7 @@ class _HospitalInfoState extends State<HospitalInfo> {
             ),
             // ElevatedButton(
             //   onPressed: () {
-            //     launchmap(widget.lat, widget.lng);
+            //
             //   },
             //   child: const Text('Direction'),
             //   style: ElevatedButton.styleFrom(

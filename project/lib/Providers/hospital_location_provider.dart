@@ -22,11 +22,13 @@ class HospitalLocationProvider extends ChangeNotifier {
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   late List<HospitalModel> listOfHospitals;
   late BuildContext context;
+  bool isLoadingHospitals = true;
 
   HospitalModel? hospitalSelected;
   bool markerClicked = false;
   bool isLoading = true;
   int index = 0;
+  late BitmapDescriptor pinLocationIcon;
 
   void setContext(BuildContext context) {
     this.context = context;
@@ -34,9 +36,11 @@ class HospitalLocationProvider extends ChangeNotifier {
 
   HospitalLocationProvider() {
     loadHospitalsList();
-    //isLoading = true;
+
+   // isLoadingHospitals = true;
     _determinePosition();
-    //isLoading = false;
+    setCustomMapPin();
+   // isLoadingHospitals = false;
     notifyListeners();
   }
 
@@ -66,8 +70,9 @@ class HospitalLocationProvider extends ChangeNotifier {
   }
 
   Future<void> loadHospitalsList() async {
-    //isLoading = true;
+    isLoadingHospitals = true;
     listOfHospitals = await _hospitalServices.getHospitals();
+    isLoadingHospitals = false;
     Future.delayed(const Duration(seconds: 5));
     notifyListeners();
   }
@@ -186,5 +191,10 @@ class HospitalLocationProvider extends ChangeNotifier {
     notifyListeners();
     return position;
     //return await Geolocator.getCurrentPosition();
+  }
+
+  void setCustomMapPin() async {
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.5), 'Assets/hospital_icon.png');
   }
 }
