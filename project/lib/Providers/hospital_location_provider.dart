@@ -93,6 +93,7 @@ class HospitalLocationProvider extends ChangeNotifier {
       if (distance <= 3 && listOfHospitals[i].beds > 0) {
         final marker = Marker(
           markerId: MarkerId(listOfHospitals[i].name),
+          icon: pinLocationIcon,
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
           infoWindow: InfoWindow(
             title: listOfHospitals[i].name,

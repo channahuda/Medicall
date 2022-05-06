@@ -36,4 +36,9 @@ class FirebaseNetworkCall implements NetworkCall {
           (error) => print("Failed to add task: $error"),
         );
   }
+
+  void addPatient() {
+
+  }
+
 }

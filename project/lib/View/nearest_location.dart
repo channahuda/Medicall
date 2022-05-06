@@ -7,9 +7,7 @@ import 'package:medicall/Providers/hospital_location_provider.dart';
 //import 'package:nearest/FindDirection.dart';
 import 'dart:math';
 
-import 'package:medicall/View/hospital_info.dart';
 import 'package:medicall/View/patient_form.dart';
-import 'package:medicall/Widgets/hospital_info.dart';
 import 'package:medicall/Widgets/hospital_info_modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -55,14 +53,14 @@ class _NearestLocationState extends State<NearestLocation> {
         backgroundColor: const Color(0xffF8F8F8),
         // appBar: AppBar(
         //   automaticallyImplyLeading: false,
-        //   backgroundColor: const Color(0xFF353559),
-        //   centerTitle: true,
-        //   title: Text(
-        //     'Nearest Hospital',
-        //     style: TextStyle(fontSize: 22.sp, color: Colors.white),
-        //   ),
+        //   backgroundColor: Colors.transparent,
+        //   //centerTitle: true,
+        //   // title: Text(
+        //   //   'Nearest Hospital',
+        //   //   style: TextStyle(fontSize: 22.sp, color: Colors.white),
+        //   // ),
         //   actions: const [Logout()],
-        // ),
+        //),
         body: hospitalProvider.isLoading || hospitalProvider.isLoadingHospitals
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -79,6 +77,15 @@ class _NearestLocationState extends State<NearestLocation> {
                       zoom: 16,
                     ),
                     markers: hospitalProvider.markers.values.toSet(),
+                  ),
+                  Positioned(
+                    top: 30.h,
+                    right: 10.w,
+                    child: CircleAvatar(
+                      child: Logout(),
+                      backgroundColor: Color(0xff353559),
+                      radius: 20.r,
+                    ),
                   ),
                 ],
               ),

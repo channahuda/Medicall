@@ -97,12 +97,10 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PatientForm(),
-                  ),
-                );
+                context.read<HospitalLocationProvider>().launchmap(
+                    widget.hospitalSelected.lat, widget.hospitalSelected.lng);
+
+
               },
             ),
             Spacer(),
