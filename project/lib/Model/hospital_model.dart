@@ -26,9 +26,10 @@ class HospitalModel {
       required this.phoneNumber});
 
   static HospitalModel fromJson(Map<String, dynamic> json) {
+
     return HospitalModel(
         name: json['name'] as String,
-        id: json['id'] as String? ?? "",
+      //  id: json['id'] as String? ?? "",
         lat: json['lat'] as double,
         lng: json['lng'] as double,
         city: json['city'] as String,
@@ -42,7 +43,7 @@ class HospitalModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['name'] = name;
-    data['id'] = id;
+    //data['id'] = id;
     data['lat'] = lat;
     data['lng'] = lng;
     data['city'] = city;

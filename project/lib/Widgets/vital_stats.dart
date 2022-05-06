@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VitalStats extends StatefulWidget {
+  final validkey;
    String image;
   String heading;
   TextEditingController c;
 
-   VitalStats({Key? key, required this.image,required this.heading, required this.c }) : super(key: key);
+   VitalStats({Key? key, required this.image,required this.heading, required this.c , required this.validkey}) : super(key: key);
 
   @override
   State<VitalStats> createState() => _VitalStatsState();
@@ -77,9 +78,10 @@ class _VitalStatsState extends State<VitalStats> {
                     ),
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return '';
                     }
+                 else
                     return null;
                   },
                 ),

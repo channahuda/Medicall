@@ -17,8 +17,16 @@ class DisplayHospitalInfo extends StatefulWidget {
 }
 
 class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
+
   @override
   Widget build(BuildContext context) {
+    print("....................................INSIDE BOTTOM SHEET...............................................");
+    print("\n");
+    print("\n");
+    print(widget.hospitalSelected.id);
+    print(widget.hospitalSelected.name);
+    print("\n");
+    print("\n");
     return Wrap(
       children: [
         Padding(
@@ -118,7 +126,7 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PatientForm(),
+                    builder: (context) =>  PatientForm(hospitalModel: widget.hospitalSelected,),
                   ),
                 );
               },

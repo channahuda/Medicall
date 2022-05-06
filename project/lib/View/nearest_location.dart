@@ -71,6 +71,7 @@ class _NearestLocationState extends State<NearestLocation> {
                     onMapCreated: hospitalProvider.onMapCreated,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
+
                         hospitalProvider.position.latitude,
                         hospitalProvider.position.longitude,
                       ),

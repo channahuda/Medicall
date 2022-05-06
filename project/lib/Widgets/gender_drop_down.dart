@@ -1,53 +1,61 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Gender extends StatefulWidget {
-  const Gender({Key? key}) : super(key: key);
+class GenderDropDown extends StatefulWidget {
+  final validkey;
+  const GenderDropDown({Key? key,required this.validkey}) : super(key: key);
 
   @override
-  State<Gender> createState() => _GenderState();
+  State<GenderDropDown> createState() => _GenderDropDownState();
 }
 
-class _GenderState extends State<Gender> {
-  List<String> gender = ['Male', 'Female',];
+class _GenderDropDownState extends State<GenderDropDown> {
+  List<String> gender = ['Male', 'Female','Other'];
   String dropdownValue='Male';
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
      // designSize: const Size(360,800),
-      builder: (BuildContext context) =>   Container(
-        decoration: BoxDecoration(
-          color: const Color(0xfffdab9f).withOpacity(0.02),
-          borderRadius: BorderRadius.circular(7.0.r),
-          border: Border.all(
-            color: Colors.black,
-            width: 1.w,
+      builder: (BuildContext context) =>   Form(
+        key: widget.validkey,
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xfffdab9f).withOpacity(0.02),
+            borderRadius: BorderRadius.circular(7.0.r),
+            border: Border.all(
+              color: Colors.black,
+              width: 1.w,
+            ),
           ),
-        ),
-        height: 40.h,
-        width: 175.w,
-        child: Padding(padding: EdgeInsets.only(left: 10).r,
-          child: DropdownButton(
-            value: dropdownValue,
-            hint: SizedBox(width: 135.w,),
-            icon: Icon(Icons.arrow_drop_down, color: Color(0xff353559),),
-            //elevation: 200,
+          height: 40.h,
+          width: 175.w,
+          child: Padding(padding: EdgeInsets.only(left: 10).r,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
 
-            style:  TextStyle(color: Color(0xff353559), fontSize: 16.sp),
+                //dropdownValue,
+                hint: Text("Select Gender"),
+                //SizedBox(width: 135.w,),
+                icon: Icon(Icons.arrow_drop_down, color: Color(0xff353559),),
+                //elevation: 200,
 
-            items: gender.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownValue = newValue!;
-              });
-            },
+                style:  TextStyle(color: Color(0xff353559), fontSize: 16.sp),
+
+                items: gender.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+
+
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+              ),
+            ),
           ),
         ),
       ),
