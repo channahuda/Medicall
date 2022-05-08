@@ -1,6 +1,4 @@
-//import 'dart:js';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,11 +7,9 @@ import 'package:medicall/Entities/hospital.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Widgets/hospital_info_modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import '../Network_Layer/firebase_network_call.dart';
 import '../Network_Layer/network_call.dart';
 
-//This provider is for nearest hospital map through paramedic login
 
 class HospitalLocationProvider extends ChangeNotifier {
   //GoogleMapController? mapController;
@@ -36,34 +32,10 @@ class HospitalLocationProvider extends ChangeNotifier {
 
   HospitalLocationProvider() {
     loadHospitalsList();
-
-   // isLoadingHospitals = true;
     _determinePosition();
     setCustomMapPin();
-   // isLoadingHospitals = false;
     notifyListeners();
   }
-
-  //
-  // Future<void> hospitalClicked(int index) async {
-  //   while (listOfHospitals.isEmpty) {
-  //     //hospitalSelected = HospitalModel(name: 'No hospital selected', lat: 0, lng: 0, city: 'none', email: 'none', address: 'none', beds: 0, phoneNumber: 'dfsd')
-  //   }
-  //   Future.delayed(Duration(seconds: 3));
-  //   hospitalSelected = await listOfHospitals[index];
-  // }
-
-  // Future<void> setMarkerClick() async {
-  //   Future.delayed(Duration(seconds: 3));
-  //   markerClicked = true;
-  //   notifyListeners();
-  // }
-
-  // HospitalModel getHospitalSelected() {
-  //   while (hospitalSelected == null) {}
-  //   ;
-  //   return hospitalSelected!;
-  // }
 
   launchmap(lat, lng) {
     MapsLauncher.launchCoordinates(lat, lng);
@@ -72,8 +44,8 @@ class HospitalLocationProvider extends ChangeNotifier {
   Future<void> loadHospitalsList() async {
     isLoadingHospitals = true;
     listOfHospitals = await _hospitalServices.getHospitals();
-    isLoadingHospitals = false;
     Future.delayed(const Duration(seconds: 5));
+    isLoadingHospitals = false;
     notifyListeners();
   }
 
@@ -100,7 +72,6 @@ class HospitalLocationProvider extends ChangeNotifier {
             onTap: () {
               index = i;
               // Window will pop up
-              //setMarkerClick();
               markerClicked = true;
               notifyListeners();
               showMaterialModalBottomSheet(
@@ -116,7 +87,6 @@ class HospitalLocationProvider extends ChangeNotifier {
                   );
                 },
               );
-              //hospitalClicked(index);
               hospitalSelected = listOfHospitals[i];
               notifyListeners();
             },
@@ -187,7 +157,7 @@ class HospitalLocationProvider extends ChangeNotifier {
     // continue accessing the position of the device.
     isLoading = true;
     position = await Geolocator.getCurrentPosition();
-    notifyListeners();
+    //notifyListeners();
     isLoading = false;
     notifyListeners();
     return position;

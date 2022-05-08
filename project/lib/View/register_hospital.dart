@@ -158,7 +158,7 @@ class _RegisterHospitalState extends State<RegisterHospital> {
 
                      Navigator.of(context).push(
                      MaterialPageRoute(
-                       builder: (context) => hosplogin(),
+                       builder: (context) => HospitalLogin(),
                                         ),
                                 );
                          }

@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/View/register_hospital.dart';
 import 'patient_list.dart';
 
-class hosplogin extends StatefulWidget {
-  const hosplogin({Key? key}) : super(key: key);
+class HospitalLogin extends StatefulWidget {
+  const HospitalLogin({Key? key}) : super(key: key);
 
   @override
-  _hosploginState createState() => _hosploginState();
+  _HospitalLoginState createState() => _HospitalLoginState();
 }
 
-class _hosploginState extends State<hosplogin> {
+class _HospitalLoginState extends State<HospitalLogin> {
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) => ScreenUtilInit(

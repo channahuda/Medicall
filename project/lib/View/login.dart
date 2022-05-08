@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360,800),
+      designSize: const Size(360, 800),
       builder: (BuildContext context) => Scaffold(
         backgroundColor: Color(0xffF8F8F8),
         body: Column(
@@ -30,18 +30,18 @@ class _LoginState extends State<Login> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Paralogin(),
-                  ),
+                  MaterialPageRoute(builder: (context) => ParamedicLogin()),
                 );
               },
               child: Text('Paramedic Login'),
               style: ElevatedButton.styleFrom(
                   primary: Color(0xff353559),
-                  padding: REdgeInsets.symmetric(horizontal: 75.w, vertical: 18.h),
-                  textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
-                  shape:  RoundedRectangleBorder(
-                    borderRadius:  BorderRadius.circular(10.0.r),
+                  padding:
+                      REdgeInsets.symmetric(horizontal: 75.w, vertical: 18.h),
+                  textStyle:
+                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0.r),
                   )),
             ),
             SizedBox(height: 10.h),
@@ -49,41 +49,49 @@ class _LoginState extends State<Login> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => hosplogin(),
+                    builder: (context) => HospitalLogin(),
                   ),
                 );
               },
               child: Text('Hospital Login'),
               style: ElevatedButton.styleFrom(
                   primary: Color(0xffF18793),
-                  padding: REdgeInsets.symmetric(horizontal: 84.w, vertical: 18.h),
-                  textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
-                  shape:  RoundedRectangleBorder(
-                    borderRadius:  BorderRadius.circular(10.0.r),
+                  padding:
+                      REdgeInsets.symmetric(horizontal: 84.w, vertical: 18.h),
+                  textStyle:
+                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0.r),
                   )),
             ),
             SizedBox(height: 25.h),
             RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                text: "Don't have your hospital registered?",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              TextSpan(
-                  text: ' Sign Up',
-                  style: TextStyle(
-                    color: Colors.blue,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Don't have your hospital registered?",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Navigator.push(
+                  TextSpan(
+                    text: ' Sign Up',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegisterHospital()));
-                    }),
-            ])),
+                            builder: (context) => RegisterHospital(),
+                          ),
+                        );
+                      },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

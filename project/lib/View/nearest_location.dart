@@ -3,15 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:medicall/Providers/hospital_location_provider.dart';
-
-//import 'package:nearest/FindDirection.dart';
 import 'dart:math';
-
 import 'package:medicall/View/patient_form.dart';
 import 'package:medicall/Widgets/hospital_info_modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-
 import '../Model/hospital_model.dart';
 import '../Widgets/logout.dart';
 
@@ -31,7 +27,7 @@ class _NearestLocationState extends State<NearestLocation> {
   @override
   void initState() {
     //loadProvider();
-    //context.read<HospitalLocationProvider>().loadHospitalsList();
+    context.read<HospitalLocationProvider>().loadHospitalsList();
     // TODO: implement initState
     super.initState();
     //loadProvider();
@@ -51,16 +47,6 @@ class _NearestLocationState extends State<NearestLocation> {
       designSize: const Size(360, 800),
       builder: (BuildContext context) => Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   backgroundColor: Colors.transparent,
-        //   //centerTitle: true,
-        //   // title: Text(
-        //   //   'Nearest Hospital',
-        //   //   style: TextStyle(fontSize: 22.sp, color: Colors.white),
-        //   // ),
-        //   actions: const [Logout()],
-        //),
         body: hospitalProvider.isLoading || hospitalProvider.isLoadingHospitals
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -71,7 +57,6 @@ class _NearestLocationState extends State<NearestLocation> {
                     onMapCreated: hospitalProvider.onMapCreated,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
-
                         hospitalProvider.position.latitude,
                         hospitalProvider.position.longitude,
                       ),
