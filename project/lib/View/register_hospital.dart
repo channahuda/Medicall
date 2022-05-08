@@ -32,6 +32,7 @@ class _RegisterHospitalState extends State<RegisterHospital> {
   TextEditingController number = TextEditingController();
   TextEditingController beds = TextEditingController();
 
+
   @override
     Widget build(BuildContext context)  {
 
@@ -61,20 +62,19 @@ class _RegisterHospitalState extends State<RegisterHospital> {
         body: hospitalProvider.isLoading
             ? const Center(
           child: CircularProgressIndicator(),
-        )
-            :
+        ):
+
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
                 child: SingleChildScrollView(
-                 child: Column(
+                 child: Form(
+                     key: _formkey,
+                   child: Column(
                    children: <Widget>[
-                     Form(
-                       key: _formkey,
-                         child: SizedBox(height: 15.h)),
-
-                     Padding(
+                     SizedBox(height: 15.h),
+                    Padding(
                        padding: REdgeInsets.symmetric(horizontal: 40.w),
                        child: Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,11 +90,11 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                              Text('Mark Location on Map',
                                style: TextStyle(
                                    fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.black),
-
                              ),
+                           ]
+                       ),
+                  ),
 
-                           ]),
-                     ),
                   // form(validkey: _formkey,),  //this form is inside w_register_form
                    Stack(
                      children: <Widget>[
@@ -181,7 +181,8 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                    ),
                    ),
                    SizedBox(height: 15.h),
-                  ]
+                       ]
+                    ),
                  )
                 ),
               ),
@@ -215,7 +216,7 @@ class _RegisterHospitalState extends State<RegisterHospital> {
               return '';
             }
             if(pw.text != value){
-              return 'The specified passwords do not match';
+              return 'Passwords do not match';
             }
             return null;
           },

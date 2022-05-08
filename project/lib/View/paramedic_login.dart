@@ -12,6 +12,9 @@ class Paralogin extends StatefulWidget {
 }
 
 class _ParaloginState extends State<Paralogin> {
+  final formkey = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController pass = TextEditingController();
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
   designSize: const Size(360,800),
@@ -35,6 +38,8 @@ class _ParaloginState extends State<Paralogin> {
       ),
       body: SingleChildScrollView(
         reverse: true,
+      child: Form(
+      key: formkey,
         child: Column(
           children: <Widget>[
             Align(
@@ -48,13 +53,16 @@ class _ParaloginState extends State<Paralogin> {
             Padding(
               padding:  REdgeInsets.fromLTRB(40, 0, 40, 10),
               child: TextFormField(
+                controller: name,
                 decoration:  InputDecoration(
                   border: OutlineInputBorder(),
                   contentPadding: REdgeInsets.fromLTRB(10, 0, 0, 0),
                   hintText: ("User ID"),
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {}
+                  if (value!.isEmpty) {
+                    return '';
+                  }
                   return null;
                 },
               ),
@@ -62,6 +70,7 @@ class _ParaloginState extends State<Paralogin> {
             Padding(
               padding:  REdgeInsets.fromLTRB(40, 0, 40, 10),
               child: TextFormField(
+                controller : pass,
                 obscureText: true,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -77,15 +86,17 @@ class _ParaloginState extends State<Paralogin> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
+         onPressed: (){
+              if (formkey.currentState!.validate()) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => NearestLocation(),
                   ),
-
-                );
-              },
+                ); } else {
+                return null;
+              }
+         },
               child: const Text('Login'),
               style: ElevatedButton.styleFrom(
                   primary: const Color(0xff353559),
@@ -104,6 +115,7 @@ class _ParaloginState extends State<Paralogin> {
               ],
             ),
         ),
+      ),
       ),
   )
     );

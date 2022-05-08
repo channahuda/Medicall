@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:medicall/Model/patient_model.dart';
 
 import '../Model/hospital_model.dart';
@@ -40,7 +41,11 @@ class FirebaseNetworkCall implements NetworkCall {
     HospitalList.add(hospital.toJson())
         .then((value) => (hospital.id = value.id))
         .catchError(
-          (error) => print("Failed to add task: $error"),
+          (error) => CupertinoAlertDialog(
+            title: Text("Failed to register hospital"),
+            content: Text("$error"),
+          )
+              //print("Failed to add task: $error"),
         );
   }
 
@@ -57,7 +62,10 @@ class FirebaseNetworkCall implements NetworkCall {
     PatientList.add(patient.toJson())
         .then((value) => (patient.id = value.id))
         .catchError(
-          (error) => print("Failed to add patient: $error"),
+          (error) => CupertinoAlertDialog(
+            title: Text("Failed to add Patient"),
+            content: Text("$error"),
+          )
     );
 
     // final PatientList = FirebaseFirestore.instance;

@@ -12,6 +12,7 @@ class hosplogin extends StatefulWidget {
 }
 
 class _hosploginState extends State<hosplogin> {
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
     designSize: const Size(360,800),
@@ -33,6 +34,8 @@ class _hosploginState extends State<hosplogin> {
         ),
         body: SingleChildScrollView(
           reverse: true,
+        child: Form(
+        key: _formkey,
           child: Column(
           children: <Widget>[
             Align(
@@ -52,7 +55,9 @@ class _hosploginState extends State<hosplogin> {
                   hintText: ("User ID"),
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {}
+                  if (value == null) {
+                    return '';
+                  }
                   return null;
                 },
               ),
@@ -67,7 +72,7 @@ class _hosploginState extends State<hosplogin> {
                   hintText: ("Password"),
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value == null) {
                     return '';
                   }
                   return null;
@@ -77,9 +82,14 @@ class _hosploginState extends State<hosplogin> {
 
             ElevatedButton(
               onPressed: (){
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => PatientList()));
-            },
+           if (_formkey.currentState!.validate()) {
+             Navigator.of(context).push(
+                 MaterialPageRoute(
+                     builder: (context) => PatientList()));
+           } else {
+             return null;
+           }
+              },
               child: Text('Login'),
               style: ElevatedButton.styleFrom(
                   primary: Color(0xff353559),
@@ -119,6 +129,7 @@ class _hosploginState extends State<hosplogin> {
         ),
         ),
       ),
+    ),
     ),
   );
 }
