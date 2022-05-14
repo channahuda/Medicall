@@ -71,7 +71,7 @@ class PatientModel {
     data['oxygenLevel'] = oxygenLevel;
     data['heartRate'] = heartRate;
     data['patientSymptoms'] = patientSymptoms;
-    data['emergencyTreatementGiven'] = emergencyTreatmentGiven;
+    data['emergencyTreatmentGiven'] = emergencyTreatmentGiven;
     return data;
   }
 }

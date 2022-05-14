@@ -24,12 +24,9 @@ late List<PatientModel> listOfPatients;
 
   Future<void> loadPatientList() async {
     isLoading = true;
+    notifyListeners();
     listOfPatients = await _hospitalServices.getPatients();
-    print("\n");
-    print("INSIDE LOAD PATIENT LIST IN PATIENT LIST PROVIDER \n");
-    print(listOfPatients.length);
-    print("\n");
-    print("\n");
+
     //  Future.delayed(const Duration(seconds: 5));
     isLoading = false;
     notifyListeners();

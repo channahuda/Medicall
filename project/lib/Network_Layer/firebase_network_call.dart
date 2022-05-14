@@ -98,35 +98,9 @@ class FirebaseNetworkCall implements NetworkCall {
                   patientList.add(patient);
 
                 }
+  });
+ }
 
-      });
-
-    }
-    // if (firebaseUser != null) {
-    //   await FirebaseFirestore.instance
-    //       .collection(hospital_collection)
-    //       .doc(firebaseUser.uid)
-    //       .get()
-    // }
-    // FirebaseFirestore.instance
-    //     .collection(hospital_collection)
-    //     .get()
-    //     .then((QuerySnapshot querySnapshot) {
-    //   for (var doc in querySnapshot.docs) {
-    //     FirebaseFirestore.instance
-    //         .doc(doc.id)
-    //         .collection(patient_collection)
-    //         .get()
-    //         .then((QuerySnapshot querySnapshot) {
-    //       for (var doc in querySnapshot.docs) {
-    //         PatientModel patient =
-    //         PatientModel.fromJson(doc.data() as Map<String, dynamic>);
-    //         patient.id=doc.id;
-    //         patientList.add(patient);
-    //
-    //       }
-    //     });}
-    // });
     print("\n");
     print("INSIDE get PATIENT  IN  firebase network call \n");
     print(patientList);
@@ -144,20 +118,14 @@ class FirebaseNetworkCall implements NetworkCall {
     PatientList.add(patient.toJson())
         .then((value) => (patient.id = value.id))
         .catchError(
-          (error) => CupertinoAlertDialog(
-            title: Text("Failed to add Patient"),
-            content: Text("$error"),
-          )
+          (error) =>
+              Fluttertoast.showToast(msg: "Failed to submit details")
+          //     CupertinoAlertDialog(
+          //   title: Text("Failed to add Patient"),
+          //   content: Text("$error"),
+          // )
     );
 
-    // final PatientList = FirebaseFirestore.instance;
-    // PatientList.collection(hospital_collection).
-    // doc(hospital.id).collection(patient_collection);
-    // PatientList.add(patient.toJson())
-    //     .then((value) => (patient.id = value.id))
-    //     .catchError(
-    //       (error) => print("Failed to add task: $error"),
-    // );
   }
 
 
@@ -178,36 +146,8 @@ class FirebaseNetworkCall implements NetworkCall {
        print(uid.user?.uid),
        print("\n"),
      Fluttertoast.showToast(msg: "Login Successful"),
-     // Navigator.of(context).pushReplacement(
-     //  MaterialPageRoute(builder: (context) => PatientList())),
 
 });
-   // await
-   // FirebaseFirestore.instance
-   //        .collection('Hospitals')
-   //        .get()
-   //        .then((QuerySnapshot querySnapshot) {
-   //      for (var doc in querySnapshot.docs) {
-   //        HospitalModel hospital =
-   //        HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
-   //        hospital.id=doc.id;
-   //        if(doc["name"]=="fmdkd"){
-   //           _hospitaauth
-   //              .signInWithEmailAndPassword(email: email, password: password)
-   //              .then((uid) => {
-   //          Fluttertoast.showToast(msg: "Login Successful"),
-   //              Navigator.of(context).pushReplacement(
-   //              MaterialPageRoute(builder: (context) => PatientList())),
-   //
-   //          });
-   //        }
-   //        else {
-   //          Fluttertoast.showToast(msg: "Sign in with this Email and Password is not enabled");
-   //        }
-   //
-   //      }
-   //    });
-
 
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
@@ -289,6 +229,42 @@ class FirebaseNetworkCall implements NetworkCall {
 
   }
 
+  // Future<PatientModel?> fetchPatient() async {
+  //   late PatientModel patientModel;
+  //   final firebaseUser = await FirebaseAuth.instance.currentUser;
+  //   if (firebaseUser != null) {
+  //
+  //     await FirebaseFirestore.instance
+  //         .collection(hospital_collection)
+  //         .doc(firebaseUser.uid).collection(patient_collection)
+  //        .get().then((value) =>
+  //        patientModel=PatientModel.fromJson(value.data() as Map<String, dynamic> ))
+  //         .catchError((e) {
+  //       print(e);
+  //     });
+  //    return patientModel;
+  //  //    await FirebaseFirestore.instance
+  //  //        .collection(hospital_collection)
+  //  //        .doc(firebaseUser.uid).collection(patient_collection).get().
+  //  //    then((QuerySnapshot querySnapshot) {
+  //  //      for (var doc in querySnapshot.docs) {
+  //  //        PatientModel patient =
+  //  //        PatientModel.fromJson(doc.data() as Map<String, dynamic>);
+  //  //        patient.id=doc.id;
+  //  //        patientList.add(patient);
+  //  //
+  //  //      }
+  //  //    });
+  //   }
+  //   else {
+  //     print("\n");
+  //     print("\n");
+  //     print("............................................................ \n");
+  //     print("\n");
+  //     print(" error INSIDE FIREBASE NETWORK CALL METHOD FETCHHOSPITAL");
+  //   }
+  // }
+
   Future<HospitalModel?> fetchHospital() async {
     late HospitalModel hospitalModel;
     final firebaseUser = await FirebaseAuth.instance.currentUser;
@@ -302,7 +278,8 @@ class FirebaseNetworkCall implements NetworkCall {
       await FirebaseFirestore.instance
           .collection(hospital_collection)
           .doc(firebaseUser.uid)
-          .get().then((value) => hospitalModel=HospitalModel.fromJson(value.data() as Map<String, dynamic> ))
+          .get().then((value) =>
+      hospitalModel=HospitalModel.fromJson(value.data() as Map<String, dynamic> ))
           .catchError((e) {
         print(e);
       });

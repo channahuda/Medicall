@@ -118,7 +118,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => PatientFormProvider()),
         ChangeNotifierProvider(create: (_) => HospitalLoginProvider()),
         ChangeNotifierProvider(create: (_) => EditHospitalProvider()),
-        ChangeNotifierProvider(create: (_) => PatientListProvider())
+        ChangeNotifierProvider(create: (_) => PatientListProvider()),
   /// ChangeNotifierProvider(create: (_) => CounterProvider()),
       ],
       child: MyApp(),

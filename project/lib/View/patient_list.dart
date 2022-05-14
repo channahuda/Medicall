@@ -18,7 +18,7 @@ class PatientList extends StatefulWidget {
 
 class _PatientListState extends State<PatientList> {
   late PatientListProvider patientProvider;
-  //List<PatientModel> listofpatients=[];
+  List<PatientModel> listofpatients=[];
 
   @override
   void initState() {
@@ -143,7 +143,8 @@ class _PatientListState extends State<PatientList> {
                                         IconButton(icon: Icon(Icons.delete),padding: EdgeInsets.zero,
                                             constraints: BoxConstraints(),
                                           onPressed: (){
-                                          patientList.remove(patientList[index]);
+                                          //IMPLEMENT DUSTBIN
+                                         // patientList.remove(patientList[index]);
                                           setState(() {
                                           });
                                           }
@@ -171,7 +172,8 @@ class _PatientListState extends State<PatientList> {
                                   ),
                               onTap:(){
                                 Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => hospitalform(),
+                                  MaterialPageRoute(builder: (context) =>
+                                      PatientDetails(patientModel:patientProvider.listOfPatients[index],),
                                   ),
                                 );
                               } ,
@@ -191,15 +193,15 @@ class _PatientListState extends State<PatientList> {
 
 
 //REMOVE ALL OF THIS AFTER PROVIDER
-class Patient{
-  String name;
-  int age;
-  String emergencyType;
-
-  Patient(this.name, this.age, this.emergencyType);
-}
-
-List<Patient> patientList = [
-  Patient('Sarah Ali', 25, 'Burn Victim'),
-
-];
+// class Patient{
+//   String name;
+//   int age;
+//   String emergencyType;
+//
+//   Patient(this.name, this.age, this.emergencyType);
+// }
+//
+// List<Patient> patientList = [
+//   Patient('Sarah Ali', 25, 'Burn Victim'),
+//
+// ];

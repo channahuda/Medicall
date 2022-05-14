@@ -4,37 +4,40 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Widgets/vital_stats.dart';
 import 'package:medicall/Widgets/headings.dart';
 
-class PatientDetails extends StatelessWidget {
+import '../Model/patient_model.dart';
+
+// class PatientDetails extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         FocusScopeNode currentFocus = FocusScope.of(context);
+//
+//         if (!currentFocus.hasPrimaryFocus) {
+//           currentFocus.unfocus();
+//         }
+//
+//
+//       },
+//       child: MaterialApp(
+//         title: 'Flutter Demo',
+//         theme: ThemeData(
+//           primarySwatch: Colors.blue,
+//         ),
+//         home: hospitalform(),
+//       ),
+//     );
+//   }
+// }
+class  PatientDetails extends StatefulWidget {
+  final PatientModel patientModel;
+   PatientDetails({Key? key,required this.patientModel}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-
-
-      },
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: hospitalform(),
-      ),
-    );
-  }
-}
-class  hospitalform extends StatefulWidget {
-  const hospitalform({Key? key}) : super(key: key);
-
-  @override
-  _hospitalformState createState() => _hospitalformState();
+  _PatientDetailsState createState() => _PatientDetailsState();
 }
 
-class _hospitalformState extends State<hospitalform> {
+class _PatientDetailsState extends State<PatientDetails> {
   //FocusNode myFocusNode = new FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,7 @@ class _hospitalformState extends State<hospitalform> {
           child: SizedBox(
               height: 45.h,
               width: 400.w,
-              child:TxtField(1,400, 'Sarah Khan')
+              child:TxtField(1,400, widget.patientModel.name)
             // child: dropdown(),
           ),
         ),
@@ -88,12 +91,12 @@ class _hospitalformState extends State<hospitalform> {
             children: <Widget>[
         //FOR NAME
          Padding( padding:  REdgeInsets.fromLTRB(10, 0, 10, 10),
-                  child: TxtField(1, 175, 'Female'),
+                  child: TxtField(1, 175, widget.patientModel.gender),
          ),
 
         // FOR AGE
          Padding( padding:  REdgeInsets.fromLTRB(4, 0, 5, 10),
-                  child:TxtField(1,150, '25'),
+                  child:TxtField(1,150, widget.patientModel.age.toString()),
          ),
         ],
     ),
@@ -107,7 +110,7 @@ class _hospitalformState extends State<hospitalform> {
           child: SizedBox(
             height: 45.h,
             width: 400.w,
-              child:TxtField(1,400, 'Burn Victim')
+              child:TxtField(1,400, widget.patientModel.emergencyType)
            // child: dropdown(),
           ),
         ),
@@ -121,13 +124,13 @@ class _hospitalformState extends State<hospitalform> {
           children: <Widget>[
             const Spacer(),
            //CHANGE THIS AFTER ADDING PROVIDER
-           VitalStat('Assets/blood.png',  'Blood Pressure','100'  ),
+           VitalStat('Assets/blood.png',  'Blood Pressure',widget.patientModel.bloodPressure.toString()  ),
 
             const Spacer(),
-            VitalStat('Assets/oxygen.png', 'Oxygen Level', '140'),
+            VitalStat('Assets/oxygen.png', 'Oxygen Level', widget.patientModel.oxygenLevel.toString()),
 
             const Spacer(),
-            VitalStat('Assets/heart.png', 'Heart Rate', '85'),
+            VitalStat('Assets/heart.png', 'Heart Rate', widget.patientModel.heartRate.toString()),
             const Spacer(),
           ],
         ),
@@ -139,7 +142,7 @@ class _hospitalformState extends State<hospitalform> {
         ),
         Padding(
           padding: REdgeInsets.fromLTRB(10, 0, 10, 10),
-          child: TxtField(1, 400,'Both hands severly bun due to kitchen fire'),
+          child: TxtField(1, 400,widget.patientModel.patientSymptoms),
           //EMERGENCY TREATMENT
         ),
         Padding(
@@ -148,7 +151,8 @@ class _hospitalformState extends State<hospitalform> {
         ),
         Padding(
           padding:  REdgeInsets.fromLTRB(10, 0, 10, 25),
-          child: TxtField(4, 400,'Both hands kept open '),
+
+          child: TxtField(4, 400,widget.patientModel.emergencyTreatmentGiven),
 
           ),
           ]
@@ -162,14 +166,17 @@ class _hospitalformState extends State<hospitalform> {
   }
 
 
-  Widget TxtField( int lines, int width, String detail) => SizedBox(
+  Widget TxtField( int lines, int width, String? detail) => SizedBox(
    // height: 40.h,
     width: width.w,
-    child: TextFormField(
+    child:
+    (detail != null) ?
+     TextFormField(
       readOnly: true,
       maxLines: lines,
       style:  TextStyle(fontSize: 16.sp),
       //controller: c,
+
       initialValue: detail,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -184,7 +191,29 @@ class _hospitalformState extends State<hospitalform> {
         contentPadding:  REdgeInsets.fromLTRB(10, 0, 0, 0),
       ),
 
+    ) :
+    TextFormField(
+    readOnly: true,
+    maxLines: lines,
+    style:  TextStyle(fontSize: 16.sp),
+    //controller: c,
+
+    initialValue: " ",
+    decoration: InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide:
+        BorderSide(width: 1.w, color: Colors.black),
+        borderRadius: BorderRadius.circular(7.r),
+      ),
+      focusedBorder:  OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(7.r)),
+        borderSide: BorderSide(width: 1.w, color: Colors.black),
+      ),
+      contentPadding:  REdgeInsets.fromLTRB(10, 0, 0, 0),
     ),
+
+  )
+
   );
 
   Widget VitalStat(String image, String heading,String detail) => Container(
