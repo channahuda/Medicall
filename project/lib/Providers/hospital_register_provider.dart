@@ -16,8 +16,7 @@ class HospitalRegisterProvider extends ChangeNotifier {
 
   addHospitalsList(HospitalModel hospital) async {
     isLoading=true;
-    _hospitalServices.addHospital(hospital);
-    //listOfHospitals = (await _hospitalServices.getHospitals());
+    _hospitalServices.signUp(hospital);
     isLoading=false;
     notifyListeners();
   }

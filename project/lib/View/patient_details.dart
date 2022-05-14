@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Widgets/vital_stats.dart';
 import 'package:medicall/Widgets/headings.dart';
 
-class MyApp extends StatelessWidget {
+class PatientDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

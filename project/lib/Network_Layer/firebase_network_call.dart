@@ -1,8 +1,12 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:medicall/Model/patient_model.dart';
+import 'package:medicall/View/patient_list.dart';
 
 import '../Model/hospital_model.dart';
 import '../Providers/hospital_location_provider.dart';
@@ -12,6 +16,8 @@ class FirebaseNetworkCall implements NetworkCall {
   String hospital_collection = "Hospitals";
   String patient_collection= "Patients";
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final _hospitaauth =FirebaseAuth.instance;
 
 
   @override
@@ -34,12 +40,23 @@ class FirebaseNetworkCall implements NetworkCall {
 
     return hospitalList;
   }
+  // Firestore.instance
+  //     .collection('users')
+  //     .document(firebaseUser.uid)
+  //     .setData({'email': user.email, 'uid': user.uid})
+  //     .then((value) => Navigator.push(
+  // context, MaterialPageRoute(builder: (context) => Home())))
+  //     .catchError((e) {
+  // print(e);
+  // });
+  void addHospital(HospitalModel hospital,) {
 
-  void addHospital(HospitalModel hospital) {
+    // ospitalModel userModel = UserModel();
+    // var hospitalUser = await FirebaseAuth.instance.currentUser;
     CollectionReference HospitalList =
         FirebaseFirestore.instance.collection(hospital_collection);
-    HospitalList.add(hospital.toJson())
-        .then((value) => (hospital.id = value.id))
+        HospitalList.doc(hospital.id).set(hospital.toJson())
+      //  .then((value) => (hospital.id = value.id),)
         .catchError(
           (error) => CupertinoAlertDialog(
             title: Text("Failed to register hospital"),
@@ -47,12 +64,77 @@ class FirebaseNetworkCall implements NetworkCall {
           )
               //print("Failed to add task: $error"),
         );
+
+    print("\n");
+    print("\n");
+    print("INSIDE FIREBASE NETWORK CALL ADDHOSPITAL \n");
+    print("hospital id      ");
+    print(hospital.id);
+    print("\n");
+
+
+
+    Fluttertoast.showToast(msg: "Hospital added successfully ");
+
   }
 
   // final databaseReference = Firestore.instance;
   // databaseReference.collection('main collection name').document( unique id).
   // collection('string name').document().setData(); // your answer missing **.document()**  before setData
 
+  Future<List<PatientModel>> getPatients() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    List<PatientModel> patientList = [];
+
+    if(firebaseUser != null ){
+      await FirebaseFirestore.instance
+            .collection(hospital_collection)
+            .doc(firebaseUser.uid).collection(patient_collection).get().
+            then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+                  PatientModel patient =
+                  PatientModel.fromJson(doc.data() as Map<String, dynamic>);
+                  patient.id=doc.id;
+                  patientList.add(patient);
+
+                }
+
+      });
+
+    }
+    // if (firebaseUser != null) {
+    //   await FirebaseFirestore.instance
+    //       .collection(hospital_collection)
+    //       .doc(firebaseUser.uid)
+    //       .get()
+    // }
+    // FirebaseFirestore.instance
+    //     .collection(hospital_collection)
+    //     .get()
+    //     .then((QuerySnapshot querySnapshot) {
+    //   for (var doc in querySnapshot.docs) {
+    //     FirebaseFirestore.instance
+    //         .doc(doc.id)
+    //         .collection(patient_collection)
+    //         .get()
+    //         .then((QuerySnapshot querySnapshot) {
+    //       for (var doc in querySnapshot.docs) {
+    //         PatientModel patient =
+    //         PatientModel.fromJson(doc.data() as Map<String, dynamic>);
+    //         patient.id=doc.id;
+    //         patientList.add(patient);
+    //
+    //       }
+    //     });}
+    // });
+    print("\n");
+    print("INSIDE get PATIENT  IN  firebase network call \n");
+    print(patientList);
+    print("\n");
+    print("\n");
+
+    return patientList;
+  }
 
 
   void addPatient(PatientModel patient,HospitalModel hospital) {
@@ -78,26 +160,175 @@ class FirebaseNetworkCall implements NetworkCall {
     // );
   }
 
+
+
+
+  void signIn(String email, String password,BuildContext context) async {
+    String? errorMessage;
+
+    try {
+     await _hospitaauth
+    .signInWithEmailAndPassword(email: email, password: password)
+    .then((uid) => {
+      print("\n"),
+       print("...................................................... \n"),
+      print("INSIDE SIGNIN OF FIREBASE NETWORK CALL"),
+      print(uid),
+       print("\n"),
+       print(uid.user?.uid),
+       print("\n"),
+     Fluttertoast.showToast(msg: "Login Successful"),
+     // Navigator.of(context).pushReplacement(
+     //  MaterialPageRoute(builder: (context) => PatientList())),
+
+});
+   // await
+   // FirebaseFirestore.instance
+   //        .collection('Hospitals')
+   //        .get()
+   //        .then((QuerySnapshot querySnapshot) {
+   //      for (var doc in querySnapshot.docs) {
+   //        HospitalModel hospital =
+   //        HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
+   //        hospital.id=doc.id;
+   //        if(doc["name"]=="fmdkd"){
+   //           _hospitaauth
+   //              .signInWithEmailAndPassword(email: email, password: password)
+   //              .then((uid) => {
+   //          Fluttertoast.showToast(msg: "Login Successful"),
+   //              Navigator.of(context).pushReplacement(
+   //              MaterialPageRoute(builder: (context) => PatientList())),
+   //
+   //          });
+   //        }
+   //        else {
+   //          Fluttertoast.showToast(msg: "Sign in with this Email and Password is not enabled");
+   //        }
+   //
+   //      }
+   //    });
+
+
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case "invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
+
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        case "too-many-requests":
+          errorMessage = "Too many requests";
+          break;
+        case "operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
+      }
+      Fluttertoast.showToast(msg: errorMessage);
+      print(error.code);
+    }
+
+  }
+
+  void signUp(HospitalModel hospital ) async {
+    String? errorMessage;
+    try {
+    await _hospitaauth
+          .createUserWithEmailAndPassword(email: hospital.email, password: hospital.password!)
+          .then((value) => {
+            hospital.id=value.user?.uid,
+            addHospital(hospital),
+
+          })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+
+    print("\n");
+    print("\n");
+    print("INSIDE FIREBASE NETWORK CALL signup \n");
+    print("hospital id      ");
+    print(hospital.id);
+    print("\n");
+    }
+    on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case "invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        case "too-many-requests":
+          errorMessage = "Too many requests";
+          break;
+        case "operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
+      }
+      Fluttertoast.showToast(msg: errorMessage);
+      print(error.code);
+    }
+
+  }
+
+  Future<HospitalModel?> fetchHospital() async {
+    late HospitalModel hospitalModel;
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      print("\n");
+      print("\n");
+      print("............................................................ \n");
+      print("\n");
+      print("THERE IS A VALUE IN FIREBASE USER CALLED $firebaseUser \n");
+      print(firebaseUser.email);
+      await FirebaseFirestore.instance
+          .collection(hospital_collection)
+          .doc(firebaseUser.uid)
+          .get().then((value) => hospitalModel=HospitalModel.fromJson(value.data() as Map<String, dynamic> ))
+          .catchError((e) {
+        print(e);
+      });
+      return hospitalModel;
+    //  print();
+    }
+    else {
+      print("\n");
+      print("\n");
+      print("............................................................ \n");
+      print("\n");
+      print(" error INSIDE FIREBASE NETWORK CALL METHOD FETCHHOSPITAL");
+    }
+  }
+
+  void updateHospital(HospitalModel hospitalModel) async{
+     //var hospitalUser = await FirebaseAuth.instance.currentUser;
+    CollectionReference HospitalList =
+    FirebaseFirestore.instance.collection(hospital_collection);
+    HospitalList.doc(hospitalModel.id).update(hospitalModel.toJson())
+        .catchError(
+            (error) =>  Fluttertoast.showToast(msg: "Hospital Could not be updated")
+
+    );
+
+
+  }
+
 }
-//
-// tasksList.add(task);
-// CollectionReference tasklist =
-// FirebaseFirestore.instance.collection('tasks');
-// tasklist
-//     .add(task.toJson())
-// .then((value) => (task.id = value.id))
-// .catchError(
-// (error) => print("Failed to add task: $error"),
-// );
-//
-// (QuerySnapshot querySnapshot) {
-// querySnapshot.docs.forEach(
-// (doc) {
-// Task newtask = Task.fromJson(doc.data() as Map<String, dynamic>);
-// newtask.id = doc.id;
-// // print(newtask.id);
-// tasksList.add(newtask);
-// //Task.fromJson(doc.data() as Map<String, dynamic>));
-// firstButton = false;
-// secondButton = true;
-// },

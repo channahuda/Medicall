@@ -139,11 +139,12 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                      //NEED TO CHANGE THIS OFCOURSE
                    final hospital= HospitalModel(
                      name:hospitalname.text,
+                     password: cpw.text,
                      address: address.text,
                      email: email.text,
                      lng: 4324,
                      lat: 2334,
-                     beds: 1,
+                     beds: int.parse(beds.text),
                      city: city.text,
                      phoneNumber: number.text,
                    );
@@ -151,16 +152,25 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                    print("\n");
                    print("\n");
                    print(hospital.name);
+                   print("ID IS          ");
+                   print(hospital.id);
+                   print("\n");
                    Provider.of<HospitalRegisterProvider>(context, listen: false).addHospitalsList(hospital);
 
 
+                   Navigator.pushAndRemoveUntil(
+                       (context),
+                       MaterialPageRoute(builder: (context) => HospitalLogin()),
+                           (route) => false);
 
 
-                     Navigator.of(context).push(
-                     MaterialPageRoute(
-                       builder: (context) => HospitalLogin(),
-                                        ),
-                                );
+
+                     // Navigator.of(context).pushAndRemoveUntil(
+                     //   context,
+                     // MaterialPageRoute(
+                     //   builder: (context) => HospitalLogin(),
+                     //                    ),
+                     //            );
                          }
                    else {
                      print("............................ELSE................................................");
@@ -213,7 +223,7 @@ class _RegisterHospitalState extends State<RegisterHospital> {
           controller: TextEditingController,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return '';
+              return 'This field is required';
             }
             if(pw.text != value){
               return 'Passwords do not match';
@@ -258,7 +268,7 @@ class _RegisterHospitalState extends State<RegisterHospital> {
           controller: TextEditingController,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return '';
+              return 'This field is required';
             }
             if(TextEditingController==number && number.text.length != 11) {
               print(number.text);
@@ -298,8 +308,16 @@ class _RegisterHospitalState extends State<RegisterHospital> {
         TextFormField(
           controller: TextEditingController,
           validator: (value) {
+            RegExp regex = new RegExp(r'^.{6,}$');
             if (value == null || value.isEmpty) {
-              return '';
+              return 'This field is required';
+            }
+            else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]" )
+                .hasMatch(value) && TextEditingController == email ) {
+              return ("Please Enter a valid email");
+            }
+           if (!regex.hasMatch(value) && TextEditingController == pw) {
+              return "Enter Valid Password(Min. 6 Characters)";
             }
             return null;
           },

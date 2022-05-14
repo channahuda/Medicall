@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medicall/Network_Layer/hospital_login_auth.dart';
+import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/View/register_hospital.dart';
+import 'package:provider/provider.dart';
 import 'patient_list.dart';
 
 class HospitalLogin extends StatefulWidget {
@@ -12,7 +15,10 @@ class HospitalLogin extends StatefulWidget {
 }
 
 class _HospitalLoginState extends State<HospitalLogin> {
+  TextEditingController email = TextEditingController();
+  TextEditingController pw = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
     designSize: const Size(360,800),
@@ -32,7 +38,11 @@ class _HospitalLoginState extends State<HospitalLogin> {
             style: TextStyle(fontSize: 22.sp, color: Colors.white),
           ),
         ),
-        body: SingleChildScrollView(
+        body: context.read<HospitalLoginProvider>().isLoading
+        ? const Center(
+        child: CircularProgressIndicator(),
+    )
+        :SingleChildScrollView(
           reverse: true,
         child: Form(
         key: _formkey,
@@ -49,45 +59,68 @@ class _HospitalLoginState extends State<HospitalLogin> {
             Padding(
               padding:  REdgeInsets.fromLTRB(40, 0, 40, 10),
               child: TextFormField(
-                decoration:  InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: REdgeInsets.fromLTRB(10, 0, 0, 0),
-                  hintText: ("User ID"),
-                ),
+                  controller: email,
                 validator: (value) {
-                  if (value == null) {
-                    return '';
+                  if (value == null || value.isEmpty) {
+                    return 'Email is required';
+                  }
+                  else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                      .hasMatch(value)) {
+                    return ("Please Enter a valid email");
                   }
                   return null;
                 },
+                  decoration:  InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding: REdgeInsets.fromLTRB(10, 0, 0, 0),
+                  hintText: ("Email"),
+                ),
+
               ),
             ),
             Padding(
               padding:  REdgeInsets.fromLTRB(40, 0, 40, 10),
               child: TextFormField(
+                controller: pw,
+                validator: (value) {
+                  if (value ==null || value.isEmpty) {
+                    return "Password is required";
+                  }
+                  RegExp regex = new RegExp(r'^.{6,}$');
+
+                  if (!regex.hasMatch(value)) {
+                    return "Enter Valid Password(Min. 6 Characters)";
+                  }
+                  return null;
+                },
                 obscureText: true,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   hintText: ("Password"),
                 ),
-                validator: (value) {
-                  if (value == null) {
-                    return '';
-                  }
-                  return null;
-                },
+
               ),
             ),
 
             ElevatedButton(
               onPressed: (){
            if (_formkey.currentState!.validate()) {
-             Navigator.of(context).push(
-                 MaterialPageRoute(
-                     builder: (context) => PatientList()));
-           } else {
-             return null;
+             context.read<HospitalLoginProvider>().loginHospital(email.text, pw.text,context);
+             Navigator.of(context).pushReplacement(
+                 MaterialPageRoute(builder: (context) => PatientList()));
+             //  login.signIn(email.text,pw.text,context);
+             // context.read<HospitalLoginAuth>().login(
+             //   email.text,
+             //   pw.text,
+             // );
+             // Navigator.of(context).push(
+             //     MaterialPageRoute(
+             //         builder: (context) => PatientList()));
+           }
+
+           else {
+             return ;
            }
               },
               child: Text('Login'),
@@ -115,10 +148,11 @@ class _HospitalLoginState extends State<HospitalLogin> {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterHospital()));
+                      //
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => RegisterHospital()));
                     }),
             ]
           )

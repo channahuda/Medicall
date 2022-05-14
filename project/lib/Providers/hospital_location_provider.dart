@@ -44,7 +44,7 @@ class HospitalLocationProvider extends ChangeNotifier {
   Future<void> loadHospitalsList() async {
     isLoadingHospitals = true;
     listOfHospitals = await _hospitalServices.getHospitals();
-    Future.delayed(const Duration(seconds: 5));
+  //  Future.delayed(const Duration(seconds: 5));
     isLoadingHospitals = false;
     notifyListeners();
   }
@@ -58,6 +58,8 @@ class HospitalLocationProvider extends ChangeNotifier {
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
+    isLoading=true;
+    notifyListeners();
     markers.clear();
     for (int i = 0; i < listOfHospitals.length; i++) {
       double distance = calculateDistance(position.latitude, position.longitude,
@@ -94,31 +96,32 @@ class HospitalLocationProvider extends ChangeNotifier {
         );
         markers[listOfHospitals[i].name] = marker;
       }
-      // else if (markers.length == 0) {
-      //   for (int i = 1; i < listOfHospitals.length; i++) {
-      //     if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
-      //       if (markers.length > 0) {
-      //         break;
-      //       } else {
-      //         final marker = Marker(
-      //           markerId: MarkerId(listOfHospitals[i].name),
-      //           position:
-      //               LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
-      //           infoWindow: InfoWindow(
-      //               title: listOfHospitals[i].name,
-      //               onTap: () {
-      //               //  index = i;
-      //
-      //                 markerClicked = true;
-      //                 notifyListeners();
-      //               }),
-      //         );
-      //         markers[listOfHospitals[i].name] = marker;
-      //       }
-      //     }
-      //   }
-      // }
+      else if (markers.length == 0) {
+        for (int i = 1; i < listOfHospitals.length; i++) {
+          if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
+            if (markers.length > 0) {
+              break;
+            } else {
+              final marker = Marker(
+                markerId: MarkerId(listOfHospitals[i].name),
+                position:
+                    LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
+                infoWindow: InfoWindow(
+                    title: listOfHospitals[i].name,
+                    onTap: () {
+                    //  index = i;
+
+                      markerClicked = true;
+                      notifyListeners();
+                    }),
+              );
+              markers[listOfHospitals[i].name] = marker;
+            }
+          }
+        }
+      }
     }
+    isLoading=false;
     notifyListeners();
   }
 
