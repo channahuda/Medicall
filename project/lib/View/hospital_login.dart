@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Network_Layer/hospital_login_auth.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
+import 'package:medicall/View/main.dart';
 import 'package:medicall/View/register_hospital.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Login.dart';
 import 'patient_list.dart';
+import 'package:medicall/Providers/login_provider.dart';
 
 class HospitalLogin extends StatefulWidget {
   const HospitalLogin({Key? key}) : super(key: key);
@@ -17,7 +21,32 @@ class HospitalLogin extends StatefulWidget {
 class _HospitalLoginState extends State<HospitalLogin> {
   TextEditingController email = TextEditingController();
   TextEditingController pw = TextEditingController();
+  late SharedPreferences logindata;
+  late bool newuser;
   final _formkey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    check_if_already_login();
+  }
+  void check_if_already_login() async {
+    logindata = await SharedPreferences.getInstance();
+    newuser = (logindata.getBool('login') ?? true);
+    print(newuser);
+    if (newuser == false) {
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => PatientList()));
+    }
+  }
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    email.dispose();
+    pw.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
@@ -107,8 +136,8 @@ class _HospitalLoginState extends State<HospitalLogin> {
               onPressed: (){
            if (_formkey.currentState!.validate()) {
              context.read<HospitalLoginProvider>().loginHospital(email.text, pw.text,context);
-             Navigator.of(context).pushReplacement(
-                 MaterialPageRoute(builder: (context) => PatientList()));
+             // Navigator.of(context).pushReplacement(
+             //     MaterialPageRoute(builder: (context) => PatientList()));
              //  login.signIn(email.text,pw.text,context);
              // context.read<HospitalLoginAuth>().login(
              //   email.text,
@@ -118,10 +147,17 @@ class _HospitalLoginState extends State<HospitalLogin> {
              //     MaterialPageRoute(
              //         builder: (context) => PatientList()));
            }
-
            else {
              return ;
            }
+            String username = email.text;
+            String password = pw.text;
+            if (username != '' && password != '') {
+              print('Successfull');
+              logindata.setBool('login', false);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PatientList()));
+              }
               },
               child: Text('Login'),
               style: ElevatedButton.styleFrom(

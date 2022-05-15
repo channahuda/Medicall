@@ -7,6 +7,7 @@ import 'package:medicall/Widgets/footer.dart';
 import 'package:medicall/Widgets/logout_dialog_box.dart';
 import 'package:provider/provider.dart';
 import 'package:medicall/View/patient_details.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PatientList extends StatefulWidget {
@@ -19,6 +20,7 @@ class PatientList extends StatefulWidget {
 class _PatientListState extends State<PatientList> {
   late PatientListProvider patientProvider;
   List<PatientModel> listofpatients=[];
+  late SharedPreferences logindata;
 
   @override
   void initState() {
@@ -26,6 +28,13 @@ class _PatientListState extends State<PatientList> {
     context.read<PatientListProvider>().loadPatientList();
     // TODO: implement initState
     super.initState();
+    initial();
+  }
+
+  void initial() async {
+    logindata = await SharedPreferences.getInstance();
+    setState(() {
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -51,7 +60,9 @@ class _PatientListState extends State<PatientList> {
                   height: 30.h,
                 ),
                 onPressed: () {
+                  logindata.setBool('login', LogoutDialog.loginDialog);
                   LogoutDialog.showLogoutDialog(context);
+                   // fix this line
                 },
               ),
               Positioned(
@@ -65,6 +76,7 @@ class _PatientListState extends State<PatientList> {
                     ),
                   ),
                   onTap: () {
+                    logindata.setBool('login', true);
                     LogoutDialog.showLogoutDialog(context);
                   },
                 ),

@@ -99,7 +99,10 @@ import 'package:medicall/Providers/hospital_location_provider.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/Providers/patient_form_provider.dart';
+import 'package:medicall/Providers/login_provider.dart';
 import 'package:medicall/View/home_page.dart';
+import 'package:medicall/View/patient_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Providers/patient_list_provider.dart';
 import 'login.dart';
@@ -119,6 +122,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HospitalLoginProvider()),
         ChangeNotifierProvider(create: (_) => EditHospitalProvider()),
         ChangeNotifierProvider(create: (_) => PatientListProvider()),
+        ChangeNotifierProvider(create: (_) => LoginProvider()),
+
   /// ChangeNotifierProvider(create: (_) => CounterProvider()),
       ],
       child: MyApp(),
@@ -127,7 +132,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,12 +157,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+
   void initState() {
     // TODO: implement initState
     super.initState();
     startTimer();
-  }
+    check_if_already_login();
 
+
+  }
+  late SharedPreferences logindata;
+  late bool newuser;
+  void check_if_already_login() async {
+    logindata = await SharedPreferences.getInstance();
+    newuser = (logindata.getBool('login') ?? true);
+    print(newuser);
+    if (newuser == false) {
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => PatientList()));
+    }
+  }
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -180,12 +200,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   route() {
     Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
+      context, MaterialPageRoute(
         builder: (context) => const Login(),
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
