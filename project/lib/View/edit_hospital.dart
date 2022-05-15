@@ -122,35 +122,35 @@ class _EditHospitalState extends State<EditHospital> {
                                           inputFile(
                                               label: "Hospital Name",
                                               initval: hospitalProvider
-                                                  .hospitalmodel?.name,
+                                                  .hospitalmodel.name,
                                               cont: hospitalname),
                                           inputFile(
                                               label: "Email",
                                               initval: hospitalProvider
-                                                  .hospitalmodel?.email,
+                                                  .hospitalmodel.email,
                                               cont: email),
                                           // inputFile(label: "Password", obscureText: true, cont: password),
                                           // inputFile(label: "Confirm Password", obscureText: true, cont: password),
                                           inputFile(
                                               label: "Address",
                                               initval: hospitalProvider
-                                                  .hospitalmodel?.address,
+                                                  .hospitalmodel.address,
                                               cont: address),
                                           inputFile(
                                               label: "City",
                                               initval: hospitalProvider
-                                                  .hospitalmodel?.city,
+                                                  .hospitalmodel.city,
                                               cont: city),
                                           inputFileNumber(
                                               label: "Contact Number",
                                               initval: hospitalProvider
-                                                  .hospitalmodel?.phoneNumber,
+                                                  .hospitalmodel.phoneNumber,
                                               cont: contact),
                                           inputFileNumber(
                                               label:
                                                   "Number of Beds in Hospital",
                                               initval: hospitalProvider
-                                                  .hospitalmodel?.beds,
+                                                  .hospitalmodel.beds,
                                               cont: beds),
                                           Text(
                                             'Mark Location on Map',
@@ -215,14 +215,14 @@ class _EditHospitalState extends State<EditHospital> {
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop(true);
-                                                        hospitalProvider.updateHospital(
-                                                           hospitalname.text ?? hospitalProvider.hospitalmodel.name,
-                                                            email.text ?? hospitalProvider.hospitalmodel.email,
-                                                            address.text ?? hospitalProvider.hospitalmodel.address,
-                                                            city.text ?? hospitalProvider.hospitalmodel.city,
-                                                            contact.text ?? hospitalProvider.hospitalmodel.phoneNumber,
-                                                            int.parse(beds.text )?? hospitalProvider.hospitalmodel.beds
-                                                           );
+                                                        // hospitalProvider.updateHospital(
+                                                        //    hospitalname.text ?? hospitalProvider.hospitalmodel.name,
+                                                        //     email.text ?? hospitalProvider.hospitalmodel.email,
+                                                        //     address.text ?? hospitalProvider.hospitalmodel.address,
+                                                        //     city.text ?? hospitalProvider.hospitalmodel.city,
+                                                        //     contact.text ?? hospitalProvider.hospitalmodel.phoneNumber,
+                                                        //     int.parse(beds.text )?? hospitalProvider.hospitalmodel.beds
+                                                        //    );
                                                         // // final hospital =
                                                         //     HospitalModel(
                                                         //   name:
