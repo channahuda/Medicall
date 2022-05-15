@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:medicall/Model/patient_model.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
@@ -31,4 +30,18 @@ late List<PatientModel> listOfPatients;
     isLoading = false;
     notifyListeners();
   }
+
+  Future<void> deletePatients(PatientModel patient) async {
+    isLoading = true;
+    notifyListeners();
+     await _hospitalServices.deletePatient(patient);
+
+    //  Future.delayed(const Duration(seconds: 5));
+
+    isLoading = false;
+    loadPatientList();
+    notifyListeners();
+  }
+
+
 }

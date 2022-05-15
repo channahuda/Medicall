@@ -155,10 +155,8 @@ class _PatientListState extends State<PatientList> {
                                         IconButton(icon: Icon(Icons.delete),padding: EdgeInsets.zero,
                                             constraints: BoxConstraints(),
                                           onPressed: (){
-                                          //IMPLEMENT DUSTBIN
+                                            patientProvider.deletePatients(patientProvider.listOfPatients[index]);
                                          // patientList.remove(patientList[index]);
-                                          setState(() {
-                                          });
                                           }
                                           )
                                       ]

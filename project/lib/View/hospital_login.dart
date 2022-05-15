@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Login.dart';
 import 'patient_list.dart';
-import 'package:medicall/Providers/login_provider.dart';
 
 class HospitalLogin extends StatefulWidget {
   const HospitalLogin({Key? key}) : super(key: key);

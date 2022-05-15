@@ -99,7 +99,6 @@ import 'package:medicall/Providers/hospital_location_provider.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/Providers/patient_form_provider.dart';
-import 'package:medicall/Providers/login_provider.dart';
 import 'package:medicall/View/home_page.dart';
 import 'package:medicall/View/patient_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -122,7 +121,6 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HospitalLoginProvider()),
         ChangeNotifierProvider(create: (_) => EditHospitalProvider()),
         ChangeNotifierProvider(create: (_) => PatientListProvider()),
-        ChangeNotifierProvider(create: (_) => LoginProvider()),
 
   /// ChangeNotifierProvider(create: (_) => CounterProvider()),
       ],

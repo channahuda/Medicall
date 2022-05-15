@@ -3,36 +3,27 @@ import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
 
 class EditHospitalProvider extends ChangeNotifier {
-  late HospitalModel? hospitalmodel;
+  late HospitalModel hospitalmodel;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   bool ischanged=false;
 
   bool isLoading=false;
+
 
   void editHospital() async {
     isLoading=true;
     notifyListeners();
     //something wrong
     hospitalmodel= await _hospitalServices.fetchHospital();
-    print("\n");
-    print("\n");
-    print("\n");
-    print("EDIT HOSPITAL PROVIDER ID CHECKING");
-    print(hospitalmodel?.id);
-    print(hospitalmodel?.email);
-    print(".......id?.............");
+
     isLoading=false;
     notifyListeners();
-    print("I AM OUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
 
   }
-  // static Future updateTask(Task task) async {
-  //   final docTodo = FirebaseFirestore.instance.collection('task').doc(task.id);
-  //   await docTodo.update(task.toJson());
-  // }
-  void updateHospital(HospitalModel hospital)  {
+
+  void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds)  {
     isLoading=true;
-    _hospitalServices.updateHospital(hospital);
+   // _hospitalServices.updateHospital(hospitalName,email,address,  city,  contact,  beds);
     isLoading=false;
     notifyListeners();
 

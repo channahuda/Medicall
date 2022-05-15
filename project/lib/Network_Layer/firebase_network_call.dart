@@ -125,7 +125,24 @@ class FirebaseNetworkCall implements NetworkCall {
           //   content: Text("$error"),
           // )
     );
+    FirebaseFirestore.instance.collection(hospital_collection).doc(hospital.id)
+        .update({'beds' : hospital.beds-1})  .catchError(
+            (error) =>
+            Fluttertoast.showToast(msg: "Failed to reserve bed"));
+  }
 
+  Future<void> deletePatient(PatientModel patient) async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+    if(firebaseUser != null) {
+      CollectionReference PatientList =
+      await FirebaseFirestore.instance.collection(hospital_collection).doc(
+          firebaseUser.uid).collection(patient_collection);
+      PatientList.doc(patient.id).delete().catchError((error) =>
+          Fluttertoast.showToast(msg: "Failed to delete user"));
+    }
+    else {
+      Fluttertoast.showToast(msg: "Failed to delete user");
+    }
   }
 
 
@@ -145,6 +162,8 @@ class FirebaseNetworkCall implements NetworkCall {
        print("\n"),
        print(uid.user?.uid),
        print("\n"),
+     Navigator.of(context).pushReplacement(
+     MaterialPageRoute(builder: (context) => PatientList())),
      Fluttertoast.showToast(msg: "Login Successful"),
 
 });
@@ -229,6 +248,7 @@ class FirebaseNetworkCall implements NetworkCall {
 
   }
 
+
   // Future<PatientModel?> fetchPatient() async {
   //   late PatientModel patientModel;
   //   final firebaseUser = await FirebaseAuth.instance.currentUser;
@@ -265,47 +285,43 @@ class FirebaseNetworkCall implements NetworkCall {
   //   }
   // }
 
-  Future<HospitalModel?> fetchHospital() async {
+  Future<HospitalModel> fetchHospital() async {
+
     late HospitalModel hospitalModel;
     final firebaseUser = await FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      print("\n");
-      print("\n");
-      print("............................................................ \n");
-      print("\n");
-      print("THERE IS A VALUE IN FIREBASE USER CALLED $firebaseUser \n");
-      print(firebaseUser.email);
-      await FirebaseFirestore.instance
-          .collection(hospital_collection)
-          .doc(firebaseUser.uid)
-          .get().then((value) =>
-      hospitalModel=HospitalModel.fromJson(value.data() as Map<String, dynamic> ))
-          .catchError((e) {
-        print(e);
-      });
-      return hospitalModel;
-    //  print();
-    }
-    else {
-      print("\n");
-      print("\n");
-      print("............................................................ \n");
-      print("\n");
-      print(" error INSIDE FIREBASE NETWORK CALL METHOD FETCHHOSPITAL");
+
+      if (firebaseUser != null) {
+        print(firebaseUser.email);
+        await FirebaseFirestore.instance
+            .collection(hospital_collection)
+            .doc(firebaseUser.uid)
+            .get().then((value) =>
+        hospitalModel =
+            HospitalModel.fromJson(value.data() as Map<String, dynamic>))
+            .catchError((e) {
+          print(e);
+        });
+        return hospitalModel;
+        //  print();
+      }
+      else {
+        throw Exception('User is null');
+
+
     }
   }
 
-  void updateHospital(HospitalModel hospitalModel) async{
-     //var hospitalUser = await FirebaseAuth.instance.currentUser;
-    CollectionReference HospitalList =
-    FirebaseFirestore.instance.collection(hospital_collection);
-    HospitalList.doc(hospitalModel.id).update(hospitalModel.toJson())
-        .catchError(
-            (error) =>  Fluttertoast.showToast(msg: "Hospital Could not be updated")
-
-    );
-
-
-  }
+  // void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds) async{
+  //    //var hospitalUser = await FirebaseAuth.instance.currentUser;
+  //   CollectionReference HospitalList =
+  //   FirebaseFirestore.instance.collection(hospital_collection);
+  //   HospitalList.doc(hospitalModel.id).update(hospitalModel.toJson())
+  //       .catchError(
+  //           (error) =>  Fluttertoast.showToast(msg: "Hospital Could not be updated")
+  //
+  //   );
+  //
+  //
+  // }
 
 }

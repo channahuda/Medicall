@@ -96,9 +96,14 @@ class _PatientFormState extends State<PatientForm> {
                       children: <Widget>[
                         //FOR NAME
                         Padding(
-                            padding:  REdgeInsets.fromLTRB(10, 0, 10, 10),
+                            padding:  REdgeInsets.fromLTRB(10, 0, 10, 9),
                            // child: GenderDropDown(validkey: formkey,)
                           //TxtFormField(lines:1, width:175,c: gender),
+                          child: SizedBox(
+                            height: 50.h,
+                            width: 170.w,
+                            child: GenderDropDown(),
+                          ),
                         ),
 
                         // FOR AGE
@@ -159,9 +164,9 @@ class _PatientFormState extends State<PatientForm> {
                         child: headings(text: "Emergency Treatment Given")
                     ),
                     Padding(
-                      padding:  REdgeInsets.fromLTRB(10, 0, 10, 25),
-                      child: TxtFormField(lines:4, width:400.0,c: treatment),
-
+                      padding: REdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: TxtFormField(lines: 4,width: 400.0,c: treatment),
+                      //EMERGENCY TREATMENT
                     ),
                     Padding(
                       padding: REdgeInsets.fromLTRB(40, 0, 40, 85),
@@ -241,7 +246,7 @@ class _PatientFormState extends State<PatientForm> {
               borderRadius: BorderRadius.all(Radius.circular(7.r)),
               borderSide: BorderSide(width: 1.w, color: Colors.black),
             ),
-            contentPadding:  REdgeInsets.fromLTRB(10, 0, 0, 0),
+            contentPadding:  REdgeInsets.fromLTRB(10, 5, 0, 0),
           ),
 
         ),
@@ -249,10 +254,54 @@ class _PatientFormState extends State<PatientForm> {
     );
 
   }
+  Widget GenderDropDown(){
+    List<String> gender = ['Male', 'Female','Other'];
+    String dropdownValue='Male';
+    return ScreenUtilInit(
+      builder: (BuildContext context) =>  Container(
+          decoration: BoxDecoration(
+            color: const Color(0xfffdab9f).withOpacity(0.02),
+            borderRadius: BorderRadius.circular(7.0.r),
+            border: Border.all(
+              color: Colors.black,
+              width: 1.w,
+            ),
+          ),
+          height: 40.h,
+          width: 175.w,
+          child: Padding(padding: EdgeInsets.only(left: 10).r,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+
+                //dropdownValue,
+                hint: Text("Select Gender"),
+                //SizedBox(width: 135.w,),
+                icon: Icon(Icons.arrow_drop_down, color: Color(0xff353559),),
+                //elevation: 200,
+
+                style:  TextStyle(color: Color(0xff353559), fontSize: 16.sp),
+
+                items: gender.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+    );
+  }
 
   Widget dropdown(){
-    String dropdownValue = 'Road Accident';
-    List<String> cases = ['Road Accident', 'Heart Attack/Chest Pain', 'Burn Victim', 'Fractured Bones', 'Gun Shot', 'Abdominal Pain','Suicide Attempt', 'Allergic Reaction'];
+    String? dropdownValue;
+    List<String> types = ['Road Accident', 'Heart Attack/Chest Pain', 'Burn Victim', 'Fractured Bones', 'Gun Shot', 'Abdominal Pain','Suicide Attempt', 'Allergic Reaction'];
 
     return ScreenUtilInit(
       //  designSize: const Size(360,800),
@@ -269,17 +318,16 @@ class _PatientFormState extends State<PatientForm> {
         width: 200.w,
         child: Padding(padding: EdgeInsets.only(left: 10).r,
           child: DropdownButton(
-            value: dropdownValue,
-            hint: SizedBox(width: 300.w,),
+            hint: Text("Select Emergency Type"),
             icon: Icon(Icons.arrow_drop_down, color: Color(0xff353559),),
             //elevation: 200,
 
             style:  TextStyle(color: Color(0xff353559), fontSize: 16.sp),
 
-            items: cases.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
+            items: types.map<DropdownMenuItem<String>>((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Text(items),
               );
             }).toList(),
             onChanged: (String? newValue) {

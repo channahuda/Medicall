@@ -13,7 +13,6 @@ import 'package:medicall/Widgets/delete_dialog.dart';
 import 'package:provider/provider.dart';
 import '../Widgets/footer.dart';
 
-
 class EditHospital extends StatefulWidget {
   const EditHospital({Key? key}) : super(key: key);
 
@@ -33,7 +32,8 @@ class _EditHospitalState extends State<EditHospital> {
   TextEditingController beds = TextEditingController();
   late EditHospitalProvider hospitalProvider;
 
-  List<Marker> mark=[];
+  List<Marker> mark = [];
+
 //  late bool changed;
 
   @override
@@ -41,17 +41,16 @@ class _EditHospitalState extends State<EditHospital> {
     // TODO: implement initState
     super.initState();
 
-   context.read<EditHospitalProvider>().editHospital();
+    context.read<EditHospitalProvider>().editHospital();
   }
 
   @override
   Widget build(BuildContext context) {
     hospitalProvider = Provider.of<EditHospitalProvider>(context);
- //   changed= context.read<EditHospitalProvider>().ischanged;
+    //   changed= context.read<EditHospitalProvider>().ischanged;
 
     return ScreenUtilInit(
         designSize: const Size(360, 800),
-
         builder: (BuildContext context) {
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
@@ -64,8 +63,7 @@ class _EditHospitalState extends State<EditHospital> {
                       icon: Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.pop(context);
-                      }
-                  ),
+                      }),
                   backgroundColor: const Color(0xFF353559),
                   centerTitle: true,
                   title: Text(
@@ -98,217 +96,238 @@ class _EditHospitalState extends State<EditHospital> {
                         ),
                       ],
                     ),
-                  ]
-              ),
-              body:
-              context.read<EditHospitalProvider>().isLoading ? const Center(
-                child: CircularProgressIndicator(),
-              ):
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: SingleChildScrollView(
-                          child: Form(
-                            key: _formkey,
-                            child: Column(
-                                children: <Widget>[
-                                  //EditForm(),
-                                  Column(children: <Widget>[
-                                    SizedBox(height: 15.h),
-                                    Padding(
-                                      padding: REdgeInsets.symmetric(
-                                          horizontal: 40.w),
-                                      child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
-                                          children: <Widget>[
-                                            inputFile(label: "Hospital Name",
-                                                initval: hospitalProvider.hospitalmodel?.name,cont: hospitalname),
-                                             inputFile(label: "Email",initval: hospitalProvider.hospitalmodel?.email, cont:email),
-                                            // inputFile(label: "Password", obscureText: true, cont: password),
-                                            // inputFile(label: "Confirm Password", obscureText: true, cont: password),
-                                             inputFile(label: "Address",initval: hospitalProvider.hospitalmodel?.address,cont:address),
-                                             inputFile(label: "City", initval: hospitalProvider.hospitalmodel?.city,cont: city),
-                                            inputFileNumber(label: "Contact Number", initval: hospitalProvider.hospitalmodel?.phoneNumber, cont: contact),
-                                            inputFileNumber(label: "Number of Beds in Hospital", initval: hospitalProvider.hospitalmodel?.beds,cont: beds),
-                                            Text('Mark Location on Map',
-                                              style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black),
-
-                                            ),
-                                          ]),
-                                    )
-                                  ]),
-                                  Stack(
-                                      children: <Widget>[
-                                        Container(
-                                          height: 320.h,
-                                          width: 295.w,
-                                          margin: REdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.black26),
-                                            borderRadius: BorderRadius.circular(
-                                                10.r),
+                  ]),
+              body: context.read<EditHospitalProvider>().isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                          Expanded(
+                            child: SingleChildScrollView(
+                                child: Form(
+                              key: _formkey,
+                              child: Column(children: <Widget>[
+                                //EditForm(),
+                                Column(children: <Widget>[
+                                  SizedBox(height: 15.h),
+                                  Padding(
+                                    padding:
+                                        REdgeInsets.symmetric(horizontal: 40.w),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          inputFile(
+                                              label: "Hospital Name",
+                                              initval: hospitalProvider
+                                                  .hospitalmodel?.name,
+                                              cont: hospitalname),
+                                          inputFile(
+                                              label: "Email",
+                                              initval: hospitalProvider
+                                                  .hospitalmodel?.email,
+                                              cont: email),
+                                          // inputFile(label: "Password", obscureText: true, cont: password),
+                                          // inputFile(label: "Confirm Password", obscureText: true, cont: password),
+                                          inputFile(
+                                              label: "Address",
+                                              initval: hospitalProvider
+                                                  .hospitalmodel?.address,
+                                              cont: address),
+                                          inputFile(
+                                              label: "City",
+                                              initval: hospitalProvider
+                                                  .hospitalmodel?.city,
+                                              cont: city),
+                                          inputFileNumber(
+                                              label: "Contact Number",
+                                              initval: hospitalProvider
+                                                  .hospitalmodel?.phoneNumber,
+                                              cont: contact),
+                                          inputFileNumber(
+                                              label:
+                                                  "Number of Beds in Hospital",
+                                              initval: hospitalProvider
+                                                  .hospitalmodel?.beds,
+                                              cont: beds),
+                                          Text(
+                                            'Mark Location on Map',
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black),
                                           ),
-                                          child: GoogleMap(
-                                            initialCameraPosition: const CameraPosition(
-                                              target: LatLng(24.93204434172861,
-                                                67.0517612033904,),
-                                              zoom: 16,
-                                            ),
-                                            mapType: MapType.normal,
-
-                                            onTap: (LatLng latLng) {
-                                              Marker newmark = Marker(
-                                                markerId: MarkerId('Places Name'),
-                                                infoWindow: const InfoWindow(
-                                                    title: 'Hospital Name'),
-                                                icon: BitmapDescriptor
-                                                    .defaultMarkerWithHue(
-                                                    BitmapDescriptor.hueRed),
-                                                position: LatLng(latLng.latitude,
-                                                    latLng.longitude),
-                                              );
-                                              mark.add(newmark);
-                                              setState(() {});
-                                            },
-                                            markers: mark.map((e) => e).toSet(),
-
-                                          ),
+                                        ]),
+                                  )
+                                ]),
+                                Stack(children: <Widget>[
+                                  Container(
+                                    height: 320.h,
+                                    width: 295.w,
+                                    margin: REdgeInsets.all(20.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black26),
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    child: GoogleMap(
+                                      initialCameraPosition:
+                                          const CameraPosition(
+                                        target: LatLng(
+                                          24.93204434172861,
+                                          67.0517612033904,
                                         ),
-                                      ]
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      if (_formkey.currentState!.validate()) {
-                                        bool remove = false;
-                                        remove = await showDialog(
-                                            barrierDismissible: false,
-                                            context: context,
-                                            builder: (context) =>
-                                                AlertDialog(
-                                                  title: Text('Save Changes'),
-                                                  content: Text(
-                                                      "Are you sure you want to save changes?"),
-                                                  actions: [
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop(true);
-                                                          // final hospital= HospitalModel(
-                                                          //   name:hospitalname.text,
-                                                          //   address: address.text,
-                                                          //   email: email.text,
-                                                          //   beds: int.parse(beds.text),
-                                                          //   city: city.text,
-                                                          //   phoneNumber: contact.text,
-                                                          // );
-                                                          //  hospitalProvider.updateHospital(hospital);
-                                                          Navigator.of(context)
-                                                              .pushReplacement(
-                                                              MaterialPageRoute(
-                                                                  builder: (
-                                                                      context) =>
-                                                                      PatientList()));
-                                                        },
-                                                        child: Text('Yes',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .lightBlue),)
-                                                    ),
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop(false);
-                                                        },
-                                                        child: Text('No',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .lightBlue))),
-                                                  ],
-                                                ));
-                                        setState(() {
-
-                                        });
-                                      }
-
-                                    },
-                                    child: Text('Save Changes'),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: const Color(0xff353559),
-                                        padding: REdgeInsets.symmetric(
-                                            horizontal: 80.w, vertical: 15.h),
-                                        textStyle: TextStyle(
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w500),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              10.0.r),
-                                        )
+                                        zoom: 16,
+                                      ),
+                                      mapType: MapType.normal,
+                                      onTap: (LatLng latLng) {
+                                        Marker newmark = Marker(
+                                          markerId: MarkerId('Places Name'),
+                                          infoWindow: const InfoWindow(
+                                              title: 'Hospital Name'),
+                                          icon: BitmapDescriptor
+                                              .defaultMarkerWithHue(
+                                                  BitmapDescriptor.hueRed),
+                                          position: LatLng(latLng.latitude,
+                                              latLng.longitude),
+                                        );
+                                        mark.add(newmark);
+                                        setState(() {});
+                                      },
+                                      markers: mark.map((e) => e).toSet(),
                                     ),
                                   ),
-                                  SizedBox(height: 100.h),
-                                ]
-                            ),
-                          )
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery
-                                .of(context)
-                                .viewInsets
-                                .bottom)
-                    )
-                  ]
-              ),
+                                ]),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formkey.currentState!.validate()) {
+                                      bool remove = false;
+                                      remove = await showDialog(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                title: Text('Save Changes'),
+                                                content: Text(
+                                                    "Are you sure you want to save changes?"),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                        hospitalProvider.updateHospital(
+                                                           hospitalname.text ?? hospitalProvider.hospitalmodel.name,
+                                                            email.text ?? hospitalProvider.hospitalmodel.email,
+                                                            address.text ?? hospitalProvider.hospitalmodel.address,
+                                                            city.text ?? hospitalProvider.hospitalmodel.city,
+                                                            contact.text ?? hospitalProvider.hospitalmodel.phoneNumber,
+                                                            int.parse(beds.text )?? hospitalProvider.hospitalmodel.beds
+                                                           );
+                                                        // // final hospital =
+                                                        //     HospitalModel(
+                                                        //   name:
+                                                        //       hospitalname.text,
+                                                        //   address: address.text,
+                                                        //   email: email.text,
+                                                        //   beds: int.parse(
+                                                        //       beds.text),
+                                                        //   city: city.text,
+                                                        //   phoneNumber:
+                                                        //       contact.text,
+                                                        // );
+                                                        //  hospitalProvider.updateHospital(hospital);
+                                                        Navigator.of(context)
+                                                            .pushReplacement(
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            PatientList()));
+                                                      },
+                                                      child: Text(
+                                                        'Yes',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .lightBlue),
+                                                      )),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(false);
+                                                      },
+                                                      child: Text('No',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .lightBlue))),
+                                                ],
+                                              ));
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: Text('Save Changes'),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: const Color(0xff353559),
+                                      padding: REdgeInsets.symmetric(
+                                          horizontal: 80.w, vertical: 15.h),
+                                      textStyle: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w500),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0.r),
+                                      )),
+                                ),
+                                SizedBox(height: 100.h),
+                              ]),
+                            )),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom))
+                        ]),
               //resizeToAvoidBottomInset: false,
               bottomSheet: footer(),
             ),
           );
-        }
-
-    );
-
+        });
   }
-  Widget inputFile({label, obscureText = false, initval,cont}) {
+
+  Widget inputFile({label, obscureText = false, initval, cont}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
           label,
           style: TextStyle(
-              fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.black),
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w400,
+              color: Colors.black),
         ),
         SizedBox(
           height: 5.h,
         ),
         TextFormField(
           initialValue: initval.toString(),
-        //write something here
-         onChanged:(changedval) =>  setState(() {
-           cont = changedval;
-
-         }),
+          //write something here
+          onChanged: (changedval) => setState(() {
+            cont = changedval;
+          }),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
-            }
-            else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]" )
-                .hasMatch(value) && cont == email ) {
+            } else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                    .hasMatch(value) &&
+                cont == email) {
               return ("Please Enter a valid email");
             }
 
             return null;
           },
-             //setState(() => cont = changedval),
+          //setState(() => cont = changedval),
           obscureText: obscureText,
           decoration: InputDecoration(
-            contentPadding: REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
+            contentPadding:
+                REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
             enabledBorder: OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(10.r),
                 borderSide: BorderSide(color: Colors.black26)),
@@ -322,14 +341,16 @@ class _EditHospitalState extends State<EditHospital> {
     );
   }
 
-  Widget inputFileNumber({label, cont,initval}) {
+  Widget inputFileNumber({label, cont, initval}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
           label,
           style: TextStyle(
-              fontSize: 15.sp, fontWeight: FontWeight.w400, color: Colors.black),
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w400,
+              color: Colors.black),
         ),
         SizedBox(
           height: 5.h,
@@ -339,16 +360,15 @@ class _EditHospitalState extends State<EditHospital> {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],
-         initialValue: initval.toString(),
-          onChanged:(changedval) =>  setState(() {
+          initialValue: initval.toString(),
+          onChanged: (changedval) => setState(() {
             cont = changedval;
-
           }),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
             }
-            if(TextEditingController==contact && contact.text.length != 11) {
+            if (TextEditingController == contact && contact.text.length != 11) {
               print(contact.text);
               return "Invalid Contact Number";
             }
@@ -357,7 +377,8 @@ class _EditHospitalState extends State<EditHospital> {
           },
           obscureText: false,
           decoration: InputDecoration(
-            contentPadding: REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
+            contentPadding:
+                REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
             enabledBorder: OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(10.r),
                 borderSide: BorderSide(color: Colors.black26)),
