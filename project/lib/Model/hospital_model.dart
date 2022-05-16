@@ -1,8 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medicall/Entities/hospital.dart';
-
-import '../Network_Layer/network_call.dart';
-
 class HospitalModel {
   late String name;
   late String? id;
@@ -17,7 +12,7 @@ class HospitalModel {
 
   HospitalModel(
       {required this.name,
-        this.password,
+      this.password,
       this.id,
       required this.lat,
       required this.lng,
@@ -28,7 +23,6 @@ class HospitalModel {
       required this.phoneNumber});
 
   static HospitalModel fromJson(Map<String, dynamic> json) {
-
     return HospitalModel(
         name: json['name'] as String,
         id: json['id'] as String? ?? "",

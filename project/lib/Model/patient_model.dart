@@ -20,10 +20,12 @@ class PatientModel {
   String? id;
   String? name;
   String gender;
- // late Gender gender;
+
+  // late Gender gender;
   int? age;
   String emergencyType;
- // late EmergencyType emergencyType;
+
+  // late EmergencyType emergencyType;
   late double bloodPressure;
   late double oxygenLevel;
   late double heartRate;
@@ -45,12 +47,10 @@ class PatientModel {
   static PatientModel fromJson(Map<String, dynamic> json) {
     return PatientModel(
       name: json['name'] as String?,
-    //  id: json['id'] as String?,
       gender: json['gender'] as String,
       //gender: json['gender'] as Gender,
       age: json['age'] as int?,
       emergencyType: json['emergencyType'] as String,
-
       //emergencyType: json['emergencyType'] as EmergencyType,
       bloodPressure: json['bloodPressure'] as double,
       oxygenLevel: json['oxygenLevel'] as double,
@@ -63,7 +63,6 @@ class PatientModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['name'] = name;
-  //  data['id'] = id;
     data['gender'] = gender;
     data['age'] = age;
     data['emergencyType'] = emergencyType;
