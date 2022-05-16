@@ -10,6 +10,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../Network_Layer/firebase_network_call.dart';
 import '../Network_Layer/network_call.dart';
 
+
 class HospitalLocationProvider extends ChangeNotifier {
   //GoogleMapController? mapController;
   Map<String, Marker> markers = {};
@@ -43,7 +44,7 @@ class HospitalLocationProvider extends ChangeNotifier {
   Future<void> loadHospitalsList() async {
     isLoadingHospitals = true;
     listOfHospitals = await _hospitalServices.getHospitals();
-    //  Future.delayed(const Duration(seconds: 5));
+  //  Future.delayed(const Duration(seconds: 5));
     isLoadingHospitals = false;
     notifyListeners();
   }
@@ -57,7 +58,7 @@ class HospitalLocationProvider extends ChangeNotifier {
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
-    isLoading = true;
+    isLoading=true;
     notifyListeners();
     markers.clear();
     for (int i = 0; i < listOfHospitals.length; i++) {
@@ -76,7 +77,7 @@ class HospitalLocationProvider extends ChangeNotifier {
               markerClicked = true;
               notifyListeners();
               showMaterialModalBottomSheet(
-                shape: const RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15),
                       topLeft: Radius.circular(15)),
@@ -94,7 +95,8 @@ class HospitalLocationProvider extends ChangeNotifier {
           ),
         );
         markers[listOfHospitals[i].name] = marker;
-      } else if (markers.length == 0) {
+      }
+      else if (markers.length == 0) {
         for (int i = 1; i < listOfHospitals.length; i++) {
           if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
             if (markers.length > 0) {
@@ -107,7 +109,7 @@ class HospitalLocationProvider extends ChangeNotifier {
                 infoWindow: InfoWindow(
                     title: listOfHospitals[i].name,
                     onTap: () {
-                      //  index = i;
+                    //  index = i;
 
                       markerClicked = true;
                       notifyListeners();
@@ -119,7 +121,7 @@ class HospitalLocationProvider extends ChangeNotifier {
         }
       }
     }
-    isLoading = false;
+    isLoading=false;
     notifyListeners();
   }
 
