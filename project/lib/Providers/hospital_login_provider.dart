@@ -12,7 +12,7 @@ class HospitalLoginProvider extends ChangeNotifier {
 void loginHospital(String email, String password, BuildContext context) async {
   isLoading=true;
   notifyListeners();
-  _hospitalServices.signIn(email, password, context);
+  _hospitalServices.signInHospital(email, password, context);
   isLoading=false;
   notifyListeners();
 

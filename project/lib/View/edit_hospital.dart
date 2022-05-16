@@ -29,7 +29,7 @@ class _EditHospitalState extends State<EditHospital> {
   TextEditingController address = TextEditingController();
   TextEditingController city = TextEditingController();
   TextEditingController contact = TextEditingController();
-  TextEditingController beds = TextEditingController();
+   TextEditingController beds = TextEditingController();
   late EditHospitalProvider hospitalProvider;
 
   List<Marker> mark = [];
@@ -47,6 +47,14 @@ class _EditHospitalState extends State<EditHospital> {
   @override
   Widget build(BuildContext context) {
     hospitalProvider = Provider.of<EditHospitalProvider>(context);
+    // String  hospitalname=hospitalProvider.hospitalmodel.name;
+    // String  email=hospitalProvider.hospitalmodel.email;
+    //  String address=hospitalProvider.hospitalmodel.address;
+    //  String city=hospitalProvider.hospitalmodel.city;
+    //  String contact= hospitalProvider.hospitalmodel.phoneNumber;
+    // int beds= hospitalProvider.hospitalmodel.beds;
+
+
     //   changed= context.read<EditHospitalProvider>().ischanged;
 
     return ScreenUtilInit(
@@ -119,11 +127,14 @@ class _EditHospitalState extends State<EditHospital> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
+
                                           inputFile(
                                               label: "Hospital Name",
-                                              initval: hospitalProvider
-                                                  .hospitalmodel.name,
-                                              cont: hospitalname),
+                                           // initval: hospitalname,
+                                             initval: hospitalProvider
+                                                 .hospitalmodel.name,
+                                             cont: hospitalname
+                                          ),
                                           inputFile(
                                               label: "Email",
                                               initval: hospitalProvider
@@ -135,70 +146,74 @@ class _EditHospitalState extends State<EditHospital> {
                                               label: "Address",
                                               initval: hospitalProvider
                                                   .hospitalmodel.address,
-                                              cont: address),
+                                              cont: address
+                                          ),
                                           inputFile(
                                               label: "City",
                                               initval: hospitalProvider
                                                   .hospitalmodel.city,
-                                              cont: city),
-                                          inputFileNumber(
-                                              label: "Contact Number",
-                                              initval: hospitalProvider
-                                                  .hospitalmodel.phoneNumber,
-                                              cont: contact),
-                                          inputFileNumber(
-                                              label:
-                                                  "Number of Beds in Hospital",
-                                              initval: hospitalProvider
-                                                  .hospitalmodel.beds,
-                                              cont: beds),
-                                          Text(
-                                            'Mark Location on Map',
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black),
+                                              cont: city
                                           ),
+                                          // inputFileNumber(
+                                          //     label: "Contact Number",
+                                          //     initval: hospitalProvider
+                                          //         .hospitalmodel.phoneNumber,
+                                          //     cont: contact
+                                          // ),
+                                          // inputFileNumber(
+                                          //     label:
+                                          //         "Number of Beds in Hospital",
+                                          //     initval: hospitalProvider
+                                          //         .hospitalmodel.beds,
+                                          //    cont: beds
+                                          // ),
+                                          // Text(
+                                          //   'Mark Location on Map',
+                                          //   style: TextStyle(
+                                          //       fontSize: 15.sp,
+                                          //       fontWeight: FontWeight.w400,
+                                          //       color: Colors.black),
+                                          // ),
                                         ]),
                                   )
                                 ]),
-                                Stack(children: <Widget>[
-                                  Container(
-                                    height: 320.h,
-                                    width: 295.w,
-                                    margin: REdgeInsets.all(20.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black26),
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                    child: GoogleMap(
-                                      initialCameraPosition:
-                                          const CameraPosition(
-                                        target: LatLng(
-                                          24.93204434172861,
-                                          67.0517612033904,
-                                        ),
-                                        zoom: 16,
-                                      ),
-                                      mapType: MapType.normal,
-                                      onTap: (LatLng latLng) {
-                                        Marker newmark = Marker(
-                                          markerId: MarkerId('Places Name'),
-                                          infoWindow: const InfoWindow(
-                                              title: 'Hospital Name'),
-                                          icon: BitmapDescriptor
-                                              .defaultMarkerWithHue(
-                                                  BitmapDescriptor.hueRed),
-                                          position: LatLng(latLng.latitude,
-                                              latLng.longitude),
-                                        );
-                                        mark.add(newmark);
-                                        setState(() {});
-                                      },
-                                      markers: mark.map((e) => e).toSet(),
-                                    ),
-                                  ),
-                                ]),
+                                // Stack(children: <Widget>[
+                                //   Container(
+                                //     height: 320.h,
+                                //     width: 295.w,
+                                //     margin: REdgeInsets.all(20.0),
+                                //     decoration: BoxDecoration(
+                                //       border: Border.all(color: Colors.black26),
+                                //       borderRadius: BorderRadius.circular(10.r),
+                                //     ),
+                                //     child: GoogleMap(
+                                //       initialCameraPosition:
+                                //           const CameraPosition(
+                                //         target: LatLng(
+                                //           24.93204434172861,
+                                //           67.0517612033904,
+                                //         ),
+                                //         zoom: 16,
+                                //       ),
+                                //       mapType: MapType.normal,
+                                //       onTap: (LatLng latLng) {
+                                //         Marker newmark = Marker(
+                                //           markerId: MarkerId('Places Name'),
+                                //           infoWindow: const InfoWindow(
+                                //               title: 'Hospital Name'),
+                                //           icon: BitmapDescriptor
+                                //               .defaultMarkerWithHue(
+                                //                   BitmapDescriptor.hueRed),
+                                //           position: LatLng(latLng.latitude,
+                                //               latLng.longitude),
+                                //         );
+                                //         mark.add(newmark);
+                                //         setState(() {});
+                                //       },
+                                //       markers: mark.map((e) => e).toSet(),
+                                //     ),
+                                //   ),
+                                // ]),
                                 ElevatedButton(
                                   onPressed: () async {
                                     if (_formkey.currentState!.validate()) {
@@ -215,27 +230,24 @@ class _EditHospitalState extends State<EditHospital> {
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop(true);
-                                                        // hospitalProvider.updateHospital(
-                                                        //    hospitalname.text ?? hospitalProvider.hospitalmodel.name,
-                                                        //     email.text ?? hospitalProvider.hospitalmodel.email,
-                                                        //     address.text ?? hospitalProvider.hospitalmodel.address,
-                                                        //     city.text ?? hospitalProvider.hospitalmodel.city,
-                                                        //     contact.text ?? hospitalProvider.hospitalmodel.phoneNumber,
-                                                        //     int.parse(beds.text )?? hospitalProvider.hospitalmodel.beds
-                                                        //    );
-                                                        // // final hospital =
-                                                        //     HospitalModel(
-                                                        //   name:
-                                                        //       hospitalname.text,
-                                                        //   address: address.text,
-                                                        //   email: email.text,
-                                                        //   beds: int.parse(
-                                                        //       beds.text),
-                                                        //   city: city.text,
-                                                        //   phoneNumber:
-                                                        //       contact.text,
-                                                        // );
-                                                        //  hospitalProvider.updateHospital(hospital);
+                                                        print("\n");
+                                                        print(" hospital name    ");
+                                                        print( hospitalname.text);
+                                                        print(" hospital name in provider: ");
+                                                            print(hospitalProvider.hospitalmodel.name);
+                                                        print("\n");
+                                                        print("\n");
+                                                        hospitalProvider.updateHospital(
+                                                       //   hospitalname, email, address, city, contact,beds
+                                                            (hospitalname.text == "") ? hospitalProvider.hospitalmodel.name : hospitalname.text,
+                                                            (email.text == "") ? hospitalProvider.hospitalmodel.email : email.text,
+                                                            (address.text == "") ? hospitalProvider.hospitalmodel.address : address.text
+                                                            ,(city.text  == "") ? hospitalProvider.hospitalmodel.city : city.text
+                                                          ,(contact.text  == "") ? hospitalProvider.hospitalmodel.phoneNumber : contact.text ,
+                                                            (beds.text == "") ? hospitalProvider.hospitalmodel.beds : int.parse(beds.text),
+
+                                                           );
+
                                                         Navigator.of(context)
                                                             .pushReplacement(
                                                                 MaterialPageRoute(
@@ -260,7 +272,7 @@ class _EditHospitalState extends State<EditHospital> {
                                                                   .lightBlue))),
                                                 ],
                                               ));
-                                      setState(() {});
+                                      //setState(() {});
                                     }
                                   },
                                   child: Text('Save Changes'),
@@ -292,7 +304,7 @@ class _EditHospitalState extends State<EditHospital> {
         });
   }
 
-  Widget inputFile({label, obscureText = false, initval, cont}) {
+  Widget inputFile({label, initval,cont}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -307,11 +319,15 @@ class _EditHospitalState extends State<EditHospital> {
           height: 5.h,
         ),
         TextFormField(
+
           initialValue: initval.toString(),
           //write something here
-          onChanged: (changedval) => setState(() {
-            cont = changedval;
-          }),
+          onChanged: (changedval)  {
+         //   initval = changedval;
+            cont = TextEditingController(text:changedval);
+          // cont = changedval;
+          },
+         // controller: cont,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
@@ -324,57 +340,6 @@ class _EditHospitalState extends State<EditHospital> {
             return null;
           },
           //setState(() => cont = changedval),
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            contentPadding:
-                REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: Colors.black26)),
-            border: OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(10.r),
-                borderSide: BorderSide(color: Colors.black45)),
-          ),
-        ),
-        SizedBox(height: 10.h),
-      ],
-    );
-  }
-
-  Widget inputFileNumber({label, cont, initval}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w400,
-              color: Colors.black),
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        TextFormField(
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly
-          ],
-          initialValue: initval.toString(),
-          onChanged: (changedval) => setState(() {
-            cont = changedval;
-          }),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-            if (TextEditingController == contact && contact.text.length != 11) {
-              print(contact.text);
-              return "Invalid Contact Number";
-            }
-
-            return null;
-          },
           obscureText: false,
           decoration: InputDecoration(
             contentPadding:
@@ -391,4 +356,55 @@ class _EditHospitalState extends State<EditHospital> {
       ],
     );
   }
+  //
+  // Widget inputFileNumber({label, cont, initval}) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: <Widget>[
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //             fontSize: 15.sp,
+  //             fontWeight: FontWeight.w400,
+  //             color: Colors.black),
+  //       ),
+  //       SizedBox(
+  //         height: 5.h,
+  //       ),
+  //       TextFormField(
+  //         keyboardType: TextInputType.number,
+  //         inputFormatters: <TextInputFormatter>[
+  //           FilteringTextInputFormatter.digitsOnly
+  //         ],
+  //         initialValue: initval.toString(),
+  //         onChanged: (changedval) => setState(() {
+  //           initval = changedval;
+  //         }),
+  //         validator: (value) {
+  //           if (value == null || value.isEmpty) {
+  //             return 'This field is required';
+  //           }
+  //           if (cont == contact && contact.text.length != 11) {
+  //             print(contact.text);
+  //             return "Invalid Contact Number";
+  //           }
+  //
+  //           return null;
+  //         },
+  //         obscureText: false,
+  //         decoration: InputDecoration(
+  //           contentPadding:
+  //               REdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
+  //           enabledBorder: OutlineInputBorder(
+  //               borderRadius: new BorderRadius.circular(10.r),
+  //               borderSide: BorderSide(color: Colors.black26)),
+  //           border: OutlineInputBorder(
+  //               borderRadius: new BorderRadius.circular(10.r),
+  //               borderSide: BorderSide(color: Colors.black45)),
+  //         ),
+  //       ),
+  //       SizedBox(height: 10.h),
+  //     ],
+  //   );
+  // }
 }

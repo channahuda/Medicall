@@ -43,9 +43,17 @@ class HospitalLocationProvider extends ChangeNotifier {
 
   Future<void> loadHospitalsList() async {
     isLoadingHospitals = true;
+    notifyListeners();
     listOfHospitals = await _hospitalServices.getHospitals();
-  //  Future.delayed(const Duration(seconds: 5));
+    Future.delayed(const Duration(seconds: 5));
     isLoadingHospitals = false;
+    notifyListeners();
+  }
+
+  Future<void> signOut(BuildContext context) async {
+    isLoading=true;
+    await _hospitalServices.signOut(context);
+    isLoading=false;
     notifyListeners();
   }
 

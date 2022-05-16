@@ -23,7 +23,10 @@ class EditHospitalProvider extends ChangeNotifier {
 
   void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds)  {
     isLoading=true;
-   // _hospitalServices.updateHospital(hospitalName,email,address,  city,  contact,  beds);
+    _hospitalServices.updateHospital(hospitalName,email,address,  city,  contact,  beds);
+    print(" .............................................. \n");
+    print("INSIDE UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+    print(" .............................................. \n");
     isLoading=false;
     notifyListeners();
 

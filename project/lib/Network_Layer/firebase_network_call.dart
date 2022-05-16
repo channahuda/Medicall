@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:medicall/Model/patient_model.dart';
+import 'package:medicall/View/login.dart';
+import 'package:medicall/View/nearest_location.dart';
 import 'package:medicall/View/patient_list.dart';
 
 import '../Model/hospital_model.dart';
@@ -148,7 +150,7 @@ class FirebaseNetworkCall implements NetworkCall {
 
 
 
-  void signIn(String email, String password,BuildContext context) async {
+  void signInHospital(String email, String password,BuildContext context) async {
     String? errorMessage;
 
     try {
@@ -198,7 +200,7 @@ class FirebaseNetworkCall implements NetworkCall {
 
   }
 
-  void signUp(HospitalModel hospital ) async {
+  void signUpHospital(HospitalModel hospital ) async {
     String? errorMessage;
     try {
     await _hospitaauth
@@ -246,44 +248,73 @@ class FirebaseNetworkCall implements NetworkCall {
       print(error.code);
     }
 
+
   }
 
 
-  // Future<PatientModel?> fetchPatient() async {
-  //   late PatientModel patientModel;
-  //   final firebaseUser = await FirebaseAuth.instance.currentUser;
-  //   if (firebaseUser != null) {
-  //
-  //     await FirebaseFirestore.instance
-  //         .collection(hospital_collection)
-  //         .doc(firebaseUser.uid).collection(patient_collection)
-  //        .get().then((value) =>
-  //        patientModel=PatientModel.fromJson(value.data() as Map<String, dynamic> ))
-  //         .catchError((e) {
-  //       print(e);
-  //     });
-  //    return patientModel;
-  //  //    await FirebaseFirestore.instance
-  //  //        .collection(hospital_collection)
-  //  //        .doc(firebaseUser.uid).collection(patient_collection).get().
-  //  //    then((QuerySnapshot querySnapshot) {
-  //  //      for (var doc in querySnapshot.docs) {
-  //  //        PatientModel patient =
-  //  //        PatientModel.fromJson(doc.data() as Map<String, dynamic>);
-  //  //        patient.id=doc.id;
-  //  //        patientList.add(patient);
-  //  //
-  //  //      }
-  //  //    });
-  //   }
-  //   else {
-  //     print("\n");
-  //     print("\n");
-  //     print("............................................................ \n");
-  //     print("\n");
-  //     print(" error INSIDE FIREBASE NETWORK CALL METHOD FETCHHOSPITAL");
-  //   }
+  Future<void> signOut(BuildContext context)  async {
+
+  // if( ){
+    await FirebaseAuth.instance.signOut().catchError((error) =>
+     Exception('User is null'));
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => Login(),
+      ),
+          (route) => false,
+    );
   // }
+  // else {
+  // throw Exception('User is null');
+  // }
+
+}
+
+  void signInParamedic(String email, String password,BuildContext context) async {
+    String? errorMessage;
+
+    try {
+      await _hospitaauth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => NearestLocation())),
+        Fluttertoast.showToast(msg: "Login Successful"),
+
+      });
+
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case "invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
+
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        case "too-many-requests":
+          errorMessage = "Too many requests";
+          break;
+        case "operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
+      }
+      Fluttertoast.showToast(msg: errorMessage);
+      print(error.code);
+    }
+
+  }
+
 
   Future<HospitalModel> fetchHospital() async {
 
@@ -306,22 +337,35 @@ class FirebaseNetworkCall implements NetworkCall {
       }
       else {
         throw Exception('User is null');
-
-
     }
   }
 
-  // void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds) async{
-  //    //var hospitalUser = await FirebaseAuth.instance.currentUser;
-  //   CollectionReference HospitalList =
-  //   FirebaseFirestore.instance.collection(hospital_collection);
-  //   HospitalList.doc(hospitalModel.id).update(hospitalModel.toJson())
-  //       .catchError(
-  //           (error) =>  Fluttertoast.showToast(msg: "Hospital Could not be updated")
-  //
-  //   );
-  //
-  //
-  // }
+  void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds) async{
+     //var hospitalUser = await FirebaseAuth.instance.currentUser;
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
+
+    if (firebaseUser != null) {
+      CollectionReference HospitalList =
+      FirebaseFirestore.instance.collection(hospital_collection);
+      HospitalList.doc(firebaseUser.uid).update({
+         'name' : hospitalName,
+        'email': email,
+        'address' :address,
+        'beds': beds,
+        'city': city,
+        'phoneNumber' : contact
+
+      })
+          .catchError(
+              (error) =>
+              Fluttertoast.showToast(msg: "Hospital Could not be updated")
+
+      );
+    }
+    else {
+      Fluttertoast.showToast(msg: "Hospital Could not be updated");
+    }
+
+  }
 
 }

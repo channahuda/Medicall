@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:medicall/Providers/hospital_location_provider.dart';
 import '../View/login.dart';
+//
+// class LogoutDialogs extends StatefulWidget {
+//   const LogoutDialogs({Key? key}) : super(key: key);
+//
+//   @override
+//   State<LogoutDialogs> createState() => _LogoutDialogsState();
+// }
+//
+// class _LogoutDialogsState extends State<LogoutDialogs> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
 
 
 class LogoutDialog {
-  static bool loginDialog = false;
-
+ static bool loginDialog = false;
+ late HospitalLocationProvider hospitalProvider;
 
   static showLogoutDialog(BuildContext context) {
     showDialog(
@@ -32,6 +47,7 @@ class LogoutDialog {
               ),
               onPressed: () {
                 loginDialog = true;
+              //  hospitalProvider.signOut(context);
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

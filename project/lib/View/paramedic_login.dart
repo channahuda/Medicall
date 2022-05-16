@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medicall/Providers/paramedic_login_provider.dart';
 import 'package:medicall/View/home_page.dart';
 import 'package:medicall/View/nearest_location.dart';
+import 'package:provider/provider.dart';
 
 class ParamedicLogin extends StatefulWidget {
   const ParamedicLogin({Key? key}) : super(key: key);
@@ -13,8 +15,8 @@ class ParamedicLogin extends StatefulWidget {
 
 class _ParamedicLoginState extends State<ParamedicLogin> {
   final formkey = GlobalKey<FormState>();
-  TextEditingController name = TextEditingController();
-  TextEditingController pass = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController pw = TextEditingController();
 
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
@@ -54,15 +56,20 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                     Padding(
                       padding: REdgeInsets.fromLTRB(40, 0, 40, 10),
                       child: TextFormField(
-                        controller: name,
+                        controller: email,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           contentPadding: REdgeInsets.fromLTRB(10, 0, 0, 0),
-                          hintText: ("User ID"),
+                          hintText: ("Email"),
                         ),
+
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return '';
+                          if (value == null || value.isEmpty) {
+                            return 'Email is required';
+                          }
+                          else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                              .hasMatch(value)) {
+                            return ("Please Enter a valid email");
                           }
                           return null;
                         },
@@ -71,7 +78,7 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                     Padding(
                       padding: REdgeInsets.fromLTRB(40, 0, 40, 10),
                       child: TextFormField(
-                        controller: pass,
+                        controller: pw,
                         obscureText: true,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -79,8 +86,13 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                           hintText: ("Password"),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return '';
+                          if (value ==null || value.isEmpty) {
+                            return "Password is required";
+                          }
+                          RegExp regex = new RegExp(r'^.{6,}$');
+
+                          if (!regex.hasMatch(value)) {
+                            return "Enter Valid Password(Min. 6 Characters)";
                           }
                           return null;
                         },
@@ -89,12 +101,7 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                     ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NearestLocation(),
-                            ),
-                          );
+                          context.read<ParamedicLoginProvider>().loginHospital(email.text, pw.text,context);
                         } else {
                           return null;
                         }
