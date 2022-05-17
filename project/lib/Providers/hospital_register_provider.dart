@@ -3,6 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
 
+import '../Model/user_model.dart';
+
 class HospitalRegisterProvider extends ChangeNotifier {
   late Position position;
   bool isLoading=false;
@@ -14,9 +16,9 @@ class HospitalRegisterProvider extends ChangeNotifier {
 
  }
 
-  addHospitalsList(HospitalModel hospital) async {
+  addHospitalsList(HospitalModel hospital, UserModel user) async {
     isLoading=true;
-    _hospitalServices.signUpHospital(hospital);
+    _hospitalServices.signUpHospital(hospital,user);
     isLoading=false;
     notifyListeners();
   }

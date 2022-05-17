@@ -27,7 +27,7 @@ class _NearestLocationState extends State<NearestLocation> {
   @override
   void initState() {
     //loadProvider();
-    context.read<HospitalLocationProvider>().loadHospitalsList();
+    context.read<HospitalLocationProvider>().initPosition();
     // TODO: implement initState
     super.initState();
     //loadProvider();
@@ -47,7 +47,7 @@ class _NearestLocationState extends State<NearestLocation> {
       designSize: const Size(360, 800),
       builder: (BuildContext context) => Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
-        body: hospitalProvider.isLoading || hospitalProvider.isLoadingHospitals
+        body: hospitalProvider.isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )

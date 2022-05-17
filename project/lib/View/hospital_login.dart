@@ -15,8 +15,8 @@ class HospitalLogin extends StatefulWidget {
 }
 
 class _HospitalLoginState extends State<HospitalLogin> {
-  TextEditingController email = TextEditingController();
-  TextEditingController pw = TextEditingController();
+  TextEditingController email = TextEditingController()..text = 'l@gmail.com';
+  TextEditingController pw = TextEditingController()..text = '123456';
   final _formkey = GlobalKey<FormState>();
 
   @override

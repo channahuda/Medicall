@@ -103,6 +103,7 @@ import 'package:medicall/Providers/patient_form_provider.dart';
 import 'package:medicall/View/home_page.dart';
 
 import '../Providers/patient_list_provider.dart';
+import '../Widgets/logout_dialog_box.dart';
 import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -110,6 +111,7 @@ import 'edit_hospital.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
@@ -121,11 +123,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => EditHospitalProvider()),
         ChangeNotifierProvider(create: (_) => PatientListProvider()),
         ChangeNotifierProvider(create: (_) => ParamedicLoginProvider()),
+
         /// ChangeNotifierProvider(create: (_) => CounterProvider()),
       ],
       child: MyApp(),
     ),
   );
+
 }
 
 class MyApp extends StatelessWidget {

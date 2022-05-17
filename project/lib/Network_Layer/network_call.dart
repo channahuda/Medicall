@@ -5,20 +5,24 @@ import 'package:medicall/Model/hospital_model.dart';
 
 import '../Model/hospital_model.dart';
 import '../Model/patient_model.dart';
+import '../Model/user_model.dart';
 
 abstract class NetworkCall {
   Future<List<HospitalModel>> getHospitals();
-  void addHospital(HospitalModel hospital);
+
+  void addHospital(HospitalModel hospital, UserModel user);
+
   Future<List<PatientModel>> getPatients();
+
   void addPatient(PatientModel patient, HospitalModel hospital);
+
   Future<void> deletePatient(PatientModel patient);
-  void signInHospital(String email, String password, BuildContext context);
-  void signUpHospital(HospitalModel hospital);
-  Future<HospitalModel> fetchHospital();
+//void signInHospital(String email, String password, BuildContext context);
+// void signUpHospital(HospitalModel hospital);
+// Future<HospitalModel> fetchHospital();
 
 //Future<List<PatientModel>> getPatient();
 }
-
 
 // Future<List<PatientModel>> getPatient() async =>
 //     _firestore.collection(hospital_collection).get().collection('Patient').then((result) {

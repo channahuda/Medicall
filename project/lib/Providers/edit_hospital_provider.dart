@@ -3,22 +3,26 @@ import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
 
 class EditHospitalProvider extends ChangeNotifier {
-  late HospitalModel hospitalmodel;
+  HospitalModel? hospitalmodel;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   bool ischanged=false;
 
-  bool isLoading=false;
+  bool isLoading=true;
+
+  // EditHospitalProvider(){
+  //   editHospital();
+  // }
 
 
   void editHospital() async {
-    isLoading=true;
-    notifyListeners();
+    //isLoading=true;
+    //notifyListeners();
     //something wrong
     hospitalmodel= await _hospitalServices.fetchHospital();
 
     isLoading=false;
     notifyListeners();
-
+   // return hospitalmodel;
   }
 
   void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds)  {

@@ -51,7 +51,8 @@ class _PatientListState extends State<PatientList> {
                     height: 30.h,
                   ),
                   onPressed: () {
-                    LogoutDialog.showLogoutDialog(context);
+                    LogoutDialog logout=new LogoutDialog();
+                    logout.showLogoutDialog(context);
                   },
                 ),
                 Positioned(
@@ -65,7 +66,8 @@ class _PatientListState extends State<PatientList> {
                       ),
                     ),
                     onTap: () {
-                      LogoutDialog.showLogoutDialog(context);
+                      LogoutDialog logout=new LogoutDialog();
+                      logout.showLogoutDialog(context);
                     },
                   ),
                 ),

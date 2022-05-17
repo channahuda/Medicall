@@ -11,6 +11,7 @@ class PatientFormProvider extends ChangeNotifier {
  // bool isLoading=false;
 
   addPatientsList(PatientModel patient,HospitalModel hospital) async {
+
    // isLoading=true;
     _hospitalServices.addPatient(patient,hospital);
     //listOfHospitals = (await _hospitalServices.getHospitals());

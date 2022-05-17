@@ -29,7 +29,9 @@ class _LogoutState extends State<Logout> {
               color: Colors.white,
             ),
             onPressed: () {
-              LogoutDialog.showLogoutDialog(context);
+              LogoutDialog logout=new LogoutDialog();
+              logout.showLogoutDialog(context);
+              //LogoutDialog.showLogoutDialog(context);
             },
           ),
           // Positioned(

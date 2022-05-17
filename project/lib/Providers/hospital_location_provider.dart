@@ -30,10 +30,12 @@ class HospitalLocationProvider extends ChangeNotifier {
     this.context = context;
   }
 
-  HospitalLocationProvider() {
-    loadHospitalsList();
-    _determinePosition();
-    setCustomMapPin();
+  Future<void> initPosition() async{
+
+    await loadHospitalsList();
+    await _determinePosition();
+    await setCustomMapPin();
+    isLoading=false;
     notifyListeners();
   }
 
@@ -41,13 +43,10 @@ class HospitalLocationProvider extends ChangeNotifier {
     MapsLauncher.launchCoordinates(lat, lng);
   }
 
-  Future<void> loadHospitalsList() async {
-    isLoadingHospitals = true;
-    notifyListeners();
+  Future<void>  loadHospitalsList() async {
+
     listOfHospitals = await _hospitalServices.getHospitals();
-    Future.delayed(const Duration(seconds: 5));
-    isLoadingHospitals = false;
-    notifyListeners();
+
   }
 
   Future<void> signOut(BuildContext context) async {
@@ -77,29 +76,30 @@ class HospitalLocationProvider extends ChangeNotifier {
           markerId: MarkerId(listOfHospitals[i].name),
           icon: pinLocationIcon,
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
+          onTap: () {
+            index = i;
+            // Window will pop up
+            markerClicked = true;
+            notifyListeners();
+            showMaterialModalBottomSheet(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    topLeft: Radius.circular(15)),
+              ),
+              context: context,
+              builder: (context) {
+                return DisplayHospitalInfo(
+                  hospitalSelected: listOfHospitals[i],
+                );
+              },
+            );
+            hospitalSelected = listOfHospitals[i];
+            notifyListeners();
+          },
           infoWindow: InfoWindow(
             title: listOfHospitals[i].name,
-            onTap: () {
-              index = i;
-              // Window will pop up
-              markerClicked = true;
-              notifyListeners();
-              showMaterialModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(15),
-                      topLeft: Radius.circular(15)),
-                ),
-                context: context,
-                builder: (context) {
-                  return DisplayHospitalInfo(
-                    hospitalSelected: listOfHospitals[i],
-                  );
-                },
-              );
-              hospitalSelected = listOfHospitals[i];
-              notifyListeners();
-            },
+
           ),
         );
         markers[listOfHospitals[i].name] = marker;
@@ -166,16 +166,13 @@ class HospitalLocationProvider extends ChangeNotifier {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    isLoading = true;
+
     position = await Geolocator.getCurrentPosition();
-    //notifyListeners();
-    isLoading = false;
-    notifyListeners();
     return position;
     //return await Geolocator.getCurrentPosition();
   }
 
-  void setCustomMapPin() async {
+  Future<void>  setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5), 'Assets/hospital_icon.png');
   }

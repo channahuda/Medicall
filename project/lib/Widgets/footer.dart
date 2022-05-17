@@ -157,7 +157,8 @@ class _footerState extends State<footer> {
                           height: 25.h,
                         ),
                         onPressed: () {
-                          LogoutDialog.showLogoutDialog(context);
+                          LogoutDialog logout=new LogoutDialog();
+                          logout.showLogoutDialog(context);
                         },
                       ),
                       InkWell(
@@ -167,7 +168,9 @@ class _footerState extends State<footer> {
                           TextStyle(color: Colors.black, fontSize: 10.sp),
                         ),
                         onTap: () {
-                          LogoutDialog.showLogoutDialog(context);
+                          LogoutDialog logout=new LogoutDialog();
+                          logout.showLogoutDialog(context);
+                         // LogoutDialog.showLogoutDialog(context);
                         },
                       ),
                     ],
