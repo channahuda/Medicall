@@ -1,34 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/Widgets/vital_stats.dart';
 import 'package:medicall/Widgets/headings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/patient_model.dart';
 
-// class PatientDetails extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         FocusScopeNode currentFocus = FocusScope.of(context);
-//
-//         if (!currentFocus.hasPrimaryFocus) {
-//           currentFocus.unfocus();
-//         }
-//
-//
-//       },
-//       child: MaterialApp(
-//         title: 'Flutter Demo',
-//         theme: ThemeData(
-//           primarySwatch: Colors.blue,
-//         ),
-//         home: hospitalform(),
-//       ),
-//     );
-//   }
-// }
 class  PatientDetails extends StatefulWidget {
   final PatientModel patientModel;
    PatientDetails({Key? key,required this.patientModel}) : super(key: key);

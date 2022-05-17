@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medicall/Entities/hospital.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Model/user_model.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
-import 'package:medicall/View/login.dart';
 import 'package:medicall/View/hospital_login.dart';
-import 'package:medicall/Widgets/w_register_form.dart';
 import 'package:provider/provider.dart';
 
 import '../Widgets/footer.dart';

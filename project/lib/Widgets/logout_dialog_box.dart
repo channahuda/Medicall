@@ -3,21 +3,6 @@ import 'package:medicall/Providers/hospital_location_provider.dart';
 import 'package:provider/provider.dart';
 import '../Providers/patient_list_provider.dart';
 import '../View/login.dart';
-//
-// class LogoutDialogs extends StatefulWidget {
-//   const LogoutDialogs({Key? key}) : super(key: key);
-//
-//   @override
-//   State<LogoutDialogs> createState() => _LogoutDialogsState();
-// }
-//
-// class _LogoutDialogsState extends State<LogoutDialogs> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
-
 
 class LogoutDialog {
   static bool loginDialog = false;

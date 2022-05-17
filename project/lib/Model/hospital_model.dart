@@ -1,7 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medicall/Entities/hospital.dart';
-
-import '../Network_Layer/network_call.dart';
 
 class HospitalModel {
   late String name;

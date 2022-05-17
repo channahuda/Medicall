@@ -1,20 +1,4 @@
 import 'package:flutter/foundation.dart';
-//
-// enum Gender { male, female, other }
-// enum EmergencyType { male, female, other }
-//
-// void validateDescribeEnum() {
-//   assert(Gender.male.toString() == 'Gender.male');
-//   assert(describeEnum(Gender.male) == 'Male');
-//   assert(Gender.male.name == 'Male');
-//   assert(Gender.female.toString() == 'Gender.female');
-//   assert(describeEnum(Gender.female) == 'Female');
-//   assert(Gender.female.name == 'Female');
-//   assert(Gender.other.toString() == 'Gender.other');
-//   assert(describeEnum(Gender.other) == 'Other');
-//   assert(Gender.other.name == 'Other');
-// //  assert(EmergencyType)
-// }
 
 class PatientModel {
   String? id;

@@ -129,6 +129,14 @@ class _HospitalLoginState extends State<HospitalLogin> {
                     if (_formkey.currentState!.validate()) {
                       context.read<HospitalLoginProvider>().loginHospital(email.text, pw.text,context);
 
+                      String username = email.text;
+                      String password = pw.text;
+                      if (username != '' && password != '') {
+                        print('Successfull');
+                        logindata.setBool('login', false);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => PatientList()));
+                      }
                       //  login.signIn(email.text,pw.text,context);
                       // context.read<HospitalLoginAuth>().login(
                       //   email.text,
@@ -141,14 +149,6 @@ class _HospitalLoginState extends State<HospitalLogin> {
 
                     else {
                       return ;
-                    }
-                    String username = email.text;
-                    String password = pw.text;
-                    if (username != '' && password != '') {
-                      print('Successfull');
-                      logindata.setBool('login', false);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => PatientList()));
                     }
                   },
                   child: Text('Login'),
