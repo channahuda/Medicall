@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
 

@@ -10,7 +10,6 @@ import '../Network_Layer/firebase_network_call.dart';
 
 
 class HospitalLocationProvider extends ChangeNotifier {
-  //GoogleMapController? mapController;
   Map<String, Marker> markers = {};
   late Position position;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
@@ -132,7 +131,6 @@ class HospitalLocationProvider extends ChangeNotifier {
   }
 
   void getNearestLocation() async {
-    //position = await
     _determinePosition();
     notifyListeners();
   }
@@ -167,7 +165,6 @@ class HospitalLocationProvider extends ChangeNotifier {
 
     position = await Geolocator.getCurrentPosition();
     return position;
-    //return await Geolocator.getCurrentPosition();
   }
 
   Future<void>  setCustomMapPin() async {

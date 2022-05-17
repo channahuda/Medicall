@@ -1,9 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Providers/paramedic_login_provider.dart';
-import 'package:medicall/View/home_page.dart';
-import 'package:medicall/View/nearest_location.dart';
 import 'package:provider/provider.dart';
 
 class ParamedicLogin extends StatefulWidget {

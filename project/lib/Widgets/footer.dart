@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:medicall/Widgets/logout_dialog_box.dart';
 import 'package:medicall/View/patient_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../View/Login.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:medicall/View/edit_hospital.dart';
 
 class footer extends StatefulWidget {
@@ -16,19 +14,19 @@ class footer extends StatefulWidget {
 
 class _footerState extends State<footer> {
   Color iconColor = Colors.black;
-  late SharedPreferences logindata;
+  //late SharedPreferences logindata;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    initial();
+   // initial();
   }
 
-  void initial() async {
-    logindata = await SharedPreferences.getInstance();
-    setState(() {
-    });
-  }
+  // void initial() async {
+  //   logindata = await SharedPreferences.getInstance();
+  //   setState(() {
+  //   });
+  // }
 
 
   @override
@@ -127,7 +125,7 @@ class _footerState extends State<footer> {
                           height: 25.h,
                         ),
                         onPressed: () {
-                          logindata.setBool('login', LogoutDialog.loginDialog);
+                         // logindata.setBool('login', LogoutDialog.loginDialog);
                           LogoutDialog logout= LogoutDialog();
                           logout.showLogoutDialog(context);
 
@@ -140,7 +138,7 @@ class _footerState extends State<footer> {
                           TextStyle(color: Colors.black, fontSize: 10.sp),
                         ),
                         onTap: () {
-                          logindata.setBool('login', LogoutDialog.loginDialog);
+                          //logindata.setBool('login', LogoutDialog.loginDialog);
                           LogoutDialog logout= LogoutDialog();
                           logout.showLogoutDialog(context);
                         },

@@ -8,8 +8,6 @@ import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/View/hospital_login.dart';
 import 'package:provider/provider.dart';
 
-import '../Widgets/footer.dart';
-
 class RegisterHospital extends StatefulWidget {
   const RegisterHospital({Key? key}) : super(key: key);
 
@@ -136,8 +134,7 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                                     onTap: (LatLng latLng) {
                                       Marker newmark = Marker(
                                         markerId: MarkerId('Places Name'),
-                                        infoWindow: const InfoWindow(
-                                            title: 'Hospital Name'),
+
                                         icon: BitmapDescriptor
                                             .defaultMarkerWithHue(
                                                 BitmapDescriptor.hueRed),
@@ -187,18 +184,6 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                                             builder: (context) =>
                                                 HospitalLogin()),
                                         (route) => false);
-
-                                    // Navigator.of(context).pushAndRemoveUntil(
-                                    //   context,
-                                    // MaterialPageRoute(
-                                    //   builder: (context) => HospitalLogin(),
-                                    //                    ),
-                                    //            );
-                                  } else {
-                                    print(
-                                        "............................ELSE................................................");
-                                    print("\n");
-                                    print("could not be added");
                                   }
                                 },
                                 child: Text('Register'),

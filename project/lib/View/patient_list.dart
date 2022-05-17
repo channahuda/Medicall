@@ -7,7 +7,7 @@ import 'package:medicall/Widgets/footer.dart';
 import 'package:medicall/Widgets/logout_dialog_box.dart';
 import 'package:provider/provider.dart';
 import 'package:medicall/View/patient_details.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:medicall/Widgets/exit_bottom_sheet.dart';
 
 
@@ -21,20 +21,13 @@ class PatientList extends StatefulWidget {
 class _PatientListState extends State<PatientList> {
   late PatientListProvider patientProvider;
   List<PatientModel> listofpatients=[];
-  late SharedPreferences logindata;
 
   @override
   void initState() {
     context.read<PatientListProvider>().loadPatientList();
     // TODO: implement initState
     super.initState();
-    initial();
-  }
-
-  void initial() async {
-    logindata = await SharedPreferences.getInstance();
-    setState(() {
-    });
+   // initial();
   }
 
 
@@ -128,7 +121,6 @@ class _PatientListState extends State<PatientList> {
                                             constraints: BoxConstraints(),
                                             onPressed: (){
                                               patientProvider.deletePatients(patientProvider.listOfPatients[index]);
-                                              // patientList.remove(patientList[index]);
                                               setState(() {
                                               });
                                             }
@@ -175,18 +167,3 @@ class _PatientListState extends State<PatientList> {
     );
   }
 }
-
-
-//REMOVE ALL OF THIS AFTER PROVIDER
-// class Patient{
-//   String name;
-//   int age;
-//   String emergencyType;
-//
-//   Patient(this.name, this.age, this.emergencyType);
-// }
-//
-// List<Patient> patientList = [
-//   Patient('Sarah Ali', 25, 'Burn Victim'),
-//
-// ];

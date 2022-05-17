@@ -92,7 +92,7 @@
 //   }
 // }
 import 'package:medicall/View/patient_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:medicall/Providers/edit_hospital_provider.dart';
@@ -101,14 +101,11 @@ import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/Providers/paramedic_login_provider.dart';
 import 'package:medicall/Providers/patient_form_provider.dart';
-import 'package:medicall/View/home_page.dart';
 
 import '../Providers/patient_list_provider.dart';
-import '../Widgets/logout_dialog_box.dart';
 import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'edit_hospital.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -162,23 +159,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
     startTimer();
     initAnimation();
-    check_if_already_login();
+    //check_if_already_login();
 
   }
 
-  late SharedPreferences logindata;
+  //late SharedPreferences logindata;
   late bool newuser;
   bool isPlaying = true;
 
-  void check_if_already_login() async {
-    logindata = await SharedPreferences.getInstance();
-    newuser = (logindata.getBool('login') ?? true);
-    print(newuser);
-    if (newuser == false) {
-      Navigator.pushReplacement(
-          context, new MaterialPageRoute(builder: (context) => PatientList()));
-    }
-  }
+  // void check_if_already_login() async {
+  //   logindata = await SharedPreferences.getInstance();
+  //   newuser = (logindata.getBool('login') ?? true);
+  //   print(newuser);
+  //   if (newuser == false) {
+  //     Navigator.pushReplacement(
+  //         context, new MaterialPageRoute(builder: (context) => PatientList()));
+  //   }
+  // }
 
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),

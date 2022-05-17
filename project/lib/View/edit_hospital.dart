@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Providers/edit_hospital_provider.dart';
-import 'package:medicall/View/Login.dart';
-import 'package:medicall/View/edit_form.dart';
-import 'package:medicall/View/patient_details.dart';
 import 'package:medicall/View/patient_list.dart';
-import 'package:medicall/Widgets/delete_dialog.dart';
 import 'package:provider/provider.dart';
 import '../Widgets/exit_bottom_sheet.dart';
 import '../Widgets/footer.dart';
@@ -23,7 +17,6 @@ class EditHospital extends StatefulWidget {
 
 class _EditHospitalState extends State<EditHospital> {
   final _formkey = GlobalKey<FormState>();
- //  List<HospitalModel> model = [];
   TextEditingController hospitalname = TextEditingController(text: '');
   TextEditingController password = TextEditingController();
   TextEditingController cpassword = TextEditingController();
@@ -33,12 +26,7 @@ class _EditHospitalState extends State<EditHospital> {
   TextEditingController contact = TextEditingController();
    TextEditingController beds = TextEditingController();
 
-  // late EditHospitalProvider hospitalProvider;
-
-
   List<Marker> mark = [];
-
-//  late bool changed;
 
   @override
   void initState() {
@@ -79,33 +67,7 @@ class _EditHospitalState extends State<EditHospital> {
                       'Edit Hospital Details',
                       style: TextStyle(fontSize: 22.sp, color: Colors.white),
                     ),
-                    actions: <Widget>[
-                      Stack(
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.delete_outline_outlined),
-                            onPressed: () {
-                              DeleteDialog.showDeleteDialog(context);
-                            },
-                          ),
-                          Positioned(
-                            bottom: 5.h,
-                            child: InkWell(
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10.sp,
-                                ),
-                              ),
-                              onTap: () {
-                                DeleteDialog.showDeleteDialog(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ]),
+                ),
                 body: hospitalProvider.isLoading
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -131,7 +93,6 @@ class _EditHospitalState extends State<EditHospital> {
                                             //
                                             inputFile(
                                                 label: "Hospital Name",
-                                             // initval: hospitalname,
                                                initval: hospitalProvider
                                                    .hospitalmodel?.name,
                                                cont: hospitalname
@@ -142,8 +103,6 @@ class _EditHospitalState extends State<EditHospital> {
                                                 initval: hospitalProvider
                                                     .hospitalmodel?.email,
                                                 cont: email),
-                                            // inputFile(label: "Password", obscureText: true, cont: password),
-                                            // inputFile(label: "Confirm Password", obscureText: true, cont: password),
                                             inputFile(
                                                 label: "Address",
                                                 initval: hospitalProvider
@@ -195,18 +154,10 @@ class _EditHospitalState extends State<EditHospital> {
                                                           print(" hospital name    ");
                                                           print( hospitalname);
                                                           print(" hospital name in provider: ");
-                                                           //   print(hospitalProvider.hospitalmodel.name);
                                                           print("\n");
                                                           print("\n");
                                                           hospitalProvider.updateHospital(
                                                             hospitalname.text,email.text,address.text,city.text,contact.text,int.parse(beds.text)
-                                                          //  hospitalname, "l@gmail.com", "address", "city", "12345678901",0
-                                                          //     (hospitalname.text == "") ? hospitalProvider.hospitalmodel.name : hospitalname.text,
-                                                          //     (email.text == "") ? hospitalProvider.hospitalmodel.email : email.text,
-                                                          //     (address.text == "") ? hospitalProvider.hospitalmodel.address : address.text
-                                                          //     ,(city.text  == "") ? hospitalProvider.hospitalmodel.city : city.text
-                                                          //   ,(contact.text  == "") ? hospitalProvider.hospitalmodel.phoneNumber : contact.text ,
-                                                          //     (beds.text == "") ? hospitalProvider.hospitalmodel.beds : int.parse(beds.text),
 
                                                              );
 

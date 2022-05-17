@@ -16,12 +16,7 @@ class _LogoutState extends State<Logout> {
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) =>
-          //remove stack when it is final that text is not needed
           IconButton(
-            // icon: Image.asset(
-            //   'Assets/logout.png',
-            //   height: 30.h,
-            // ),
             icon: Icon(
               Icons.logout_rounded,
               color: Colors.white,
@@ -29,7 +24,6 @@ class _LogoutState extends State<Logout> {
             onPressed: () {
               LogoutDialog logout=new LogoutDialog();
               logout.showLogoutDialog(context);
-              //LogoutDialog.showLogoutDialog(context);
             },
           ),
     );

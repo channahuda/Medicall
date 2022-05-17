@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medicall/Providers/hospital_location_provider.dart';
 import 'package:provider/provider.dart';
 import '../Providers/patient_list_provider.dart';
 import '../View/login.dart';

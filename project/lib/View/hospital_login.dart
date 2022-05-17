@@ -1,11 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/Network_Layer/hospital_login_auth.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/View/register_hospital.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'patient_list.dart';
 
 class HospitalLogin extends StatefulWidget {
@@ -17,11 +16,11 @@ class HospitalLogin extends StatefulWidget {
 
 class _HospitalLoginState extends State<HospitalLogin> {
 
-  late SharedPreferences logindata;
+ // late SharedPreferences logindata;
 
-  void check_if_already_login() async {
-    logindata = await SharedPreferences.getInstance();}
-  late bool newuser;
+ // void check_if_already_login() async {
+    //logindata = await SharedPreferences.getInstance();}
+  //late bool newuser;
   TextEditingController email = TextEditingController();
   TextEditingController pw = TextEditingController();
   final _formkey = GlobalKey<FormState>();
@@ -30,7 +29,7 @@ class _HospitalLoginState extends State<HospitalLogin> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    check_if_already_login();
+    //check_if_already_login();
   }
 
   void dispose() {
@@ -129,25 +128,15 @@ class _HospitalLoginState extends State<HospitalLogin> {
                     if (_formkey.currentState!.validate()) {
                       context.read<HospitalLoginProvider>().loginHospital(email.text, pw.text,context);
 
-                      String username = email.text;
-                      String password = pw.text;
-                      if (username != '' && password != '') {
-                        print('Successfull');
-                        logindata.setBool('login', false);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => PatientList()));
-                      }
-                      //  login.signIn(email.text,pw.text,context);
-                      // context.read<HospitalLoginAuth>().login(
-                      //   email.text,
-                      //   pw.text,
-                      // );
-                      // Navigator.of(context).push(
-                      //     MaterialPageRoute(
-                      //         builder: (context) => PatientList()));
-                    }
-
-                    else {
+                      // String username = email.text;
+                      // String password = pw.text;
+                      // if (username != '' && password != '') {
+                      //   print('Successfull');
+                      //   logindata.setBool('login', false);
+                      //   Navigator.push(context,
+                      //       MaterialPageRoute(builder: (context) => PatientList()));
+                      // }
+                    } else {
                       return ;
                     }
                   },

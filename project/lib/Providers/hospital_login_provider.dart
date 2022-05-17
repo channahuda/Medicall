@@ -1,7 +1,4 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
 
 class HospitalLoginProvider extends ChangeNotifier {

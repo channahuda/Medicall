@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Widgets/headings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/patient_model.dart';
 
 class  PatientDetails extends StatefulWidget {
@@ -27,10 +26,6 @@ class _PatientDetailsState extends State<PatientDetails> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xffF8F8F8),
         appBar: AppBar(
-          /*leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: (){Navigator.pop(context);}
-          ),*/
           backgroundColor: const Color(0xFF353559),
           centerTitle: true,
           title: Text('Patient Name', style: TextStyle(fontSize: 22.sp,  color: Colors.white ),),
@@ -49,7 +44,6 @@ class _PatientDetailsState extends State<PatientDetails> {
               height: 45.h,
               width: 400.w,
               child:TxtField(1,400, widget.patientModel.name)
-            // child: dropdown(),
           ),
         ),
       Padding(
