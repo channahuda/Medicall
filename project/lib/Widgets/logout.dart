@@ -15,17 +15,16 @@ class _LogoutState extends State<Logout> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 800),
-      builder: (BuildContext context) =>
-          IconButton(
-            icon: Icon(
-              Icons.logout_rounded,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              LogoutDialog logout=new LogoutDialog();
-              logout.showLogoutDialog(context);
-            },
-          ),
+      builder: (BuildContext context) => IconButton(
+        icon: const Icon(
+          Icons.logout_rounded,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          LogoutDialog logout = LogoutDialog();
+          logout.showLogoutDialog(context);
+        },
+      ),
     );
   }
 }

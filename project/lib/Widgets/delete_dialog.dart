@@ -24,7 +24,7 @@ class DeleteDialog {
               child: const Text(
                 "YES",
                 style:
-                TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
+                    TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
@@ -32,7 +32,7 @@ class DeleteDialog {
                   MaterialPageRoute(
                     builder: (BuildContext context) => Login(),
                   ),
-                      (route) => false,
+                  (route) => false,
                 );
               },
             ),
@@ -40,7 +40,7 @@ class DeleteDialog {
               child: const Text(
                 "NO",
                 style:
-                TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
+                    TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
                 Navigator.of(context).pop();

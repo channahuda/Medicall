@@ -28,18 +28,18 @@ class LogoutDialog {
               child: const Text(
                 "YES",
                 style:
-                TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
+                    TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
                 loginDialog = true;
-               context.read<PatientListProvider>().signOut(context);
-             //   context.read<HospitalLocationProvider>().signOut(context);
+                context.read<PatientListProvider>().signOut(context);
+                //   context.read<HospitalLocationProvider>().signOut(context);
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => Login(),
                   ),
-                      (route) => false,
+                  (route) => false,
                 );
               },
             ),
@@ -47,16 +47,16 @@ class LogoutDialog {
               child: const Text(
                 "NO",
                 style:
-                TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
+                    TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
-               loginDialog = false;
+                loginDialog = false;
                 Navigator.of(context).pop();
               },
             ),
-           ],
+          ],
         );
       },
     );
-    }
   }
+}

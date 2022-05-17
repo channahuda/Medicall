@@ -8,11 +8,10 @@ import 'package:medicall/Widgets/hospital_info_modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../Network_Layer/firebase_network_call.dart';
 
-
 class HospitalLocationProvider extends ChangeNotifier {
   Map<String, Marker> markers = {};
   late Position position;
-  FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
+  final FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   late List<HospitalModel> listOfHospitals;
   late BuildContext context;
   bool isLoadingHospitals = true;
@@ -27,29 +26,26 @@ class HospitalLocationProvider extends ChangeNotifier {
     this.context = context;
   }
 
-  Future<void> initPosition() async{
-
+  Future<void> initPosition() async {
     await loadHospitalsList();
     await _determinePosition();
     await setCustomMapPin();
-    isLoading=false;
+    isLoading = false;
     notifyListeners();
   }
 
-  launchmap(lat, lng) {
+  launchMap(lat, lng) {
     MapsLauncher.launchCoordinates(lat, lng);
   }
 
-  Future<void>  loadHospitalsList() async {
-
+  Future<void> loadHospitalsList() async {
     listOfHospitals = await _hospitalServices.getHospitals();
-
   }
 
   Future<void> signOut(BuildContext context) async {
-    isLoading=true;
+    isLoading = true;
     await _hospitalServices.signOut(context);
-    isLoading=false;
+    isLoading = false;
     notifyListeners();
   }
 
@@ -62,7 +58,7 @@ class HospitalLocationProvider extends ChangeNotifier {
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
-    isLoading=true;
+    isLoading = true;
     notifyListeners();
     markers.clear();
     for (int i = 0; i < listOfHospitals.length; i++) {
@@ -79,7 +75,7 @@ class HospitalLocationProvider extends ChangeNotifier {
             markerClicked = true;
             notifyListeners();
             showMaterialModalBottomSheet(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
                     topLeft: Radius.circular(15)),
@@ -96,12 +92,10 @@ class HospitalLocationProvider extends ChangeNotifier {
           },
           infoWindow: InfoWindow(
             title: listOfHospitals[i].name,
-
           ),
         );
         markers[listOfHospitals[i].name] = marker;
-      }
-      else if (markers.length == 0) {
+      } else if (markers.length == 0) {
         for (int i = 1; i < listOfHospitals.length; i++) {
           if (distance <= 3 + i && listOfHospitals[i].beds > 0) {
             if (markers.length > 0) {
@@ -114,7 +108,7 @@ class HospitalLocationProvider extends ChangeNotifier {
                 infoWindow: InfoWindow(
                     title: listOfHospitals[i].name,
                     onTap: () {
-                    //  index = i;
+                      //  index = i;
 
                       markerClicked = true;
                       notifyListeners();
@@ -126,7 +120,7 @@ class HospitalLocationProvider extends ChangeNotifier {
         }
       }
     }
-    isLoading=false;
+    isLoading = false;
     notifyListeners();
   }
 
@@ -167,8 +161,8 @@ class HospitalLocationProvider extends ChangeNotifier {
     return position;
   }
 
-  Future<void>  setCustomMapPin() async {
+  Future<void> setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'Assets/hospital_icon.png');
+        const ImageConfiguration(devicePixelRatio: 2.5), 'Assets/hospital_icon.png');
   }
 }

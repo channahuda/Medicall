@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => Scaffold(
-        backgroundColor: Color(0xffF8F8F8),
+        backgroundColor: const Color(0xffF8F8F8),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -28,42 +28,45 @@ class _LoginState extends State<Login> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ParamedicLogin()),
+                  MaterialPageRoute(
+                    builder: (context) => const ParamedicLogin(),
+                  ),
                 );
               },
-              child: Text('Paramedic Login'),
+              child: const Text('Paramedic Login'),
               style: ElevatedButton.styleFrom(
-                  primary: Color(0xff353559),
-                  padding:
-                  REdgeInsets.symmetric(horizontal: 75.w, vertical: 18.h),
-                  textStyle:
-                  TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0.r),
-                  )),
+                primary: const Color(0xff353559),
+                padding:
+                    REdgeInsets.symmetric(horizontal: 75.w, vertical: 18.h),
+                textStyle:
+                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0.r),
+                ),
+              ),
             ),
             SizedBox(height: 10.h),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => HospitalLogin(),
+                    builder: (context) => const HospitalLogin(),
                   ),
                 );
               },
-              child: Text('Hospital Login'),
+              child: const Text('Hospital Login'),
               style: ElevatedButton.styleFrom(
-                  primary: Color(0xffF18793),
-                  padding:
-                  REdgeInsets.symmetric(horizontal: 84.w, vertical: 18.h),
-                  textStyle:
-                  TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0.r),
-                  )),
+                primary: const Color(0xffF18793),
+                padding:
+                    REdgeInsets.symmetric(horizontal: 84.w, vertical: 18.h),
+                textStyle:
+                    TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0.r),
+                ),
+              ),
             ),
             SizedBox(height: 25.h),
-
           ],
         ),
       ),

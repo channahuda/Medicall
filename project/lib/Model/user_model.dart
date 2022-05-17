@@ -7,8 +7,7 @@ class UserModel {
 
   static UserModel fromJson(Map<String, dynamic> json) {
     return UserModel(
-        email: json['email'] as String,
-        isHospital: json['isHospital'] as bool);
+        email: json['email'] as String, isHospital: json['isHospital'] as bool);
   }
 
   Map<String, dynamic> toJson() {

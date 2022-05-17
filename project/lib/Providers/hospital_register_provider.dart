@@ -8,7 +8,7 @@ import '../Model/user_model.dart';
 class HospitalRegisterProvider extends ChangeNotifier {
   late Position position;
   bool isLoading=true;
-  FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
+  final FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
 
 
  HospitalRegisterProvider(){

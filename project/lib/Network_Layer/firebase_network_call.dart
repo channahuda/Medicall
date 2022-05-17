@@ -13,10 +13,11 @@ import '../Model/user_model.dart';
 import 'network_call.dart';
 
 class FirebaseNetworkCall implements NetworkCall {
-  String hospital_collection = "Hospitals";
-  String user_collection="Users";
-  String patient_collection = "Patients";
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String hospitalCollection = "Hospitals";
+  String userCollection = "Users";
+  String patientCollection = "Patients";
+
+//  FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final _hospitaauth = FirebaseAuth.instance;
 
@@ -39,24 +40,24 @@ class FirebaseNetworkCall implements NetworkCall {
     return hospitalList;
   }
 
+  @override
   void addHospital(HospitalModel hospital, UserModel user) {
     CollectionReference HospitalList =
-        FirebaseFirestore.instance.collection(hospital_collection);
-    HospitalList.doc(hospital.id)
-        .set(hospital.toJson())
-        .catchError((error) => CupertinoAlertDialog(
-                  title: Text("Failed to register hospital"),
-                  content: Text("$error"),
-                ),
-            );
+        FirebaseFirestore.instance.collection(hospitalCollection);
+    HospitalList.doc(hospital.id).set(hospital.toJson()).catchError(
+          (error) => CupertinoAlertDialog(
+            title: Text("Failed to register hospital"),
+            content: Text("$error"),
+          ),
+        );
     CollectionReference UserList =
-    FirebaseFirestore.instance.collection(user_collection);
-    UserList.doc(user.id).set(user.toJson())
-        .catchError((error) => CupertinoAlertDialog(
-      title: Text("Failed to register hospital as a user"),
-      content: Text("$error"),
-      ),
-    );
+        FirebaseFirestore.instance.collection(userCollection);
+    UserList.doc(user.id).set(user.toJson()).catchError(
+          (error) => CupertinoAlertDialog(
+            title: Text("Failed to register hospital as a user"),
+            content: Text("$error"),
+          ),
+        );
     Fluttertoast.showToast(msg: "Hospital added successfully ");
   }
 
@@ -66,9 +67,9 @@ class FirebaseNetworkCall implements NetworkCall {
 
     if (firebaseUser != null) {
       await FirebaseFirestore.instance
-          .collection(hospital_collection)
+          .collection(hospitalCollection)
           .doc(firebaseUser.uid)
-          .collection(patient_collection)
+          .collection(patientCollection)
           .get()
           .then((QuerySnapshot querySnapshot) {
         for (var doc in querySnapshot.docs) {
@@ -83,21 +84,17 @@ class FirebaseNetworkCall implements NetworkCall {
   }
 
   void addPatient(PatientModel patient, HospitalModel hospital) {
-
     CollectionReference PatientList = FirebaseFirestore.instance
-        .collection(hospital_collection)
+        .collection(hospitalCollection)
         .doc(hospital.id)
-        .collection(patient_collection);
-    PatientList.add(patient.toJson())
-        .then((value)  {patient.id = value.id;
-    Fluttertoast.showToast(msg: "Form has been submitted");
-        })
-        .catchError(
-            (error) => Fluttertoast.showToast(msg: "Failed to submit details")
-
-            );
+        .collection(patientCollection);
+    PatientList.add(patient.toJson()).then((value) {
+      patient.id = value.id;
+      Fluttertoast.showToast(msg: "Form has been submitted");
+    }).catchError(
+        (error) => Fluttertoast.showToast(msg: "Failed to submit details"));
     FirebaseFirestore.instance
-        .collection(hospital_collection)
+        .collection(hospitalCollection)
         .doc(hospital.id)
         .update({'beds': hospital.beds - 1}).catchError(
             (error) => Fluttertoast.showToast(msg: "Failed to reserve bed"));
@@ -107,39 +104,43 @@ class FirebaseNetworkCall implements NetworkCall {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
     if (firebaseUser != null) {
       CollectionReference PatientList = await FirebaseFirestore.instance
-          .collection(hospital_collection)
+          .collection(hospitalCollection)
           .doc(firebaseUser.uid)
-          .collection(patient_collection);
+          .collection(patientCollection);
       PatientList.doc(patient.id).delete().catchError(
           (error) => Fluttertoast.showToast(msg: "Failed to delete user"));
     } else {
       Fluttertoast.showToast(msg: "Failed to delete user");
     }
   }
+
   void signInHospital(
       String email, String password, BuildContext context) async {
     User users;
     String? errorMessage;
 
-    DocumentSnapshot snapshot = (await FirebaseFirestore.instance.collection(user_collection)
-        .where("email", isEqualTo: email).get()).docs.first;
-        print('/n');
+    DocumentSnapshot snapshot = (await FirebaseFirestore.instance
+            .collection(userCollection)
+            .where("email", isEqualTo: email)
+            .get())
+        .docs
+        .first;
     print('/n');
     print('/n');
-        print(snapshot.data());
+    print('/n');
+    print(snapshot.data());
     print('/n');
     print('/n');
-    if(snapshot.exists) {
+    if (snapshot.exists) {
       if ((snapshot.data()! as Map<String, dynamic>)['isHospital'] as bool) {
         try {
           await _hospitaauth
               .signInWithEmailAndPassword(email: email, password: password)
-              .then((uid) =>
-          {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => PatientList())),
-            Fluttertoast.showToast(msg: "Login Successful"),
-          });
+              .then((uid) => {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => PatientList())),
+                    Fluttertoast.showToast(msg: "Login Successful"),
+                  });
         } on FirebaseAuthException catch (error) {
           switch (error.code) {
             case "invalid-email":
@@ -162,7 +163,7 @@ class FirebaseNetworkCall implements NetworkCall {
               break;
             case "operation-not-allowed":
               errorMessage =
-              "Signing in with Email and Password is not enabled.";
+                  "Signing in with Email and Password is not enabled.";
               break;
             default:
               errorMessage = "An undefined Error happened.";
@@ -170,22 +171,17 @@ class FirebaseNetworkCall implements NetworkCall {
           Fluttertoast.showToast(msg: errorMessage);
           print(error.code);
         }
-      }
-      else
-      if ((snapshot.data()! as Map<String, dynamic>)['isHospital'] as bool ==
+      } else if ((snapshot.data()! as Map<String, dynamic>)['isHospital']
+              as bool ==
           false) {
         Fluttertoast.showToast(msg: "Attempt to Login Failed");
       }
+    } else if (snapshot.data() == null) {
+      Fluttertoast.showToast(msg: "Account with this email does not exist");
     }
-     else if(snapshot.data()==null){
-
-       Fluttertoast.showToast(msg: "Account with this email does not exist");
-     }
-
-
   }
 
-  void signUpHospital(HospitalModel hospital,UserModel user) async {
+  void signUpHospital(HospitalModel hospital, UserModel user) async {
     String? errorMessage;
     try {
       await _hospitaauth
@@ -193,8 +189,7 @@ class FirebaseNetworkCall implements NetworkCall {
               email: hospital.email, password: hospital.password!)
           .then((value) => {
                 hospital.id = value.user?.uid,
-                addHospital(hospital,user),
-
+                addHospital(hospital, user),
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
@@ -227,7 +222,7 @@ class FirebaseNetworkCall implements NetworkCall {
   }
 
   Future<void> signOut(BuildContext context) async {
-     await FirebaseAuth.instance
+    await FirebaseAuth.instance
         .signOut()
         .catchError((error) => Exception('User is null'));
     Navigator.pushAndRemoveUntil(
@@ -242,19 +237,23 @@ class FirebaseNetworkCall implements NetworkCall {
   void signInParamedic(
       String email, String password, BuildContext context) async {
     String? errorMessage;
-    DocumentSnapshot snapshot = (await FirebaseFirestore.instance.collection(user_collection)
-        .where("email", isEqualTo: email).get()).docs.first;
-    if(snapshot.exists) {
-      if ((snapshot.data()! as Map<String, dynamic>)['isHospital'] as bool==false) {
+    DocumentSnapshot snapshot = (await FirebaseFirestore.instance
+            .collection(userCollection)
+            .where("email", isEqualTo: email)
+            .get())
+        .docs
+        .first;
+    if (snapshot.exists) {
+      if ((snapshot.data()! as Map<String, dynamic>)['isHospital'] as bool ==
+          false) {
         try {
           await _hospitaauth
               .signInWithEmailAndPassword(email: email, password: password)
-              .then((uid) =>
-          {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => NearestLocation())),
-            Fluttertoast.showToast(msg: "Login Successful"),
-          });
+              .then((uid) => {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => NearestLocation())),
+                    Fluttertoast.showToast(msg: "Login Successful"),
+                  });
         } on FirebaseAuthException catch (error) {
           switch (error.code) {
             case "invalid-email":
@@ -275,21 +274,19 @@ class FirebaseNetworkCall implements NetworkCall {
               break;
             case "operation-not-allowed":
               errorMessage =
-              "Signing in with Email and Password is not enabled.";
+                  "Signing in with Email and Password is not enabled.";
               break;
             default:
               errorMessage = "An undefined Error happened.";
           }
           Fluttertoast.showToast(msg: errorMessage);
         }
-      }
-      else
-      if ((snapshot.data()! as Map<String, dynamic>)['isHospital'] as bool == true) {
+      } else if ((snapshot.data()! as Map<String, dynamic>)['isHospital']
+              as bool ==
+          true) {
         Fluttertoast.showToast(msg: "Attempt to Login Failed");
       }
-    }
-    else if(snapshot.data()==null){
-
+    } else if (snapshot.data() == null) {
       Fluttertoast.showToast(msg: "Account with this email does not exist");
     }
   }
@@ -299,11 +296,11 @@ class FirebaseNetworkCall implements NetworkCall {
 
     if (firebaseUser != null) {
       final hospital = await FirebaseFirestore.instance
-          .collection(hospital_collection)
+          .collection(hospitalCollection)
           .doc(firebaseUser.uid)
           .get();
       final hospitalModel =
-      HospitalModel.fromJson(hospital.data() as Map<String, dynamic>);
+          HospitalModel.fromJson(hospital.data() as Map<String, dynamic>);
       return hospitalModel;
     } else {
       throw Exception('User is null');
@@ -317,7 +314,7 @@ class FirebaseNetworkCall implements NetworkCall {
 
     if (firebaseUser != null) {
       CollectionReference HospitalList =
-          FirebaseFirestore.instance.collection(hospital_collection);
+          FirebaseFirestore.instance.collection(hospitalCollection);
       HospitalList.doc(firebaseUser.uid).update({
         'name': hospitalName,
         'email': email,

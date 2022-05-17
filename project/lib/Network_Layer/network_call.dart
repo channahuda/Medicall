@@ -14,6 +14,10 @@ abstract class NetworkCall {
   void addPatient(PatientModel patient, HospitalModel hospital);
 
   Future<void> deletePatient(PatientModel patient);
+
+  void updateHospital(String hospitalName, String email, String address,
+      String city, String contact, int beds);
+
 //void signInHospital(String email, String password, BuildContext context);
 // void signUpHospital(HospitalModel hospital);
 // Future<HospitalModel> fetchHospital();

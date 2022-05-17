@@ -59,12 +59,11 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                           contentPadding: REdgeInsets.fromLTRB(10, 0, 0, 0),
                           hintText: ("Email"),
                         ),
-
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Email is required';
-                          }
-                          else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                          } else if (!RegExp(
+                                  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                               .hasMatch(value)) {
                             return ("Please Enter a valid email");
                           }
@@ -83,10 +82,10 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                           hintText: ("Password"),
                         ),
                         validator: (value) {
-                          if (value ==null || value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return "Password is required";
                           }
-                          RegExp regex = new RegExp(r'^.{6,}$');
+                          RegExp regex = RegExp(r'^.{6,}$');
 
                           if (!regex.hasMatch(value)) {
                             return "Enter Valid Password(Min. 6 Characters)";
@@ -98,21 +97,24 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                     ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          context.read<ParamedicLoginProvider>().loginHospital(email.text, pw.text,context);
+                          context
+                              .read<ParamedicLoginProvider>()
+                              .loginHospital(email.text, pw.text, context);
                         } else {
                           return null;
                         }
                       },
                       child: const Text('Login'),
                       style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff353559),
-                          padding: REdgeInsets.symmetric(
-                              horizontal: 120.w, vertical: 15.h),
-                          textStyle: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.w500),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0.r),
-                          )),
+                        primary: const Color(0xff353559),
+                        padding: REdgeInsets.symmetric(
+                            horizontal: 120.w, vertical: 15.h),
+                        textStyle: TextStyle(
+                            fontSize: 20.sp, fontWeight: FontWeight.w500),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0.r),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(

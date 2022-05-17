@@ -17,7 +17,6 @@ class DisplayHospitalInfo extends StatefulWidget {
 }
 
 class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -26,19 +25,19 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
           Padding(
             padding: REdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Text(
-                widget.hospitalSelected.name,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff353559),
-                  fontSize: 22.sp,
-                ),
-              ),
-              ]
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.hospitalSelected.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff353559),
+                      fontSize: 22.sp,
+                    ),
+                  ),
+                ]),
           ),
           ListTile(
             contentPadding: REdgeInsets.fromLTRB(30, 0, 0, 0),
@@ -52,7 +51,7 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
               style: TextStyle(fontSize: 16.sp),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             indent: 20,
             endIndent: 20,
@@ -70,7 +69,7 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
               style: TextStyle(fontSize: 16.sp),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             indent: 20,
             endIndent: 20,
@@ -89,7 +88,7 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
               style: TextStyle(fontSize: 16.sp),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             indent: 20,
             endIndent: 20,
@@ -110,38 +109,41 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
           ),
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               SizedBox(
-                height:40.h,
+                height: 40.h,
                 width: 150.w,
                 child: ElevatedButton(
                   child: const Text('Directions'),
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xff353559),
-                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 9.h),
-                    textStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 9.h),
+                    textStyle:
+                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0.r),
                     ),
                   ),
                   onPressed: () {
-                    context.read<HospitalLocationProvider>().launchmap(
-                        widget.hospitalSelected.lat, widget.hospitalSelected.lng);
-
-
+                    context.read<HospitalLocationProvider>().launchMap(
+                        widget.hospitalSelected.lat,
+                        widget.hospitalSelected.lng);
                   },
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
-                height:40.h,
+                height: 40.h,
                 width: 150.w,
                 child: ElevatedButton(
                   child: const Text('Patient Form'),
                   style: ElevatedButton.styleFrom(
                     primary: const Color(0xff353559),
-                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 9.h),
-                    textStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 9.h),
+                    textStyle:
+                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -150,13 +152,15 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>  PatientForm(hospitalModel: widget.hospitalSelected,),
+                        builder: (context) => PatientForm(
+                          hospitalModel: widget.hospitalSelected,
+                        ),
                       ),
                     );
                   },
                 ),
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
           SizedBox(

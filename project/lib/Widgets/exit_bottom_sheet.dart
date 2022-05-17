@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ExitBottomSheet extends StatelessWidget {
+  const ExitBottomSheet({Key? key}) : super(key: key);
+
   static Future<bool> onWillPop(BuildContext context) async {
     bool? exitResult = await _ExitBottomSheet(context);
     return exitResult ?? false;
@@ -67,7 +68,7 @@ class ExitBottomSheet extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(true);
                 SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-              } ,
+              },
               child: const Text('Yes'),
             ),
           ],

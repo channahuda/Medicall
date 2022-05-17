@@ -1,4 +1,3 @@
-
 class HospitalModel {
   late String name;
   late String? id;
@@ -13,7 +12,7 @@ class HospitalModel {
 
   HospitalModel(
       {required this.name,
-        this.password,
+      this.password,
       this.id,
       required this.lat,
       required this.lng,
@@ -24,10 +23,8 @@ class HospitalModel {
       required this.phoneNumber});
 
   static HospitalModel fromJson(Map<String, dynamic> json) {
-
     return HospitalModel(
         name: json['name'] as String,
-        id: json['id'] as String? ?? "",
         lat: json['lat'] as double,
         lng: json['lng'] as double,
         city: json['city'] as String,
@@ -41,7 +38,6 @@ class HospitalModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['name'] = name;
-    data['id'] = id;
     data['lat'] = lat;
     data['lng'] = lng;
     data['city'] = city;

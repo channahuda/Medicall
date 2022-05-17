@@ -18,21 +18,14 @@ class _NearestLocationState extends State<NearestLocation> {
 
   @override
   void initState() {
-    //loadProvider();
     context.read<HospitalLocationProvider>().initPosition();
     // TODO: implement initState
     super.initState();
-    //loadProvider();
-    //context.read<HospitalLocationProvider>().loadHospitalsList();
-  }
-
-  void loadProvider() {
-    hospitalProvider = Provider.of<HospitalLocationProvider>(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    loadProvider();
+    hospitalProvider = Provider.of<HospitalLocationProvider>(context);
     hospitalProvider.setContext(context);
     return WillPopScope(
       onWillPop: () => ExitBottomSheet.onWillPop(context),
@@ -61,8 +54,8 @@ class _NearestLocationState extends State<NearestLocation> {
                       top: 30.h,
                       right: 10.w,
                       child: CircleAvatar(
-                        child: Logout(),
-                        backgroundColor: Color(0xff353559),
+                        child: const Logout(),
+                        backgroundColor: const Color(0xff353559),
                         radius: 20.r,
                       ),
                     ),

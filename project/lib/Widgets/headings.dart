@@ -1,30 +1,28 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class headings extends StatefulWidget {
+class Headings extends StatefulWidget {
   String text;
-   headings({Key? key, required this.text}) : super(key: key);
+
+  Headings({Key? key, required this.text}) : super(key: key);
 
   @override
-  State<headings> createState() => _headingsState();
+  State<Headings> createState() => _HeadingsState();
 }
 
-class _headingsState extends State<headings> {
+class _HeadingsState extends State<Headings> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360,800),
-      builder: (BuildContext context) =>  Text(
+      designSize: const Size(360, 800),
+      builder: (BuildContext context) => Text(
         widget.text,
         style: TextStyle(
           fontSize: 16.sp,
-          color: Color(0xff353559),
+          color: const Color(0xff353559),
           fontWeight: FontWeight.w600,
         ),
-    ),
-      );
+      ),
+    );
   }
 }
