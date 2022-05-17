@@ -17,8 +17,6 @@ class _LogoutState extends State<Logout> {
       designSize: const Size(360, 800),
       builder: (BuildContext context) =>
           //remove stack when it is final that text is not needed
-          Stack(
-        children: [
           IconButton(
             // icon: Image.asset(
             //   'Assets/logout.png',
@@ -34,23 +32,6 @@ class _LogoutState extends State<Logout> {
               //LogoutDialog.showLogoutDialog(context);
             },
           ),
-          // Positioned(
-          //   bottom: 5.h,
-          //   child: InkWell(
-          //     child: Text(
-          //       'Logout',
-          //       style: TextStyle(
-          //         color: Colors.white,
-          //         fontSize: 10.sp,
-          //       ),
-          //     ),
-          //     onTap: () {
-          //       LogoutDialog.showLogoutDialog(context);
-          //     },
-          //   ),
-          // ),
-        ],
-      ),
     );
   }
 }

@@ -14,6 +14,13 @@ late List<PatientModel> listOfPatients;
 
 }
 
+  Future<void> signOut(BuildContext context) async {
+    isLoading=true;
+    await _hospitalServices.signOut(context);
+    isLoading=false;
+    notifyListeners();
+  }
+
 // PatientModel get patientModel => _patientModel;
 //
 //   Future<void> reloadUserModel()async{

@@ -7,7 +7,7 @@ import '../Model/user_model.dart';
 
 class HospitalRegisterProvider extends ChangeNotifier {
   late Position position;
-  bool isLoading=false;
+  bool isLoading=true;
   FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
 
 
@@ -18,6 +18,7 @@ class HospitalRegisterProvider extends ChangeNotifier {
 
   addHospitalsList(HospitalModel hospital, UserModel user) async {
     isLoading=true;
+    notifyListeners();
     _hospitalServices.signUpHospital(hospital,user);
     isLoading=false;
     notifyListeners();
@@ -51,13 +52,13 @@ class HospitalRegisterProvider extends ChangeNotifier {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    isLoading=true;
-    notifyListeners();
+
     position = await Geolocator.getCurrentPosition();
 
     isLoading=false;
     notifyListeners();
     return position;
+
     //return await Geolocator.getCurrentPosition();
   }
 }

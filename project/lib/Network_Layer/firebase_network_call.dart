@@ -130,10 +130,7 @@ class FirebaseNetworkCall implements NetworkCall {
         })
         .catchError(
             (error) => Fluttertoast.showToast(msg: "Failed to submit details")
-            //     CupertinoAlertDialog(
-            //   title: Text("Failed to add Patient"),
-            //   content: Text("$error"),
-            // )
+
             );
     FirebaseFirestore.instance
         .collection(hospital_collection)
@@ -169,35 +166,6 @@ class FirebaseNetworkCall implements NetworkCall {
       String email, String password, BuildContext context) async {
     User users;
     String? errorMessage;
-
-// bool exists=false;
-//     FirebaseFirestore.instance
-//         .collection(user_collection)
-//         .get()
-//         .then((QuerySnapshot querySnapshot) {
-//
-//    querySnapshot.docs.forEach((doc) {
-//      UserModel tempUser = UserModel.fromJson(doc.data() as Map<String,dynamic>);
-//      if(tempUser.email == email) {
-//       exists=true;
-//       print("\n");
-//       print("\n");
-//       print("\n"); print("\n");
-//
-//       print("THIS EMAIL DOES EXIST WOHOOO");
-//      }
-//
-//    });
-//    print("\n");
-//    print("\n");
-//    print(exists);
-//         // HospitalModel hospital =
-//         // HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
-//         // hospital.id = doc.id;
-//         // hospitalList.add(hospital);
-//     //  }
-//     });
-
 
     DocumentSnapshot snapshot = (await FirebaseFirestore.instance.collection(user_collection)
         .where("email", isEqualTo: email).get()).docs.first;
@@ -274,6 +242,7 @@ class FirebaseNetworkCall implements NetworkCall {
           .then((value) => {
                 hospital.id = value.user?.uid,
                 addHospital(hospital,user),
+
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

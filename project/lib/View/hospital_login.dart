@@ -5,6 +5,7 @@ import 'package:medicall/Network_Layer/hospital_login_auth.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/View/register_hospital.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'patient_list.dart';
 
 class HospitalLogin extends StatefulWidget {
@@ -15,9 +16,29 @@ class HospitalLogin extends StatefulWidget {
 }
 
 class _HospitalLoginState extends State<HospitalLogin> {
-  TextEditingController email = TextEditingController()..text = 'l@gmail.com';
-  TextEditingController pw = TextEditingController()..text = '123456';
+
+  late SharedPreferences logindata;
+
+  void check_if_already_login() async {
+    logindata = await SharedPreferences.getInstance();}
+  late bool newuser;
+  TextEditingController email = TextEditingController();
+  TextEditingController pw = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    check_if_already_login();
+  }
+
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    email.dispose();
+    pw.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
@@ -121,6 +142,14 @@ class _HospitalLoginState extends State<HospitalLogin> {
                     else {
                       return ;
                     }
+                    String username = email.text;
+                    String password = pw.text;
+                    if (username != '' && password != '') {
+                      print('Successfull');
+                      logindata.setBool('login', false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PatientList()));
+                    }
                   },
                   child: Text('Login'),
                   style: ElevatedButton.styleFrom(
@@ -128,7 +157,7 @@ class _HospitalLoginState extends State<HospitalLogin> {
                       padding: REdgeInsets.symmetric(horizontal: 120.w, vertical: 15.h),
                       textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w500),
                       shape: RoundedRectangleBorder(
-                        borderRadius:  BorderRadius.circular(10.0.r),
+                        borderRadius:  BorderRadius.circular(5.0.r),
                       )),
                 ),
                 SizedBox(height: 20.h),
@@ -148,10 +177,10 @@ class _HospitalLoginState extends State<HospitalLogin> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               //
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => RegisterHospital()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterHospital()));
                             }),
                     ]
                     )

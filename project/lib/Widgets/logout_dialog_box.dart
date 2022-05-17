@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicall/Providers/hospital_location_provider.dart';
 import 'package:provider/provider.dart';
+import '../Providers/patient_list_provider.dart';
 import '../View/login.dart';
 //
 // class LogoutDialogs extends StatefulWidget {
@@ -19,7 +20,7 @@ import '../View/login.dart';
 
 
 class LogoutDialog {
- // bool loginDialog = false;
+  static bool loginDialog = false;
 
   showLogoutDialog(BuildContext context) {
     showDialog(
@@ -46,8 +47,9 @@ class LogoutDialog {
                 TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
-               // loginDialog = true;
-               context.read<HospitalLocationProvider>().signOut(context);
+                loginDialog = true;
+               context.read<PatientListProvider>().signOut(context);
+             //   context.read<HospitalLocationProvider>().signOut(context);
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -64,7 +66,7 @@ class LogoutDialog {
                 TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
-              //  loginDialog = false;
+               loginDialog = false;
                 Navigator.of(context).pop();
               },
             ),

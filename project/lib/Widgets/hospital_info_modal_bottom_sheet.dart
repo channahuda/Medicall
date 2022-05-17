@@ -31,18 +31,23 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
       children: [
         Padding(
           padding: EdgeInsets.fromLTRB(100, 10, 100, 10),
-          child: Text(
-            widget.hospitalSelected.name,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: const Color(0xff353559),
-              fontSize: 22,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [Text(
+              widget.hospitalSelected.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff353559),
+                fontSize: 22,
+              ),
             ),
+            ]
           ),
         ),
         ListTile(
-          contentPadding: EdgeInsets.fromLTRB(30, 1, 0, 1),
+          contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
           tileColor: const Color(0xffF8F8F8),
           leading: Image.asset(
             'Assets/phone-68-64.png',
@@ -53,8 +58,14 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
             style: TextStyle(fontSize: 16),
           ),
         ),
+        Divider(
+          thickness: 1,
+          indent: 20,
+          endIndent: 20,
+          color: Colors.grey,
+        ),
         ListTile(
-          contentPadding: EdgeInsets.fromLTRB(30, 1, 0, 1),
+          contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
           tileColor: const Color(0xffF8F8F8),
           leading: Image.asset(
             'Assets/icons8-sleeping-in-bed-64.png',
@@ -65,8 +76,14 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
             style: TextStyle(fontSize: 16),
           ),
         ),
+        Divider(
+          thickness: 1,
+          indent: 20,
+          endIndent: 20,
+          color: Colors.grey,
+        ),
         ListTile(
-          contentPadding: EdgeInsets.fromLTRB(30, 1, 0, 1),
+          contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
           //horizontalTitleGap: 30.0,
           tileColor: const Color(0xffF8F8F8),
           leading: Image.asset(
@@ -78,8 +95,14 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
             style: TextStyle(fontSize: 16),
           ),
         ),
+        Divider(
+          thickness: 1,
+          indent: 20,
+          endIndent: 20,
+          color: Colors.grey,
+        ),
         ListTile(
-          contentPadding: EdgeInsets.fromLTRB(30, 1, 0, 1),
+          contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
           //horizontalTitleGap: 30.0,
           tileColor: const Color(0xffF8F8F8),
           leading: Image.asset(
@@ -94,42 +117,50 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
         Row(
           children: [
             Spacer(),
-            ElevatedButton(
-              child: const Text('Directions'),
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0xff353559),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 9),
-                textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+            SizedBox(
+              height:40,
+              width: 150,
+              child: ElevatedButton(
+                child: const Text('Directions'),
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff353559),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 9),
+                  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
+                onPressed: () {
+                  context.read<HospitalLocationProvider>().launchmap(
+                      widget.hospitalSelected.lat, widget.hospitalSelected.lng);
+
+
+                },
               ),
-              onPressed: () {
-                context.read<HospitalLocationProvider>().launchmap(
-                    widget.hospitalSelected.lat, widget.hospitalSelected.lng);
-
-
-              },
             ),
             Spacer(),
-            ElevatedButton(
-              child: const Text('Patient Form'),
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0xff353559),
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 9),
-                textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>  PatientForm(hospitalModel: widget.hospitalSelected,),
+            SizedBox(
+              height:40,
+              width: 150,
+              child: ElevatedButton(
+                child: const Text('Patient Form'),
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff353559),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 9),
+                  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
-                );
-              },
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>  PatientForm(hospitalModel: widget.hospitalSelected,),
+                    ),
+                  );
+                },
+              ),
             ),
             Spacer()
           ],

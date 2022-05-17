@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => ParamedicLogin()),
                 );
               },
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
             SizedBox(height: 10.h),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => HospitalLogin(),
                   ),
@@ -65,33 +65,7 @@ class _LoginState extends State<Login> {
                   )),
             ),
             SizedBox(height: 25.h),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Don't have your hospital registered?",
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  TextSpan(
-                    text: ' Sign Up',
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RegisterHospital(),
-                          ),
-                        );
-                      },
-                  ),
-                ],
-              ),
-            ),
+
           ],
         ),
       ),

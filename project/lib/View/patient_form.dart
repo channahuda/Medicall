@@ -4,14 +4,10 @@ import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Model/patient_model.dart';
 import 'package:medicall/Providers/patient_form_provider.dart';
 import 'package:medicall/Widgets/gender_drop_down.dart';
-import 'package:medicall/Widgets/submit_dialog.dart';
-import 'package:medicall/Widgets/text_form_field.dart';
-import 'package:medicall/Widgets/vital_stats.dart';
 import 'package:medicall/Widgets/drop_down.dart';
 import 'package:medicall/Widgets/headings.dart';
 import 'package:provider/provider.dart';
 
-import '../Widgets/footer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PatientForm extends StatefulWidget {
@@ -45,8 +41,6 @@ class _PatientFormState extends State<PatientForm> {
 
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
-            //  bottomSheet: const footer(),
-            // resizeToAvoidBottomInset: false,
             backgroundColor: const Color(0xffF8F8F8),
             appBar: AppBar(
               backgroundColor: const Color(0xFF353559),
@@ -101,7 +95,7 @@ class _PatientFormState extends State<PatientForm> {
                                 // child: GenderDropDown(validkey: formkey,)
                                 //TxtFormField(lines:1, width:175,c: gender),
                                 child: SizedBox(
-                                  height: 60.h,
+                                  height: 50.h,
                                   width: 170.w,
                                   child: GenderDropDown(
                                       onGenderSelected: (val) {
@@ -121,14 +115,14 @@ class _PatientFormState extends State<PatientForm> {
                           ),
 
                           Padding(
-                              padding: REdgeInsets.fromLTRB(2, 10, 200, 10),
+                              padding: REdgeInsets.fromLTRB(2, 10, 230, 10),
                               child: headings(text:'Emergency Type')
 
                           ),
                           Padding(
                             padding:  REdgeInsets.fromLTRB(10, 0, 10, 15),
                             child: SizedBox(
-                              height: 45.h,
+                              height: 50.h,
                               width: 400.w,
                               child: dropdown(
                                   onTypeSelected: (val) {
@@ -184,27 +178,18 @@ class _PatientFormState extends State<PatientForm> {
                               onPressed: () {
                                 if (formkey.currentState!.validate()) {
                                   final patient= PatientModel(
-                                      name: name.text,
-                                      age: int.parse(age.text),
-                                      heartRate: double.parse(rate.text) ,
-                                      gender: gender.text,
-                                      bloodPressure: double.parse(bp.text),
-                                      oxygenLevel: double.parse(oxygen.text),
-                                      patientSymptoms: symptom.text,
-                                      emergencyTreatmentGiven: treatment.text,
-                                      emergencyType: type.text
+                                    name: name.text,
+                                    age: (age.text == "") ? null: int.parse(age.text),
+                                    heartRate: double.parse(rate.text) ,
+                                    gender: (gender.text == "") ? 'Not Specified': (gender.text),
+                                    bloodPressure: double.parse(bp.text),
+                                    oxygenLevel: double.parse(oxygen.text),
+                                    patientSymptoms: symptom.text,
+                                    emergencyTreatmentGiven: treatment.text,
+                                    emergencyType: (type.text == "")? 'Not Specified': (type.text),
+                                  );
+                                  patientFormProvider.addPatientsList(patient,widget.hospitalModel,);
 
-                                  );
-                                  print("/n");
-                                  print("/n");
-                                  print(patient.gender);
-                                  print("/n");
-                                  print("/n");
-                                  patientFormProvider.addPatientsList(patient,widget.hospitalModel);
-                                  showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>  SubmitDialog()
-                                  );
                                   name.clear();
                                   age.clear();
                                   type.clear();
@@ -300,95 +285,6 @@ class _PatientFormState extends State<PatientForm> {
       ),
     );
   }
-
-  // Widget GenderDropDown(){
-  //   List<String> gender = ['Male', 'Female','Other'];
-  //   String dropdownValue='Male';
-  //   return ScreenUtilInit(
-  //     builder: (BuildContext context) =>  Container(
-  //         decoration: BoxDecoration(
-  //           color: const Color(0xfffdab9f).withOpacity(0.02),
-  //           borderRadius: BorderRadius.circular(7.0.r),
-  //           border: Border.all(
-  //             color: Colors.black,
-  //             width: 1.w,
-  //           ),
-  //         ),
-  //         height: 40.h,
-  //         width: 175.w,
-  //         child: Padding(padding: EdgeInsets.only(left: 10).r,
-  //           child: DropdownButtonHideUnderline(
-  //             child: DropdownButton(
-  //
-  //               //dropdownValue,
-  //               hint: Text("Select Gender"),
-  //               //SizedBox(width: 135.w,),
-  //               icon: Icon(Icons.arrow_drop_down, color: Color(0xff353559),),
-  //               //elevation: 200,
-  //
-  //               style:  TextStyle(color: Color(0xff353559), fontSize: 16.sp),
-  //
-  //               items: gender.map<DropdownMenuItem<String>>((String value) {
-  //                 return DropdownMenuItem<String>(
-  //                   value: value,
-  //                   child: Text(value),
-  //                 );
-  //               }).toList(),
-  //               onChanged: (String? newValue) {
-  //                 setState(() {
-  //                   dropdownValue = newValue!;
-  //                 });
-  //               },
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //   );
-  // }
-
-  // Widget dropdown(){
-  //   String? dropdownValue;
-  //   List<String> types = ['Road Accident', 'Heart Attack/Chest Pain', 'Burn Victim', 'Fractured Bones', 'Gun Shot', 'Abdominal Pain','Suicide Attempt', 'Allergic Reaction'];
-  //
-  //   return ScreenUtilInit(
-  //     //  designSize: const Size(360,800),
-  //     builder: (BuildContext context) =>  Container(
-  //       decoration: BoxDecoration(
-  //         color: const Color(0xfffdab9f).withOpacity(0.02),
-  //         borderRadius: BorderRadius.circular(7.0.r),
-  //         border: Border.all(
-  //           color: Colors.black,
-  //           width: 1.w,
-  //         ),
-  //       ),
-  //       height: 50.h,
-  //       width: 200.w,
-  //       child: Padding(padding: EdgeInsets.only(left: 10).r,
-  //         child: DropdownButton(
-  //           hint: Text("Select Emergency Type               "),
-  //           icon: Icon(Icons.arrow_drop_down, color: Color(0xff353559),),
-  //           //elevation: 200,
-  //
-  //           style:  TextStyle(color: Color(0xff353559), fontSize: 16.sp),
-  //             value: dropdownValue,
-  //           onChanged: (String? newValue) {
-  //             dropdownValue = newValue!;
-  //             setState(() {
-  //               newValue!;
-  //
-  //             });
-  //           },
-  //           items: types.map<DropdownMenuItem<String>>((String val) {
-  //             return DropdownMenuItem<String>(
-  //               value: val,
-  //               child: new Text(val),
-  //             );
-  //           }).toList(),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget VitalStats(  {image,heading, c}){
     return ScreenUtilInit(

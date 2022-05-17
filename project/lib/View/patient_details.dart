@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Widgets/vital_stats.dart';
 import 'package:medicall/Widgets/headings.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/patient_model.dart';
 
 // class PatientDetails extends StatelessWidget {
@@ -38,6 +38,7 @@ class  PatientDetails extends StatefulWidget {
 }
 
 class _PatientDetailsState extends State<PatientDetails> {
+
   //FocusNode myFocusNode = new FocusNode();
   @override
   Widget build(BuildContext context) {

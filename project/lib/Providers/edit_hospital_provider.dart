@@ -1,6 +1,9 @@
+
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Network_Layer/firebase_network_call.dart';
+import 'package:medicall/Providers/hospital_location_provider.dart';
 
 class EditHospitalProvider extends ChangeNotifier {
   HospitalModel? hospitalmodel;
@@ -26,6 +29,7 @@ class EditHospitalProvider extends ChangeNotifier {
   }
 
   void updateHospital(String hospitalName,String email, String address, String city, String contact, int beds)  {
+
     isLoading=true;
     _hospitalServices.updateHospital(hospitalName,email,address,  city,  contact,  beds);
     print(" .............................................. \n");
