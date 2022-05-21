@@ -15,6 +15,7 @@ class HospitalLocationProvider extends ChangeNotifier {
   late List<HospitalModel> listOfHospitals;
   late BuildContext context;
   bool isLoadingHospitals = true;
+  bool isValidSignOut = false;
 
   HospitalModel? hospitalSelected;
   bool markerClicked = false;
@@ -42,9 +43,9 @@ class HospitalLocationProvider extends ChangeNotifier {
     listOfHospitals = await _hospitalServices.getHospitals();
   }
 
-  Future<void> signOut(BuildContext context) async {
+  Future<void> signOut() async {
     isLoading = true;
-    await _hospitalServices.signOut(context);
+    isValidSignOut = await _hospitalServices.signOut();
     isLoading = false;
     notifyListeners();
   }
@@ -163,6 +164,7 @@ class HospitalLocationProvider extends ChangeNotifier {
 
   Future<void> setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5), 'Assets/hospital_icon.png');
+        const ImageConfiguration(devicePixelRatio: 2.5),
+        'Assets/hospital_icon.png');
   }
 }

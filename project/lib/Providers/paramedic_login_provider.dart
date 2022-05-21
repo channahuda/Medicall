@@ -4,12 +4,16 @@ import 'package:medicall/Network_Layer/firebase_network_call.dart';
 class ParamedicLoginProvider extends ChangeNotifier {
   final FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   bool isLoading = false;
+  bool _isValid = false;
 
-  void loginHospital(
-      String email, String password, BuildContext context) async {
+  Future<bool> getIsValidParamedic() async {
+    return await _isValid;
+  }
+
+  Future<void> loginHospital(String email, String password) async {
     isLoading = true;
     notifyListeners();
-    _hospitalServices.signInParamedic(email, password, context);
+    _isValid = await _hospitalServices.signInParamedic(email, password);
     isLoading = false;
     notifyListeners();
   }

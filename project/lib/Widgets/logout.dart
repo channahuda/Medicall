@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'logout_dialog_box.dart';
 
 class Logout extends StatefulWidget {
-  const Logout({Key? key}) : super(key: key);
+  //String type;
+  const Logout({ Key? key}) : super(key: key);
 
   @override
   State<Logout> createState() => _LogoutState();

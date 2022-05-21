@@ -6,14 +6,20 @@ class PatientListProvider extends ChangeNotifier {
   late bool isLoading;
   final FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
   late List<PatientModel> listOfPatients;
+  bool isValid = false;
 
-  PatientListProvider() {
-    loadPatientList();
-  }
+  // PatientListProvider() {
+  //   loadPatientList();
+  // }
 
-  Future<void> signOut(BuildContext context) async {
+  //
+  // Future<bool> getisValid() async {
+  //   return await _isValid;
+  // }
+
+  Future<void> signOut() async {
     isLoading = true;
-    await _hospitalServices.signOut(context);
+    isValid = await _hospitalServices.signOut();
     isLoading = false;
     notifyListeners();
   }

@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
+import 'package:medicall/View/patient_list.dart';
 import 'package:medicall/View/register_hospital.dart';
 import 'package:provider/provider.dart';
 
@@ -120,8 +121,16 @@ class _HospitalLoginState extends State<HospitalLogin> {
                               if (_formkey.currentState!.validate()) {
                                 context
                                     .read<HospitalLoginProvider>()
-                                    .loginHospital(
-                                        email.text, pw.text, context);
+                                    .loginHospital(email.text, pw.text);
+                                if (context
+                                    .read<HospitalLoginProvider>()
+                                    .getisValidHospital()) {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const PatientList(),
+                                    ),
+                                  );
+                                }
                               } else {
                                 return;
                               }

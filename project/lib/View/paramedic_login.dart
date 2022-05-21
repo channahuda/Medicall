@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:medicall/Providers/paramedic_login_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'nearest_location.dart';
 
 class ParamedicLogin extends StatefulWidget {
   const ParamedicLogin({Key? key}) : super(key: key);
@@ -95,11 +98,22 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (formkey.currentState!.validate()) {
-                          context
+                          await context
                               .read<ParamedicLoginProvider>()
-                              .loginHospital(email.text, pw.text, context);
+                              .loginHospital(email.text, pw.text);
+                          if (await context
+                              .read<ParamedicLoginProvider>()
+                              .getIsValidParamedic()) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const NearestLocation(),
+                              ),
+                            );
+                          } else {
+                            Fluttertoast.showToast(msg: "Login Failed");
+                          }
                         } else {
                           return null;
                         }

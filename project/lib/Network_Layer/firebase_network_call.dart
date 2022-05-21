@@ -116,9 +116,8 @@ class FirebaseNetworkCall implements NetworkCall {
     }
   }
 
-  void signInHospital(
-      String email, String password, BuildContext context) async {
-    User users;
+  Future<bool> signInHospital(String email, String password) async {
+    bool isValid = false;
     String? errorMessage;
     DocumentSnapshot snapshot = (await FirebaseFirestore.instance
             .collection(userCollection)
@@ -132,11 +131,7 @@ class FirebaseNetworkCall implements NetworkCall {
           await _hospitaauth
               .signInWithEmailAndPassword(email: email, password: password)
               .then((uid) => {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const PatientList(),
-                      ),
-                    ),
+                    isValid = true,
                     Fluttertoast.showToast(msg: "Login Successful"),
                   });
         } on FirebaseAuthException catch (error) {
@@ -176,6 +171,7 @@ class FirebaseNetworkCall implements NetworkCall {
     } else if (snapshot.data() == null) {
       Fluttertoast.showToast(msg: "Account with this email does not exist");
     }
+    return isValid;
   }
 
   void signUpHospital(HospitalModel hospital, UserModel user) async {
@@ -218,21 +214,17 @@ class FirebaseNetworkCall implements NetworkCall {
     }
   }
 
-  Future<void> signOut(BuildContext context) async {
+  Future<bool> signOut() async {
+    bool isValid = false;
     await FirebaseAuth.instance
         .signOut()
+        .then((value) => isValid = true)
         .catchError((error) => Exception('User is null'));
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => Login(),
-      ),
-      (route) => false,
-    );
+    return isValid;
   }
 
-  void signInParamedic(
-      String email, String password, BuildContext context) async {
+  Future<bool> signInParamedic(String email, String password) async {
+    bool isValid = false;
     String? errorMessage;
     DocumentSnapshot snapshot = (await FirebaseFirestore.instance
             .collection(userCollection)
@@ -247,12 +239,9 @@ class FirebaseNetworkCall implements NetworkCall {
           await _hospitaauth
               .signInWithEmailAndPassword(email: email, password: password)
               .then((uid) => {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const NearestLocation(),
-                      ),
-                    ),
-                    Fluttertoast.showToast(msg: "Login Successful"),
+                    isValid = true,
+
+            Fluttertoast.showToast(msg: "Login Successful"),
                   });
         } on FirebaseAuthException catch (error) {
           switch (error.code) {
@@ -288,6 +277,7 @@ class FirebaseNetworkCall implements NetworkCall {
     } else if (snapshot.data() == null) {
       Fluttertoast.showToast(msg: "Account with this email does not exist");
     }
+    return isValid;
   }
 
   Future<HospitalModel?> fetchHospital() async {

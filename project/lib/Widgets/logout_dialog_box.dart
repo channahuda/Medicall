@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../Providers/patient_list_provider.dart';
 import '../View/login.dart';
 
 class LogoutDialog {
-  static bool loginDialog = false;
+  bool isValidHospital = false;
 
   showLogoutDialog(BuildContext context) {
     showDialog(
@@ -25,24 +26,27 @@ class LogoutDialog {
           ),
           actions: <Widget>[
             FlatButton(
-              child: const Text(
-                "YES",
-                style:
-                    TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
-              ),
-              onPressed: () {
-                loginDialog = true;
-                context.read<PatientListProvider>().signOut(context);
-                //   context.read<HospitalLocationProvider>().signOut(context);
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Login(),
-                  ),
-                  (route) => false,
-                );
-              },
-            ),
+                child: const Text(
+                  "YES",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.blue),
+                ),
+                onPressed: () async {
+                  // if (type == 'Hospital') {
+                  await context.read<PatientListProvider>().signOut();
+                  if (context.read<PatientListProvider>().isValid) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const Login(),
+                      ),
+                      (route) => false,
+                    );
+                  } else {
+                    Fluttertoast.showToast(msg: 'Sign out failed.');
+                  }
+                  //   }
+                }),
             FlatButton(
               child: const Text(
                 "NO",
@@ -50,7 +54,6 @@ class LogoutDialog {
                     TextStyle(fontWeight: FontWeight.w600, color: Colors.blue),
               ),
               onPressed: () {
-                loginDialog = false;
                 Navigator.of(context).pop();
               },
             ),
