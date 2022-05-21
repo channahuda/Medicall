@@ -55,11 +55,11 @@ class _EditHospitalState extends State<EditHospital> {
               //because overflow occurs when keyboard pops up
               backgroundColor: const Color(0xffF8F8F8),
               appBar: AppBar(
-                automaticallyImplyLeading: false,
+                //automaticallyImplyLeading: false,
                 backgroundColor: const Color(0xFF353559),
                 centerTitle: true,
                 title: Text(
-                  'Edit Hospital Details',
+                  'Profile',
                   style: TextStyle(fontSize: 22.sp, color: Colors.white),
                 ),
               ),
