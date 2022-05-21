@@ -7,16 +7,21 @@ import '../Model/patient_model.dart';
 class PatientDetails extends StatefulWidget {
   final PatientModel patientModel;
 
-  PatientDetails({Key? key, required this.patientModel}) : super(key: key);
+  const PatientDetails({Key? key, required this.patientModel})
+      : super(key: key);
 
   @override
   _PatientDetailsState createState() => _PatientDetailsState();
 }
 
 class _PatientDetailsState extends State<PatientDetails> {
-  //FocusNode myFocusNode = new FocusNode();
+  String patientName = "";
+
   @override
   Widget build(BuildContext context) {
+    if (widget.patientModel.name != null) {
+      patientName = widget.patientModel.name!;
+    }
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => GestureDetector(
@@ -28,7 +33,7 @@ class _PatientDetailsState extends State<PatientDetails> {
             backgroundColor: const Color(0xFF353559),
             centerTitle: true,
             title: Text(
-              'Patient Name',
+              patientName,
               style: TextStyle(fontSize: 22.sp, color: Colors.white),
             ),
           ),

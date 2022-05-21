@@ -65,7 +65,6 @@ class FirebaseNetworkCall implements NetworkCall {
   Future<List<PatientModel>> getPatients() async {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
     List<PatientModel> patientList = [];
-
     if (firebaseUser != null) {
       await FirebaseFirestore.instance
           .collection(hospitalCollection)
@@ -121,19 +120,12 @@ class FirebaseNetworkCall implements NetworkCall {
       String email, String password, BuildContext context) async {
     User users;
     String? errorMessage;
-
     DocumentSnapshot snapshot = (await FirebaseFirestore.instance
             .collection(userCollection)
             .where("email", isEqualTo: email)
             .get())
         .docs
         .first;
-    print('/n');
-    print('/n');
-    print('/n');
-    print(snapshot.data());
-    print('/n');
-    print('/n');
     if (snapshot.exists) {
       if ((snapshot.data()! as Map<String, dynamic>)['isHospital'] as bool) {
         try {
