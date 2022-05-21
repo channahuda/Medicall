@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:medicall/Providers/edit_hospital_provider.dart';
-import 'package:medicall/Providers/hospital_location_provider.dart';
+import 'package:medicall/Providers/nearest_location_provider.dart';
 import 'package:medicall/Providers/hospital_login_provider.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/Providers/paramedic_login_provider.dart';
@@ -18,7 +18,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HospitalLocationProvider()),
+        ChangeNotifierProvider(create: (_) => NearestLocationProvider()),
         ChangeNotifierProvider(create: (_) => HospitalRegisterProvider()),
         ChangeNotifierProvider(create: (_) => PatientFormProvider()),
         ChangeNotifierProvider(create: (_) => HospitalLoginProvider()),

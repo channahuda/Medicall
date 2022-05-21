@@ -6,11 +6,11 @@ class HospitalLoginProvider extends ChangeNotifier {
   bool isLoading = false;
   bool _isValidHospital = false;
 
-  bool getisValidHospital() {
+  bool getIsValidHospital() {
     return _isValidHospital;
   }
 
-  void loginHospital(String email, String password) async {
+  Future<void> loginHospital(String email, String password) async {
     isLoading = true;
     notifyListeners();
     _isValidHospital = await _hospitalServices.signInHospital(email, password);

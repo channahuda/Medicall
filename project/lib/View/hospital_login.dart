@@ -117,14 +117,15 @@ class _HospitalLoginState extends State<HospitalLogin> {
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formkey.currentState!.validate()) {
-                                context
+                                await context
                                     .read<HospitalLoginProvider>()
                                     .loginHospital(email.text, pw.text);
-                                if (context
+                                if (
+                                await context
                                     .read<HospitalLoginProvider>()
-                                    .getisValidHospital()) {
+                                    .getIsValidHospital()) {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       builder: (context) => const PatientList(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medicall/Widgets/logout_dialog_box.dart';
+import 'package:medicall/Widgets/logout_hospital.dart';
 import 'package:medicall/View/patient_list.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -123,7 +123,7 @@ class _FooterState extends State<Footer> {
                           height: 25.h,
                         ),
                         onPressed: () {
-                          LogoutDialog logout = LogoutDialog();
+                          LogoutHospital logout = LogoutHospital();
                           logout.showLogoutDialog(context);
                         },
                       ),
@@ -134,7 +134,7 @@ class _FooterState extends State<Footer> {
                               TextStyle(color: Colors.black, fontSize: 10.sp),
                         ),
                         onTap: () {
-                          LogoutDialog logout = LogoutDialog();
+                          LogoutHospital logout = LogoutHospital();
                           logout.showLogoutDialog(context);
                         },
                       ),

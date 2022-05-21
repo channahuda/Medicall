@@ -33,7 +33,9 @@ class FirebaseNetworkCall implements NetworkCall {
         HospitalModel hospital =
             HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
         hospital.id = doc.id;
-        hospitalList.add(hospital);
+        if(hospital.beds!=0) {
+          hospitalList.add(hospital);
+        }
       }
     });
 
@@ -111,6 +113,22 @@ class FirebaseNetworkCall implements NetworkCall {
           .collection(patientCollection);
       PatientList.doc(patient.id).delete().catchError(
           (error) => Fluttertoast.showToast(msg: "Failed to delete user"));
+
+// getting beds from collection
+      final hospital = await FirebaseFirestore.instance
+          .collection(hospitalCollection)
+          .doc(firebaseUser.uid)
+          .get();
+      final hospitalModel =
+      HospitalModel.fromJson(hospital.data() as Map<String, dynamic>);
+
+      //add beds when pateint is deleted
+      FirebaseFirestore.instance
+          .collection(hospitalCollection)
+          .doc(hospitalModel.id)
+          .update({'beds': (hospitalModel.beds + 1)}).catchError(
+              (error) => Fluttertoast.showToast(msg: "Failed to add bed"));
+
     } else {
       Fluttertoast.showToast(msg: "Failed to delete user");
     }

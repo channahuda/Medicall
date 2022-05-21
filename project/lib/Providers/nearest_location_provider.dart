@@ -8,7 +8,7 @@ import 'package:medicall/Widgets/hospital_info_modal_bottom_sheet.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../Network_Layer/firebase_network_call.dart';
 
-class HospitalLocationProvider extends ChangeNotifier {
+class NearestLocationProvider extends ChangeNotifier {
   Map<String, Marker> markers = {};
   late Position position;
   final FirebaseNetworkCall _hospitalServices = FirebaseNetworkCall();
@@ -71,7 +71,7 @@ class HospitalLocationProvider extends ChangeNotifier {
           icon: pinLocationIcon,
           position: LatLng(listOfHospitals[i].lat, listOfHospitals[i].lng),
           onTap: () {
-            index = i;
+          //  index = i;
             // Window will pop up
             markerClicked = true;
             notifyListeners();
@@ -93,6 +93,27 @@ class HospitalLocationProvider extends ChangeNotifier {
           },
           infoWindow: InfoWindow(
             title: listOfHospitals[i].name,
+              onTap: () {
+             //   index = i;
+                // Window will pop up
+                markerClicked = true;
+                notifyListeners();
+                showMaterialModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(15),
+                        topLeft: Radius.circular(15)),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return DisplayHospitalInfo(
+                      hospitalSelected: listOfHospitals[i],
+                    );
+                  },
+                );
+                hospitalSelected = listOfHospitals[i];
+                notifyListeners();
+            }
           ),
         );
         markers[listOfHospitals[i].name] = marker;

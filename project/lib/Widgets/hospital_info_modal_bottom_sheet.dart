@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medicall/Model/hospital_model.dart';
-import 'package:medicall/Providers/hospital_location_provider.dart';
+import 'package:medicall/Providers/nearest_location_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../View/patient_form.dart';
@@ -126,7 +126,7 @@ class _DisplayHospitalInfoState extends State<DisplayHospitalInfo> {
                     ),
                   ),
                   onPressed: () {
-                    context.read<HospitalLocationProvider>().launchMap(
+                    context.read<NearestLocationProvider>().launchMap(
                         widget.hospitalSelected.lat,
                         widget.hospitalSelected.lng);
                   },

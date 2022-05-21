@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medicall/Providers/hospital_location_provider.dart';
+import 'package:medicall/Providers/nearest_location_provider.dart';
 import 'package:provider/provider.dart';
 import '../Widgets/exit_bottom_sheet.dart';
-import '../Widgets/logout.dart';
+import '../Widgets/logout_paramedic.dart';
 
 class NearestLocation extends StatefulWidget {
   const NearestLocation({Key? key}) : super(key: key);
@@ -14,18 +14,18 @@ class NearestLocation extends StatefulWidget {
 }
 
 class _NearestLocationState extends State<NearestLocation> {
-  late HospitalLocationProvider hospitalProvider;
+  late NearestLocationProvider hospitalProvider;
 
   @override
   void initState() {
-    context.read<HospitalLocationProvider>().initPosition();
+    context.read<NearestLocationProvider>().initPosition();
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    hospitalProvider = Provider.of<HospitalLocationProvider>(context);
+    hospitalProvider = Provider.of<NearestLocationProvider>(context);
     hospitalProvider.setContext(context);
     return WillPopScope(
       onWillPop: () => ExitBottomSheet.onWillPop(context),
@@ -54,7 +54,7 @@ class _NearestLocationState extends State<NearestLocation> {
                       top: 30.h,
                       right: 10.w,
                       child: CircleAvatar(
-                        child: const Logout(),
+                        child: const LogoutParamedic(),
                         backgroundColor: const Color(0xff353559),
                         radius: 20.r,
                       ),

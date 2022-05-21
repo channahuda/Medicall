@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Model/user_model.dart';
-import 'package:medicall/Providers/hospital_location_provider.dart';
+import 'package:medicall/Providers/nearest_location_provider.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/View/hospital_login.dart';
 import 'package:provider/provider.dart';
@@ -32,8 +32,8 @@ class _RegisterHospitalState extends State<RegisterHospital> {
   Widget build(BuildContext context) {
     HospitalRegisterProvider hospitalProvider =
         Provider.of<HospitalRegisterProvider>(context);
-    HospitalLocationProvider hospitalLocationProvider =
-        Provider.of<HospitalLocationProvider>(context);
+    NearestLocationProvider hospitalLocationProvider =
+        Provider.of<NearestLocationProvider>(context);
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => GestureDetector(

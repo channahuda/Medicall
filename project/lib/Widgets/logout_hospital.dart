@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../Providers/patient_list_provider.dart';
 import '../View/login.dart';
 
-class LogoutDialog {
+class LogoutHospital {
   bool isValidHospital = false;
 
   showLogoutDialog(BuildContext context) {
