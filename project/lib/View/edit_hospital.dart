@@ -55,7 +55,11 @@ class _EditHospitalState extends State<EditHospital> {
               //because overflow occurs when keyboard pops up
               backgroundColor: const Color(0xffF8F8F8),
               appBar: AppBar(
-                  automaticallyImplyLeading : false,
+                leading: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
                 backgroundColor: const Color(0xFF353559),
                 centerTitle: true,
                 title: Text(
