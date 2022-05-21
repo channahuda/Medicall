@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Model/patient_model.dart';
 import 'package:medicall/Providers/patient_form_provider.dart';
+import 'package:medicall/Providers/patient_list_provider.dart';
 import 'package:medicall/Widgets/gender_drop_down.dart';
 import 'package:medicall/Widgets/drop_down.dart';
 import 'package:medicall/Widgets/headings.dart';
 import 'package:provider/provider.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PatientForm extends StatefulWidget {
@@ -35,7 +35,8 @@ class _PatientFormState extends State<PatientForm> {
   Widget build(BuildContext context) {
     PatientFormProvider patientFormProvider =
         Provider.of<PatientFormProvider>(context);
-
+    PatientListProvider patientListProvider =
+        Provider.of<PatientListProvider>(context);
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => GestureDetector(
@@ -201,7 +202,7 @@ class _PatientFormState extends State<PatientForm> {
                                   patient,
                                   widget.hospitalModel,
                                 );
-
+                                patientListProvider.loadPatientList();
                                 name.clear();
                                 age.clear();
                                 type.clear();
@@ -210,7 +211,6 @@ class _PatientFormState extends State<PatientForm> {
                                 rate.clear();
                                 symptom.clear();
                                 treatment.clear();
-                                //Navigator.pop(context);
                               } else {
                                 return null;
                               }

@@ -7,7 +7,7 @@ import '../Widgets/exit_bottom_sheet.dart';
 import '../Widgets/logout.dart';
 
 class NearestLocation extends StatefulWidget {
-  NearestLocation({Key? key}) : super(key: key);
+  const NearestLocation({Key? key}) : super(key: key);
 
   @override
   State<NearestLocation> createState() => _NearestLocationState();

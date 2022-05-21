@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:medicall/Model/hospital_model.dart';
 import 'package:medicall/Model/user_model.dart';
+import 'package:medicall/Providers/hospital_location_provider.dart';
 import 'package:medicall/Providers/hospital_register_provider.dart';
 import 'package:medicall/View/hospital_login.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,8 @@ class _RegisterHospitalState extends State<RegisterHospital> {
   Widget build(BuildContext context) {
     HospitalRegisterProvider hospitalProvider =
         Provider.of<HospitalRegisterProvider>(context);
+    HospitalLocationProvider hospitalLocationProvider =
+        Provider.of<HospitalLocationProvider>(context);
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context) => GestureDetector(
@@ -171,6 +174,8 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                                             context,
                                             listen: false)
                                         .addHospitalsList(hospital, user);
+                                    hospitalLocationProvider
+                                        .loadHospitalsList();
                                     Navigator.pushAndRemoveUntil(
                                         (context),
                                         MaterialPageRoute(
@@ -182,16 +187,16 @@ class _RegisterHospitalState extends State<RegisterHospital> {
                                 },
                                 child: const Text('Register'),
                                 style: ElevatedButton.styleFrom(
-                                    primary: const Color(0xff353559),
-                                    padding: REdgeInsets.symmetric(
-                                        horizontal: 120.w, vertical: 15.h),
-                                    textStyle: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w500),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0.r),
-                                    )),
+                                  primary: const Color(0xff353559),
+                                  padding: REdgeInsets.symmetric(
+                                      horizontal: 120.w, vertical: 15.h),
+                                  textStyle: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w500),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0.r),
+                                  ),
+                                ),
                               ),
                               SizedBox(height: 15.h),
                             ],

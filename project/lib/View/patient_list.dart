@@ -98,8 +98,8 @@ class _PatientListState extends State<PatientList> {
                                     contentPadding:
                                         REdgeInsets.fromLTRB(12, 8, 12, 8),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r)),
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
                                     title: SizedBox(
                                       height: 24.h,
                                       child: Row(
@@ -118,23 +118,26 @@ class _PatientListState extends State<PatientList> {
                                                     fontSize: 15.sp,
                                                   ),
                                                   textAlign: TextAlign.left)
-                                              : Text("Anonymous",
+                                              : Text(
+                                                  "Anonymous",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15.sp,
                                                   ),
-                                                  textAlign: TextAlign.left),
+                                                  textAlign: TextAlign.left,
+                                                ),
                                           IconButton(
-                                              icon: const Icon(Icons.delete),
-                                              padding: EdgeInsets.zero,
-                                              constraints:
-                                                  const BoxConstraints(),
-                                              onPressed: () {
-                                                patientProvider.deletePatients(
-                                                    patientProvider
-                                                        .listOfPatients[index]);
-                                                setState(() {});
-                                              })
+                                            icon: const Icon(Icons.delete),
+                                            padding: EdgeInsets.zero,
+                                            constraints: const BoxConstraints(),
+                                            onPressed: () {
+                                              patientProvider.deletePatients(
+                                                  patientProvider
+                                                      .listOfPatients[index]);
+                                              patientProvider.loadPatientList();
+                                              //setState(() {});
+                                            },
+                                          )
                                         ],
                                       ),
                                     ),

@@ -42,25 +42,26 @@ class FirebaseNetworkCall implements NetworkCall {
 
   @override
   void addHospital(HospitalModel hospital, UserModel user) {
-    CollectionReference HospitalList =
+    CollectionReference hospitalList =
         FirebaseFirestore.instance.collection(hospitalCollection);
-    HospitalList.doc(hospital.id).set(hospital.toJson()).catchError(
+    hospitalList.doc(hospital.id).set(hospital.toJson()).catchError(
           (error) => CupertinoAlertDialog(
-            title: Text("Failed to register hospital"),
+            title: const Text("Failed to register hospital"),
             content: Text("$error"),
           ),
         );
-    CollectionReference UserList =
+    CollectionReference userList =
         FirebaseFirestore.instance.collection(userCollection);
-    UserList.doc(user.id).set(user.toJson()).catchError(
+    userList.doc(user.id).set(user.toJson()).catchError(
           (error) => CupertinoAlertDialog(
-            title: Text("Failed to register hospital as a user"),
+            title: const Text("Failed to register hospital as a user"),
             content: Text("$error"),
           ),
         );
     Fluttertoast.showToast(msg: "Hospital added successfully ");
   }
 
+  @override
   Future<List<PatientModel>> getPatients() async {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
     List<PatientModel> patientList = [];
@@ -83,6 +84,7 @@ class FirebaseNetworkCall implements NetworkCall {
     return patientList;
   }
 
+  @override
   void addPatient(PatientModel patient, HospitalModel hospital) {
     CollectionReference PatientList = FirebaseFirestore.instance
         .collection(hospitalCollection)
@@ -100,6 +102,7 @@ class FirebaseNetworkCall implements NetworkCall {
             (error) => Fluttertoast.showToast(msg: "Failed to reserve bed"));
   }
 
+  @override
   Future<void> deletePatient(PatientModel patient) async {
     final firebaseUser = await FirebaseAuth.instance.currentUser;
     if (firebaseUser != null) {
@@ -138,7 +141,10 @@ class FirebaseNetworkCall implements NetworkCall {
               .signInWithEmailAndPassword(email: email, password: password)
               .then((uid) => {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => PatientList())),
+                      MaterialPageRoute(
+                        builder: (context) => const PatientList(),
+                      ),
+                    ),
                     Fluttertoast.showToast(msg: "Login Successful"),
                   });
         } on FirebaseAuthException catch (error) {
@@ -169,7 +175,6 @@ class FirebaseNetworkCall implements NetworkCall {
               errorMessage = "An undefined Error happened.";
           }
           Fluttertoast.showToast(msg: errorMessage);
-          print(error.code);
         }
       } else if ((snapshot.data()! as Map<String, dynamic>)['isHospital']
               as bool ==
@@ -250,15 +255,17 @@ class FirebaseNetworkCall implements NetworkCall {
           await _hospitaauth
               .signInWithEmailAndPassword(email: email, password: password)
               .then((uid) => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => NearestLocation())),
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const NearestLocation(),
+                      ),
+                    ),
                     Fluttertoast.showToast(msg: "Login Successful"),
                   });
         } on FirebaseAuthException catch (error) {
           switch (error.code) {
             case "invalid-email":
               errorMessage = "Your email address appears to be malformed.";
-
               break;
             case "wrong-password":
               errorMessage = "Your password is wrong.";
@@ -293,7 +300,6 @@ class FirebaseNetworkCall implements NetworkCall {
 
   Future<HospitalModel?> fetchHospital() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
-
     if (firebaseUser != null) {
       final hospital = await FirebaseFirestore.instance
           .collection(hospitalCollection)
@@ -307,11 +313,10 @@ class FirebaseNetworkCall implements NetworkCall {
     }
   }
 
+  @override
   void updateHospital(String hospitalName, String email, String address,
       String city, String contact, int beds) async {
-    //var hospitalUser = await FirebaseAuth.instance.currentUser;
     final firebaseUser = await FirebaseAuth.instance.currentUser;
-
     if (firebaseUser != null) {
       CollectionReference HospitalList =
           FirebaseFirestore.instance.collection(hospitalCollection);

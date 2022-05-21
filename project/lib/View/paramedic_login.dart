@@ -119,7 +119,7 @@ class _ParamedicLoginState extends State<ParamedicLogin> {
                     Padding(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                    )
+                    ),
                   ],
                 ),
               ),
