@@ -5,7 +5,7 @@ import '../Model/patient_model.dart';
 import '../Model/user_model.dart';
 
 abstract class NetworkCall {
-  
+
   Future<List<HospitalModel>> getHospitals();
 
   void addHospital(HospitalModel hospital, UserModel user);

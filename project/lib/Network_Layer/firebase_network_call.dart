@@ -121,7 +121,7 @@ class FirebaseNetworkCall implements NetworkCall {
           .get();
       final hospitalModel =
       HospitalModel.fromJson(hospital.data() as Map<String, dynamic>);
-
+     hospitalModel.id=hospital.id;
       //add beds when pateint is deleted
       FirebaseFirestore.instance
           .collection(hospitalCollection)
